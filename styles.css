@@ -12,7 +12,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    font-size: 16px;
+    font-size: 100%;
     padding: 24px;
     max-width: 1200px;
     margin: 0 auto;
@@ -25,7 +25,6 @@ p {
 textarea {
     width: 100%;
     font-family: monospace;
-    font-size: 14px;
 }
 
 
@@ -33,7 +32,7 @@ textarea {
 h1 {
   font-family: Roboto, Arial, sans-serif;
   font-weight: 300;
-  font-size: 32px;
+  font-size: 200%;
   color: var(--text);
   background: var(--bg);
 }
@@ -73,11 +72,11 @@ h3 {
 }
 
 .exercise h3{
-    font-size: 14px;
+    font-size: 100%;
 }
 
 .exercise .CodeMirror {
-    font-size: 14px;
+    font-size: 120%;
     box-sizing: border-box;
     border: 1px solid #aaaaaa;
 }
@@ -87,7 +86,7 @@ h3 {
   border: 1px solid var(--border);
   border-radius: 2px;
   padding: 8px 14px;
-  font-size: 14px;
+  font-size: 90%;
   cursor: pointer;
   background: var(--c1);
   transition: transform .02s ease, box-shadow .15s ease;
@@ -100,7 +99,7 @@ h3 {
 
 
 .exercise .output {
-    font-size: 14px;
+    font-size: 120%;
     background: #f0f0f0;
     padding: 10px;
     border: 1px solid #ccc;
