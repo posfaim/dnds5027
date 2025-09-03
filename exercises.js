@@ -3,7 +3,7 @@
 var editors = [];
 var exercises = document.getElementsByClassName("exercise");
 for (var i = 0; i < exercises.length; i++) {
-    const ta  = exercises[i].getElementsByTagName('textarea')[0];
+    const ta = exercises[i].getElementsByTagName('textarea')[0];
     
     // Turn the textarea into a Python editor
     const editor = CodeMirror.fromTextArea(ta, {
@@ -14,8 +14,36 @@ for (var i = 0; i < exercises.length; i++) {
     matchBrackets: true,
     lineWrapping: false
     });
+    
+    if (exercises[i].hasAttribute("example")) {
+        editor.setOption("readOnly", "true");
+        const lineCount = editor.lineCount();
+        editor.setSize(null, lineCount * 20+ 5);
+    } else {
+        if (ta.hasAttribute("linecount")) {
+            editor.setSize(null, ta.getAttribute("linecount") * 20+ 5);
+        } else {
+            editor.setSize(null, 16 * 20+ 5);
+        }
+    }
+   
     editors.push(editor);
+}
 
+var solutions = document.getElementsByClassName("solution");
+for (var i = 0; i < solutions.length; i++) {
+    // Turn the textarea into a Python editor
+    const sol = CodeMirror.fromTextArea(solutions[0], {
+    mode: "python",
+    theme: "default",
+    lineNumbers: true,
+    indentUnit: 4,
+    matchBrackets: true,
+    lineWrapping: false
+    });
+    sol.setOption("readOnly", "true");
+    const lineCount = sol.lineCount();
+    sol.setSize(null, lineCount * 20+ 5);
 }
 
 let pyodide = null;
@@ -39,7 +67,14 @@ let pyodide = null;
 
 
   async function runCode(editor, output) {
-    const code = editor.getValue();
+    const code = editor.getValue().trim();
+    
+    // If empty, just clear output and return
+    if (!code) {
+        output.textContent = "";
+        return;
+    }
+    
     const wrappedCode = `
 import sys
 import io

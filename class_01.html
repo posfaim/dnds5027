@@ -23,44 +23,73 @@
 
 <p id="loading">⏳</p>
 
-<div class="exercise">
-<h2> Exercise 1</h2>
+<h2> Printing </h2>
 
+<p>
+Let's start! A computer program is a series of instructions or commands that the computer executes one-by-one. 
+A simple command is <code>print(...)</code>, which prints a message on your screen.
+Try out the example below by clicking on the run button.
+</p>
+
+<div class="exercise" example>
 <textarea class="codeinput">
-import numpy as np
-a = np.array([1, 2, 3])
-b = a * 10
-print("a:", a)
-print("b:", b)
-</textarea><br>
-
-<button class="run-button" disabled>Run</button>
-
+print("Hello.")</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
 
+<p>
+<code>print(...)</code> displays on your screen whatever text is inside the quotation marks <code>"..."</code>.
+Note that for the program to work you need to write the command (almost) exactly as above.
+If not, the progam fails to run:
+</p>
 
-<div class="exercise">
+
+<div class="exercise" example>
 <textarea class="codeinput">
-import numpy as np
-a = np.array([1, 2, 3])
-b = a * 10
-print("a:", a)
-print("b:", b)
-</textarea><br>
-
-<button class="run-button" disabled>Run Python</button>
-
+print("Hello.)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
 
+<p>
+Instead of printing out "Hello." your computer is screaming <code>SyntaxError</code> at you! Syntax is the allowed format of the source code, if you deviate from it, Python does not understand it.
+</p>
+
+
+<p>
+Side note: You will get tons of error messages while coding. This should not be of concern, everyone else does too. We will learn how to read error messages and to correct your code with the least amount of headache.
+</p>
+
 
 <div class="exercise">
-<textarea class="codeinput">
-print("hello")
+<h2>Exercise 01 -- Printing</h2>
+
+<p> Write code that prints out your message </p>
+
+<textarea class="codeinput" linecount="3">
 </textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+print("hello")</textarea>
+</p>
+</details>
+
+</div>
+
+
+<div class="exercise" example>
+<textarea class="codeinput">
+print("hello")</textarea><br>
 
 <button class="run-button" disabled>Run Python</button>
 
