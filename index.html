@@ -1,91 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Python + NumPy in Browser (with Output)</title>
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    textarea {
-      width: 100%;
-      height: 200px;
-      font-family: monospace;
-      font-size: 14px;
-    }
-    #output {
-      background: #f0f0f0;
-      padding: 10px;
-      white-space: pre-wrap;
-      min-height: 100px;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-    }
-    #loading {
-      color: gray;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Python for everyone</title>
+
+    <link rel="stylesheet" href="styles.css" >
 </head>
+
+
 <body>
 
-<h2>Try Python + NumPy in Your Browser (via Pyodide)</h2>
+<h1> Python for everyone </h1>
 
-<p id="loading">⏳ Loading Pyodide...</p>
-
-<textarea id="code">
-import numpy as np
-a = np.array([1, 2, 3])
-b = a * 10
-print("a:", a)
-print("b:", b)
-</textarea><br>
-
-<button id="run-button" disabled>Run Python</button>
-
-<h3>Output:</h3>
-<pre id="output"></pre>
-
-<script>
-  let pyodide = null;
-
-  async function loadPyodideAndPackages() {
-    pyodide = await loadPyodide();
-    document.getElementById("loading").textContent = "✅ Pyodide loaded.";
-    await pyodide.loadPackage("numpy");
-    document.getElementById("run-button").disabled = false;
-  }
-
-  async function runCode() {
-    const code = document.getElementById("code").value;
-    const output = document.getElementById("output");
-
-    const wrappedCode = `
-import sys
-import io
-sys.stdout = io.StringIO()
-sys.stderr = sys.stdout
-
-try:
-${code.split("\n").map(line => "    " + line).join("\n")}
-except Exception as e:
-    print("Error:", e)
-
-sys.stdout.getvalue()
-    `;
-
-    try {
-      const result = await pyodide.runPythonAsync(wrappedCode);
-      output.textContent = result;
-    } catch (err) {
-      output.textContent = "❌ Pyodide Error:\n" + err;
-    }
-  }
-
-  document.getElementById("run-button").addEventListener("click", runCode);
-  loadPyodideAndPackages();
-</script>
+<a href="class_01.html"> Class 01 </a>
 
 </body>
 </html>

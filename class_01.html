@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python for everyone</title>
+
+    <!-- CodeMirror styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
+    <!-- CodeMirror scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/mode/python/python.js"></script>
+
+    <!-- pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    
+    <link rel="stylesheet" href="styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 01 Printing, variables, errors</h1>
+
+<p id="loading">⏳</p>
+
+<div class="exercise">
+<h2> Exercise 1</h2>
+
+<textarea class="codeinput">
+import numpy as np
+a = np.array([1, 2, 3])
+b = a * 10
+print("a:", a)
+print("b:", b)
+</textarea><br>
+
+<button class="run-button" disabled>Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+
+<div class="exercise">
+<textarea class="codeinput">
+import numpy as np
+a = np.array([1, 2, 3])
+b = a * 10
+print("a:", a)
+print("b:", b)
+</textarea><br>
+
+<button class="run-button" disabled>Run Python</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+
+<div class="exercise">
+<textarea class="codeinput">
+print("hello")
+</textarea><br>
+
+<button class="run-button" disabled>Run Python</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+
+<script src="exercises.js"></script>
+
+</body>
+</html>
+
+
+
