@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Python for everyone</title>
+    <title>01 PfE</title>
 
     <!-- CodeMirror styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
@@ -19,14 +19,14 @@
 
 <body>
 
-<h1>Python for everyone -- 01 Printing, variables, errors</h1>
+<h1>Python for everyone -- 01 Printing and variables</h1>
 
 <p id="loading">⏳</p>
 
 <h2> Printing </h2>
 
 <p>
-Let's start! A computer program is a series of instructions or commands that the computer executes one-by-one. 
+A computer program is a series of instructions or commands that the computer executes one-by-one. 
 A simple command is <code>print(...)</code>, which prints a message on your screen.
 Try out the example below by clicking on the run button.
 </p>
@@ -65,9 +65,9 @@ Side note: You will get tons of error messages while coding. This should not be 
 
 
 <div class="exercise">
-<h2>Exercise 01 -- Printing</h2>
+<h2>Printing</h2>
 
-<p> Write code that prints out your message </p>
+<p> Write code that prints out an emoji. </p>
 
 <textarea class="codeinput" linecount="3">
 </textarea><br>
@@ -80,26 +80,452 @@ Side note: You will get tons of error messages while coding. This should not be 
 <details><summary>Solution</summary>
 <p>
 <textarea class="solution">
-print("hello")</textarea>
+print(":-)")</textarea>
 </p>
 </details>
 
 </div>
 
+<p>
+Typically, a program contains multiple commands.
+The commands are executed one-by-one as they appear.
+</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print("Ding-dong! The Witch is dead")
+print("Which old Witch? The Wicked Witch!")
+print("Ding-dong! The Wicked Witch is dead")
+print("Wake up, you sleepy head")
+print("Rub your eyes, get out of bed")
+print("Wake up, the Wicked Witch is dead")</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise">
+<h2>Re-ordering</h2>
+
+<p> Fix the code so that it prints out the lines in correct order. </p>
+
+<textarea class="codeinput" linecount="6">
+print("Two for the show;")
+print("Three to make ready,")
+print("One for the money,")
+print("And four to go")
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+print("One for the money,")
+print("Two for the show;")
+print("Three to make ready,")
+print("And four to go")
+</textarea>
+</p>
+</details>
+</div>
+
+<h2>Numbers</h2>
+
+<p>So far we only printed out text, i.e., a string of characters.
+In fact, this type of data is called a string in Python (and other programming langagues).
+We can also work with numbers, the next line of code prints out some integers:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(1, 100, -3)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>
+You can note two things here: <code>print(...)</code> can print out multiple items together and, more importantly, the lack of quotation marks.
+Numbers and strings are different, take the following two lines of code:
+</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(1)
+print("1")</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>
+Both lines have the same result: they display the number 1 in the output.
+However, Python internally represents them differently and we can do different things with them. For example, we can do arithmetic operations with numbers:
+</p>
 
 <div class="exercise" example>
 <textarea class="codeinput">
-print("hello")</textarea><br>
-
-<button class="run-button" disabled>Run Python</button>
-
+print(1 + 3)
+print(2 - 4)
+print(8 * 3 - 12)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
 
 
-<script src="exercises.js"></script>
+<div class="exercise">
+<h2>Counting seconds</h2>
 
+<p> This course runs for 12 weeks and each week there are two 50 minute classes. How many seconds will we spend together immersing ourselves in the exciting world of Python? </p>
+
+<textarea class="codeinput" linecount="3">
+# Write your solution here.
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+You can try out the following lines one-by-one and check if you get an error message.
+<textarea class="solution">
+print( "The length of Python for everyone in seconds is", 12*2*50*60 )
+</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Operations with strings</h2>
+
+<p> What happens if you add, subtract or multiply two strings together? </p>
+
+<textarea class="codeinput" linecount="6">
+# Experiment here
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+You can try out the following lines one-by-one and check if you get an error message.
+<textarea class="solution">
+print("Hello " + "")
+print("Hello" - "o")
+print("A" * "B")
+# Bonus: multiply an integer with a string
+print( 5 * "he")
+</textarea>
+</p>
+</details>
+</div>
+
+
+
+<h2> Comments </h2>
+
+<p>You may have noticed above lines in the code that start with a <code>#</code> that do not contain instructions for your computer.
+These are comments, their purpose is to make your code easier to understand.
+<div class="exercise" example>
+<textarea class="codeinput">
+# Display a friendly message
+print("Don't panic!")</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+It is very imporatabe that your code is readable and easy-to-understand.
+Clear code makes your life much easier:
+ <ul>
+  <li>Easier to avoid mistakes.</li>
+  <li>Easier to fix, if mistakes were made.</li>
+  <li>Easier to reuse or update by someone else or future you.</li>
+</ul> 
+</p>
+
+<h2> Variables </h2>
+
+<p>
+So far, we used data that was hard coded into our program, meaning that we typed into the source code a specific string or a specific number (e.g. <code>"Hello"</code> or <code>24</code>).
+To make our programs more flexible, we can use variables.
+For example, we can collect information from the user and work with that data:
+<div class="exercise" example>
+<textarea class="codeinput">
+name = input("What is your name?")
+print("What's up,", name)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+The function <code>input(...)</code> asks the user to type in a string that we can then use. </p>
+
+<p>
+The word <code>name</code> is a variable, you can think of it as bucket that can contain a value (for example, a string or a number).
+The single equal sign <code>=</code> is the assignment operator that can be used to set the value of a variable. We can use <code>name</code> to refer to this value later on. The value of a variable can change during while the program is running.
+<div class="exercise" example>
+<textarea class="codeinput">
+name = "Count Dracula"
+favorite_food = "blood"
+print(name + " loves " + favorite_food + '.')
+# Change name
+name = "A mosquito"
+print(name + " loves " + favorite_food + '.')</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+</p>
+
+<p>
+Strict naming rules (syntax):
+<ul>
+<li> Can only contain alphanumeric characters (<code>a-z, A-Z, 0-9</code>) and underscores (<code>_</code>)</li>
+<li> Cannot start with a number</li>
+<li> Is case sensitive</li>
+</ul></p>
+
+<p>
+Good practice (style guide):
+<ul>
+<li> Give concise but descriptive variable names </li>
+<li> Follow recommended formatting, for example, <a href="https://en.wikipedia.org/wiki/Snake_case">snake case</a>: <code>favorite_food</code> </li>
+</ul>
+To ensure that your code is easy to read: <em>choose variable names that make sense</em>.
+You will make future you happy.
+</p>
+
+<h2>Integers and floats</h2>
+
+<p>
+There are two main types of numbers: integers and floats. We encountered integers before, they represent real numbers.
+<div class="exercise" example>
+<textarea class="codeinput">
+x = 5
+print(x, "is an", type(x))</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+</p>
+
+<p>We also saw before that we can add two integers together using the <code>+</code> sign:
+<div class="exercise" example>
+<textarea class="codeinput">
+x = 5
+y = 7
+s = x + y
+print("The sum is", s)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+The <code>+</code> sign is called an operator that adds two operands together:</p>
+<img src="images/operator.png" style="display:block; margin: 0 auto;width: 13%; height: auto;">
+
+<p>
+There are several other operators used to perform calculations and modify variables. Adding, subtracting and multiplying integers always provides a new integer:
+</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+x = 5
+y = 7
+print(x + y, "is an", type(x+y))
+print(x - y, "is an", type(x-y))
+print(x * y, "is an", type(x*y))</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+But what happens if we do a division?
+<div class="exercise" example>
+<textarea class="codeinput">
+x = 5
+y = 7
+print(x / y, "is a", type(x/y))</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+We got a new type of data called a <em>float</em>. Floats can represent fractional numbers.
+</p>
+
+<div class="exercise">
+<h2>Operators</h2>
+
+<p> Python has many operators, try out <code>//</code>, <code>%</code> and <code>**</code>, and figure out what is their purpose.</p>
+
+<textarea class="codeinput" linecount="6">
+# Experiment here
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<ul>
+<li> <code>//</code> is the integer part of a division.
+<li> <code>%</code> is the remainder of a division.
+<li> <code>**</code> is the power operator, i.e., <code>2**3</code> is
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <msup>
+    <mn>2</mn>
+    <mn>3</mn>
+  </msup>
+</math>.
+</ul>
+</p>
+</details>
+</div>
+
+<p>
+You can also combine operators to create compound expressions:
+<div class="exercise" example>
+<textarea class="codeinput">
+print(1 + 2*3 + 10/2)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+The order that the operations get evaluated is determined by their precedence.
+This is identical to how you evaluate expressions in regular mathematics:
+<ol>
+<li> <code>()</code>
+<li> <code>**</code>
+<li> <code>*</code>,<code>/</code>,<code>//</code>,<code>%</code>
+<li> <code>+,-</code>
+</ol>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(1 + 2*3 + 10/2)
+print((1 + 2)*3 + 10/2)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+When in doubt use <code>(...)</code>!
+</p>
+
+<p>
+There are further operators that change the value of one of the operands.
+We have already seen an example: the assignment operator <code>=</code>.
+<div class="exercise" example>
+<textarea class="codeinput">
+x = 1.2
+print(x,type(x))
+x = "apple"
+print(x,type(x))</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+(Note that not only the value of <code>x</code> changed, but also its type.)
+Another commonly used such operator is the increment operator:
+<div class="exercise" example>
+<textarea class="codeinput">
+x = 12
+x += 1
+print(x)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Equivalently, we could write:
+<div class="exercise" example>
+<textarea class="codeinput">
+x = 12
+x = x + 1
+print(x)</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+You can also try out <code>-=</code>, <code>*=</code> or <code>/=</code>.
+</p>
+
+<div class="exercise">
+<h2>BMI</h2>
+
+<p> Calculate the body mass index of Genghis Khan.</p>
+
+<textarea class="codeinput" linecount="6">
+name = "Genghis Khan"
+weight = 75.
+height = 1.65</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+bmi = weight / (height*height)
+print(name, "has BMI", bmi, '.')</textarea>
+</p>
+</details>
+</div>
+
+<h2> Type conversion </h2>
+
+<p>
+It is possible to convert a data type to a different data type.
+<div class="exercise" example>
+<textarea class="codeinput">
+# Float to integer
+f = 12.3
+i = int(f)
+</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Note that an integer cannot represent the fractional part of the float, so that information was lost.
+</p>
+
+<p>
+A common task is to convert a string to a number.
+<div class="exercise" example>
+<textarea class="codeinput">
+# String to integer
+s = "42"
+i = int(s)
+
+# Now we use it in calculations
+i *= 2
+print(i)
+</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+This is useful, for example, for asking for a number from the user.
+<div class="exercise" example>
+<textarea class="codeinput">
+s = input("Please, provide a number")
+f = float(s)
+
+print("The square of", f, "is", f**2 )
+</textarea><br>
+<button class="run-button" disabled>▶ Run</button>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Try out what happens if you type in something different from a number.
+</p>
+
+
+We have reached the end of the new material. You can find more practice exercises <a href="exercises_01.html">here</a>.
+
+<script src="exercises.js"></script>
 </body>
 </html>
 

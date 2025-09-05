@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01 Exercises PfE</title>
+
+    <!-- CodeMirror styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
+    <!-- CodeMirror scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/mode/python/python.js"></script>
+
+    <!-- pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    
+    <link rel="stylesheet" href="styles.css" >
+    
+    <style>
+    
+    .exercise:not([example]) {
+    border:0px solid #aaaaaa;
+    border-radius: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin: 0px;
+    }
+        
+    .exercise .CodeMirror {
+    height: 50vh;
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 01 Printing and variables<br>
+Exercises</h1>
+
+<p id="loading">⏳</p>
+
+
+
+<div class="exercise">
+<h2>Debugging</h2>
+
+<p> Fix the code below.</p>
+
+<textarea class="codeinput" linecount="2">
+print("Hello"</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+print("Hello")</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<br><br>
+<textarea class="codeinput" linecount="2">
+print("Hello,"; "dude!")
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+print("Hello,", "dude!")</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<br><br>
+<textarea class="codeinput" linecount="2">
+print(Hello)
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+print("Hello")</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Better variable names</h2>
+
+<p> You are reviewing a friends code, unfortunetly your friend tends to use terrible variable names. Suggest better ones!</p>
+
+<textarea class="codeinput" linecount="15">
+# Calculate the area of a circle
+x = 1.5
+bananas = 3.14 * x**2
+print(bananas)
+
+# Calculate the total price the eggs 
+number_of_eggs_I_am_planning_to_buy = 13
+price_of_a_single_egg_in_store = 0.3
+print(number_of_eggs_I_am_planning_to_buy * price_of_a_single_egg_in_store)
+
+# Ask the user for their name
+UserName = input("Please, enter your name")
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+One possible solution:
+<textarea class="solution">
+# Use descriptive names
+r = 1.5
+area = 3.14 * r**2
+print(area)
+
+# Use concise names
+num_eggs = 13
+price_per_egg = 0.3
+print(num_eggs * price_per_egg)
+
+# Python recommends snake_case for variable names, UserName is CamelCase
+UserName = input("Please, enter your name")</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Sum and mean</h2>
+
+<p> You have three numbers. Print out their sum and their mean.</p>
+
+<textarea class="codeinput" linecount="10">
+num1 = 12
+num2 = 1
+num3 = 29
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+# Sum
+s = num1 + num2 + num3
+print(s)
+
+# Mean is the sum divided by the number of samples
+m = s/3
+print(m)
+
+# Alternatively
+print(num1+num2+num3, (num1+num2+num3)/3)</textarea>
+</p>
+</details>
+</div>
+
+
+
+<div class="exercise">
+<h2>Check splitter</h2>
+
+<p> You went to a schnitzel restaurant with a bunch of your friends. You decided that you will split the check evenly.
+Calculate and print out the amount you have to pay.</p>
+
+<textarea class="codeinput" linecount="6">
+tip_percentage = 0.10
+check_total = 30.5
+num_people = 10</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+amount_per_person = (1. + tip_percentage)*check_total / num_people
+print(f"You have to pay {amount_per_person:.2f}.")</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Birthday</h2>
+
+<p> This is a candle:</p>
+<pre>
+()
+||
+||
+</pre>
+<p>Print out as many candles in a row as your age.</p>
+
+<textarea class="codeinput" linecount="10">
+
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+age = 18
+print("() "*age)
+print("|| "*age)
+print("|| "*age)</textarea>
+</p>
+</details>
+</div>
+
+
+<script src="exercises.js"></script>
+
+</body>
+</html>

@@ -58,7 +58,7 @@ for (var i = 0; i < solutions.length; i++) {
 // numbering exercises
 var n=1
 for (var i = 0; i < exercises.length; i++) {
-    if (!exercises[i].hasAttribute("example") ) {
+    if (!exercises[i].hasAttribute("example") and ) {
         const h = exercises[i].querySelector("h2");
         if (h) {
             h.textContent = "Exercise "+String(n).padStart(2, "0")+" -- "+h.textContent;
