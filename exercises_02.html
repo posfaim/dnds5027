@@ -37,28 +37,24 @@
 
 <body>
 
-<h1>Python for everyone -- 02 Conditionals<br>
+<h1>Python for everyone -- 02 Conditions<br>
 Exercises</h1>
 
 <p id="loading">⏳</p>
 
 
 <div class="exercise">
-<h2>Birthday</h2>
+<h2>Fix the code!</h2>
 
-<p> This is a candle:</p>
-<pre>
-()
-||
-||
-</pre>
-<p>Print out as many candles in a row as your age.</p>
+<p>The code below either produces an error message or the wrong output.</p>
 
-<textarea class="codeinput" linecount="10">
-
+<textarea class="codeinput" linecount="6">
+num = -2
+if num<0
+    print("The number is negative.")
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -66,10 +62,392 @@ Exercises</h1>
 <details><summary>Solution</summary>
 <p>
 <textarea class="solution">
-age = 18
-print("() "*age)
-print("|| "*age)
-print("|| "*age)</textarea>
+num = -2
+if num<0: # the colon : was missing
+    print("The number is negative.")</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<br><br>
+<textarea class="codeinput" linecount="6">
+hour = 13 # number between 0 and 23
+if hour >= 16:
+    print("It is late afternoon.")
+   print("Stop drinking coffee!")
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+hour = 13 # number between 0 and 23
+if hour >= 16:
+    print("It is late afternoon.")
+    print("Stop drinking coffee!") # Indentation was wrong.</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<br><br>
+<textarea class="codeinput" linecount="6">
+hour = 13 # number between 0 and 23
+if hour >= 16:
+    print("It is late afternoon.")
+   print("Stop drinking coffee!")
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+speed = 130 # in km/h
+if speeds >= 130:
+    print("I hope you are on the autobahn!")
+</textarea>
+</p>
+</details>
+</div>
+
+<div class="exercise">
+<br><br>
+<textarea class="codeinput" linecount="9">
+temperature = 13 # in celsius
+if temperature >= 100:
+    print("Water is boiling.")
+elif temperature<0:
+    print("Water is liquid.")
+else:
+    print("Water is frozen.")</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+temperature = 13 # in celsius
+if temperature >= 100:
+    print("Water is boiling.")
+elif temperature>0:
+    print("Water is liquid.")
+else:
+    print("Water is frozen.")</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Summer time</h2>
+
+<p>Write code that takes asks the user what month is it (given as a number between 1 and 12) and prints out if it is summer or not.</p>
+
+<textarea class="codeinput" linecount="8">
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+month = int(input("What month is it?"))
+
+if month>5 and month<9:
+    print("Summer is here!")
+else:
+    print("It is not summer.")
+</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<br><br>
+<p>Now modify your solution such that it prints out if it is winter or not.</p>
+
+<textarea class="codeinput" linecount="8">
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+month = int(input("What month is it?"))
+
+if month<3 or month>11:
+    print("Winter is here!")
+else:
+    print("It is not winter.")
+</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Simplify the code</h2>
+
+<p>Your friend has a tendency to overcomplicate things. Help simplify their code!</p>
+
+
+<textarea class="codeinput" linecount="10">
+num = 30
+
+if num%5==0:
+    if num%3==0:
+        print("Divisible by 15")
+    else:
+        print("Not divisible by 15")
+else:
+    print("Not divisible by 15")
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+num = 30
+
+if num%15==0:
+    print("Divisible by 15")
+else:
+    print("Not divisible by 15")
+</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<br><br>
+
+<textarea class="codeinput" linecount="16">
+points = 97
+subject = "Math"
+
+if subject=="Math":
+    if points>94:
+        print("You got an A in Math")
+elif subject=="History":
+    if points>94:
+        print("You got an A in History")
+elif subject=="Physics":
+    if points>94:
+        print("You got an A in Physics")
+elif subject=="Philosophy":
+    if points>94:
+        print("You got an A in Philosophy")</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+points = 97
+subject = "Math"
+if points>94:
+    print("You got an A in", subject)</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Fizzbuzz</h2>
+
+<p>Imaging a scenario where you are really bad at the game of <a href="https://en.wikipedia.org/wiki/Fizz_buzz">Fizzbuzz</a>, but you also do not like to loose. Write a Python program that helps you win the game!</p>
+
+<p>Ask the user for a number and print out the following:
+<ul>
+<li>If the number is divisible by 3, print "Fizz".</li>
+<li>If the number is divisible by 5, print "Buzz".</li>
+<li>If the number is divisible by both, print "FizzBuzz".</li>
+<li>Otherwise print out the number.</li>
+</ul>
+</p>
+
+<textarea class="codeinput" linecount="12">
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+num = int(input("Enter a number"))
+
+if num%15 == 0:
+    print("FizzBuzz")
+elif num%3 == 0:
+    print("Fizz")
+elif num%5 == 0:
+    print("Buzz")
+else:
+    print(num)
+</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Absolute value</h2>
+
+<p>Write code that takes a number as a variable <code>num</code> and prints out its absolute value. For example, it prints out 2 for both <code>num=2</code> and <code>num=-2</code>.</p>
+
+<p>To multiply <code>num</code> by -1, simply write <code>-num</code></p>
+
+<textarea class="codeinput" linecount="8">
+num = -2
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+num = 2
+
+if num>=0:
+    print(num)
+else:
+    print(-num)
+</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Nesting conditions</h2>
+
+<p>You have watched some natural history show, where you learned that
+<ul>
+<li> Puffins live on the Northern Hemisphere and their breeding season is from April to August. </li>
+<li> Gentoo penguins line on the Southern Hemisphere with a breeding season between September and February. </li>
+</ul>
+To make life easier for these birds, you decided to write a program that takes a month and a species name as input, and prints out whether they should go to sea to feed or to go to shore to breed.
+</p>
+
+<textarea class="codeinput" linecount="16">
+month = 3
+species = "gentoo"
+
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+month = 3
+species = "gentoo"
+
+if species == "gentoo":
+    if month>= 9 or month<=2:
+        print("Go nest!")
+    else:
+        print("Go to the sea!")
+elif species == "puffin":
+    if month>=4 and month<=8:
+        print("Go nest!")
+    else:
+        print("Go to the sea!")
+</textarea>
+</p>
+</details>
+</div>
+
+
+
+<div class="exercise">
+<h2>Roulette</h2>
+
+<p> On the roulette wheel numbers range from 0 to 36, each number is colored red or black, with the exception of 0 which is green.</p>
+<img src="" style="display:block; margin: 0 auto;width: 13%; height: auto;">
+<a title="Betzaar (original author); Mess (derivative work), CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:European_roulette_wheel-it.svg"><img alt="European roulette wheel-it" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/European_roulette_wheel-it.svg/256px-European_roulette_wheel-it.svg.png?20190216205243" style="display:block; margin: 0 auto;width: 256px; height: auto;"></a>
+<p> According to Wikipedia: In number ranges from 1 to 10 and 19 to 28, odd numbers are red and even are black. In ranges from 11 to 18 and 29 to 36, odd numbers are black and even are red. There is a green pocket numbered 0. </p>
+
+<p>Write code that asks the user for a number and prints out the its color. You'll end up with a bit complicated conditional statement.</p>
+
+<textarea class="codeinput" linecount="20">
+num = int(input("Enter a number between 0 and 36"))
+
+print("The color of", num, "is:")
+# Continue the code
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+num = int(input("Enter a number between 0 and 36"))
+
+print("The color of", num, "is:")
+if num==0:
+    print("green")
+elif (num>=1 and num<=10) or (num>=19 and num<=28):
+    if num%2==0:
+        print("black")
+    else:
+        print("red")
+else:
+    if num%2==1:
+        print("black")
+    else:
+        print("red")</textarea>
 </p>
 </details>
 </div>

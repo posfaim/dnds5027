@@ -34,7 +34,7 @@ Try out the example below by clicking on the run button.
 <div class="exercise" example>
 <textarea class="codeinput">
 print("Hello.")</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -49,7 +49,7 @@ If not, the progam fails to run:
 <div class="exercise" example>
 <textarea class="codeinput">
 print("Hello.)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -72,7 +72,7 @@ Side note: You will get tons of error messages while coding. This should not be 
 <textarea class="codeinput" linecount="3">
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -98,7 +98,7 @@ print("Ding-dong! The Wicked Witch is dead")
 print("Wake up, you sleepy head")
 print("Rub your eyes, get out of bed")
 print("Wake up, the Wicked Witch is dead")</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -115,7 +115,7 @@ print("One for the money,")
 print("And four to go")
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -140,7 +140,7 @@ We can also work with numbers, the next line of code prints out some integers:</
 <div class="exercise" example>
 <textarea class="codeinput">
 print(1, 100, -3)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -152,7 +152,7 @@ Numbers and strings are different, take the following two lines of code:
 <textarea class="codeinput">
 print(1)
 print("1")</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -166,7 +166,7 @@ However, Python internally represents them differently and we can do different t
 print(1 + 3)
 print(2 - 4)
 print(8 * 3 - 12)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -181,7 +181,7 @@ print(8 * 3 - 12)</textarea><br>
 # Write your solution here.
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -206,7 +206,7 @@ print( "The length of Python for everyone in seconds is", 12*2*50*60 )
 # Experiment here
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -235,7 +235,7 @@ These are comments, their purpose is to make your code easier to understand.
 <textarea class="codeinput">
 # Display a friendly message
 print("Don't panic!")</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -258,7 +258,7 @@ For example, we can collect information from the user and work with that data:
 <textarea class="codeinput">
 name = input("What is your name?")
 print("What's up,", name)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -275,7 +275,7 @@ print(name + " loves " + favorite_food + '.')
 # Change name
 name = "A mosquito"
 print(name + " loves " + favorite_food + '.')</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -307,7 +307,7 @@ There are two main types of numbers: integers and floats. We encountered integer
 <textarea class="codeinput">
 x = 5
 print(x, "is an", type(x))</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -320,7 +320,7 @@ x = 5
 y = 7
 s = x + y
 print("The sum is", s)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -337,7 +337,7 @@ y = 7
 print(x + y, "is an", type(x+y))
 print(x - y, "is an", type(x-y))
 print(x * y, "is an", type(x*y))</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -347,7 +347,7 @@ But what happens if we do a division?
 x = 5
 y = 7
 print(x / y, "is a", type(x/y))</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -363,7 +363,7 @@ We got a new type of data called a <em>float</em>. Floats can represent fraction
 # Experiment here
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -390,7 +390,7 @@ You can also combine operators to create compound expressions:
 <div class="exercise" example>
 <textarea class="codeinput">
 print(1 + 2*3 + 10/2)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -406,7 +406,7 @@ This is identical to how you evaluate expressions in regular mathematics:
 <textarea class="codeinput">
 print(1 + 2*3 + 10/2)
 print((1 + 2)*3 + 10/2)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -422,7 +422,7 @@ x = 1.2
 print(x,type(x))
 x = "apple"
 print(x,type(x))</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -433,7 +433,7 @@ Another commonly used such operator is the increment operator:
 x = 12
 x += 1
 print(x)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -443,7 +443,7 @@ Equivalently, we could write:
 x = 12
 x = x + 1
 print(x)</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -460,7 +460,7 @@ name = "Genghis Khan"
 weight = 75.
 height = 1.65</textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -484,7 +484,7 @@ It is possible to convert a data type to a different data type.
 f = 12.3
 i = int(f)
 </textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -503,7 +503,7 @@ i = int(s)
 i *= 2
 print(i)
 </textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
@@ -515,7 +515,7 @@ f = float(s)
 
 print("The square of", f, "is", f**2 )
 </textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>

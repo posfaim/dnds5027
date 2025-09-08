@@ -19,29 +19,455 @@
 
 <body>
 
-<h1>Python for everyone -- 02 Conditionals</h1>
+<h1>Python for everyone -- 02 Conditions</h1>
 
 <p id="loading">⏳</p>
 
 <h2> Recap </h2>
 
-
+<p>
+Last week, we learned to use variables to store and manipulate data:
 <div class="exercise" example>
 <textarea class="codeinput">
-s = input("Please, provide a number")
-f = float(s)
-
-print("The square of", f, "is", f**2 )
-</textarea><br>
-<button class="run-button" disabled>▶ Run</button>
+s = "Life, the Universe and everything" # string -> text
+i = 42                                  # integer -> whole numbers
+f = 1/137                               # float -> fractional numbers
+print(s, i, f)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
-Try out what happens if you type in something different from a number.
+We can use operators to perform calculations and transform the data.
+<div class="exercise" example>
+<textarea class="codeinput">
+i1 = int(input("Enter an integer"))
+i2 = int(input("Enter an integer"))
+print("The remainder of", i1, "divided by", i2, "is", i1%i2)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Life is easier if our source code is clear and easy to read: we make less mistakes; if we do, it is easier to fix; and it is easier to re-use our code.
+One way to ensure clarity is to choose <em>concise and meaningful variable names</em>.
+</p>
+
+<div class="exercise">
+<h2>Variable name again</h2>
+
+<p> Fix the variable names</p>
+
+<textarea class="codeinput" linecount="3">
+var1 = "Jesus"
+var2 = "0. December 25."
+print(var1, var2)</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+name = "Jesus"
+birthday = "0. December 25."
+print(name, birthday)</textarea>
+</p>
+</details>
+</div>
+
+<p> Today we will first learn about the <code>if-else</code> statement which allows us to execute </p>
+
+<p>We have reached the end of the new material. You can find more practice exercises <a href="exercises_02.html">here</a>.</p>
+
+
+<h2> True or False: booleans</h2>
+
+<p>Python has more data types beyond text and numbers. Booleans (or bools for short) can take two values: True or False.
+<div class="exercise" example>
+<textarea class="codeinput">
+true_or_false = True
+print(true_or_false)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Note that when you write a literal true or false value, you need to capitalize it in Python, i.e., you need to write <code>True</code> and <code>False</code>.
+</p>
+
+<p>
+The most common way to use booleans is implicity through comparison operators
+<div class="exercise" example>
+<textarea class="codeinput">
+print(3 > 2)  # greater than
+print(3 <= 2) # less or equal 
+print(4 == 4) # equal
+print(4 != 4) # not equal</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<em>Question:</em> What is the difference between <code>=</code> and <code>==</code>?
+</p>
+
+<p>
+You can also create compound conditional statements:
+<div class="exercise" example>
+<textarea class="codeinput">
+print(3<2 and 4>2)
+print(3<2 or 4>2)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<code>and</code> and <code>or</code> are Boolean operators. The <code>and</code> takes two bool values, if both are <code>True</code> it evaluates as <code>True</code>, otherwise it is <code>False</code>.
+</p>
+
+<p>
+You can also negate an bool:
+<div class="exercise" example>
+<textarea class="codeinput">
+b = True
+print(not b)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+The negation <code>not</code> is an operator that only has one operand.
+</p>
+
+<div class="exercise">
+<h2>Without not</h2>
+
+<p> Re-write the following compound comparison without using the <code>not</code> operator.
+Try different <code>num</code> values to make sure that your solution is correct.</p>
+
+<textarea class="codeinput" linecount="6">
+num = 7
+
+true_or_false = not (num > 4)
+
+print( true_or_false )</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+num = 7
+
+true_or_false = (num <= 4)
+
+print( true_or_false )</textarea>
+</p>
+</details>
+</div>
+
+
+
+<h2> If-else </h2>
+
+<p>What is the use of comparisons? So far all we wrote programs where each line was executed one-by-one without exception.
+Using the <code>if</code> statement, we can write a program that runs a bit of code only if a condition is satisfied.
+<div class="exercise" example editable>
+<textarea class="codeinput">
+num = 7
+if num>3:
+    print(num, "is greater than 3.")
+print("Done.")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Visually, the code executes as
+</p>
+<img src="images/if_diagram.png" style="display:block; margin: 0 auto;width: 13%; height: auto;">
+<p>
+We can also add code that runs when the condition is not met.
+<div class="exercise" example>
+<textarea class="codeinput">
+age_of_retirement = 65
+name = "Methuselah"
+age = 913
+
+if age < age_of_retirement:
+    print(name, "is not retired.")
+else:
+    print(name, "is retired.")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Indented block of code after the <code>if</code> statement only gets executed if the <code>age > age_of_retirement</code> expression evaluates to <code>True</code>, the indented block after the <code>else</code> statement runs if the expression is <code>False</code>.
+Therefore, instead of executing each line in sequence, the <code>if</code>-<code>else</code> pair introduce a branch in our program.
+</p>
+
+<img src="images/if-else_diagram.png" style="display:block; margin: 0 auto;width: 20%; height: auto;">
+
+<p>
+Some jargon: The order in which the commands are executed in a program is called control flow.
+The conditional statement (i.e., the <code>if</code>-<code>else</code> pair) is a control flow statement, meaning that it affects which commands are executed.
+You will soon learn more control flow statements.
 </p>
 
 
-We have reached the end of the new material. You can find more practice exercises <a href="exercises_02.html">here</a>.
+<div class="exercise">
+<h2>Even or odd</h2>
+
+<p> Write code that asks the user for a number, then prints out if the number is even or odd.
+<em>Hint:</em> <code>%</code> is the remainder operator, e.g., <code>4%2</code> is 0 and <code>3%2</code> is 1.</p>
+
+<textarea class="codeinput" linecount="7">
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+num = int(input("Enter a number"))
+
+if num%2 == 0:
+    print(num, "is even.")
+else:
+    print(num, "is odd.")</textarea>
+</p>
+</details>
+</div>
+
+
+
+<p>Instead of branching into two possible scenarios, we can add multiple options.
+<div class="exercise" example>
+<textarea class="codeinput">
+age = int(input("Enter your age."))
+if age < 18:
+    print("You are neither allowed to drink alcohol nor to vote in the US.")
+elif age < 21:
+    print("You are allowed to vote, but not to drink in the US.")
+else:
+    print("Knock yourself out!")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+</p>
+
+<div class="exercise">
+<h2>elif</h2>
+
+<p> You are given the score of a football game in variables <code>goals_home</code> and <code>goals_away</code>. Print out whether the home or the away team won, or if it is a tie.</p>
+
+<textarea class="codeinput" linecount="10">
+goals_home = 6
+goals_away = 8
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+if goals_home>goals_away:
+    print("Home team wins.")
+elif goals_home<goals_away:
+    print("Away team wins.")
+else:
+    print("It's a tie.")</textarea>
+</p>
+</details>
+</div>
+
+
+<h2>Whitespace in your code</h2>
+<p>
+Adding extra spaces in your python code is typically allowed:
+<div class="exercise" example>
+<textarea class="codeinput">
+print(4+5) # Is the same
+print(4       + 5) # as this
+
+# Some is even recommended to improve readability
+print(4 + 5)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Indentation (adding space at the beginning of a line), however, has special meaning: it groups several lines of code into a block.
+You need to have an indented block after an <code>if</code> statement.
+<div class="exercise" example>
+<textarea class="codeinput">
+num = 4
+if num>0:
+print(num, "is positive.")
+print("And I am happy about this.")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+And you need to be consistent:
+<div class="exercise" example>
+<textarea class="codeinput">
+num = 4
+if num>0:
+    print(num, "is positive.")
+   print("And I am happy about this.")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+Like this:
+<div class="exercise" example>
+<textarea class="codeinput">
+num = 4
+if num>0:
+    print(num, "is positive.")
+    print("And I am happy about this.")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+The amount of indentation is not specified, but most commonly the TAB key is used.
+The twist is that most code editors are configured that hitting the TAB adds 4 spaces instead of a tab character.
+</p>
+
+<p>
+All lines in the block belong to the <code>if</code> statement and get executed conditionally.
+When you remove an indentation, you end the code block.
+<div class="exercise" example>
+<textarea class="codeinput">
+num = -2
+if num>0:
+    print(num, "is positive.")
+    print("And I am happy about this.")
+print("This always prints out.")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+</p>
+
+<h2> Nested if statements</h2>
+
+<p>The code block after an <code>if</code> condition is allowed to contain any Python code, even other <code>if</code> conditions.
+Nesting <code>if</code> statements allows us to handle complicated scenarios.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+country = "Austria"
+age = 17
+
+if country=="Austria":
+    if age>=16:
+        print("You are allowed to vote.")
+    else:
+        print("Es tut mir leid, you can't vote.")
+elif country=="Hungary":
+    if age>=18:
+        print("You are allowed to vote.")
+    else:
+        print("Bocsesz, you can't vote.")
+else:
+    print("I don't know this country...")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>We encountered a novelty in the above example: we compared the value of two strings. In Python two strings are equal to each other, if they are exactly the same:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print("Hungary"=="Hungary") # exactly the same is True
+print("Hungary"=="Hungry") # smallest difference makes it False
+print("Hungary"=="hungary") # case sensitive!
+</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise">
+<h2>Nested conditions</h2>
+
+<p>Write code that takes a number <code>num</code>. If the number is positive, it prints out whether it is even or odd. If the number is not positive, it prints out the message "The number is negative or zero".</p>
+
+<p><em>Hint:</em> In a previous exercise we already tested if a number is even or odd. Re-use your code!</p>
+
+<p><em>Second hint:</em> Test your code for all possible scenarios.</p>
+
+<textarea class="codeinput" linecount="16">
+num = 3
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+num = 3
+
+if num > 0:
+    if num%2:
+        print("Even.")
+    else:
+        print("Odd.")
+else:
+    print("The number is zero or negative.")
+</textarea>
+</p>
+</details>
+</div>
+
+
+<h2> Multiple ways of doing things </h2>
+
+
+<p>There are always multiple ways of solving a problem in coding. You may find differences in the logic behind the solution or just the format of the code.
+It is always a good idea to go for the most simple solution.
+For example, the following code is over-complicated for comedic effect:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+num1 = 12
+num2 = 12
+if num1<num2 or num1>num2:
+    print("The two numbers are not equal.")
+</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>A more straightforward way to accomplish the same task is</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+num1 = 12
+num2 = 12
+if num1!=num2:
+    print("The two numbers are not equal.")
+</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>What counts as concise and clear depends on your Python experience, your target audience and your background knowledge of the problem. So there is no single best solution, but it depends on context.</p>
+
+
+<p> Ceterum censeo: It is also a good idea to follow official formatting recommendations and best practices to ensure clarity of code (e.g., meaningful variable names and <code>snake_case</code>). (But you can deviate from it, if it increases clarity...)</p>
+
+
+<p>We have reached the end of the new material. You can find more practice exercises <a href="exercises_02.html">here</a>.</p>
 
 <script src="exercises.js"></script>
 </body>

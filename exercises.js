@@ -5,8 +5,10 @@ var editors = [];
 var exercises = document.getElementsByClassName("exercise");
 for (var i = 0; i < exercises.length; i++) {
     const ta = exercises[i].getElementsByTagName('textarea')[0];
-    const but = exercises[i].getElementsByTagName('button')[0];
     const out = exercises[i].getElementsByClassName('output')[0];
+    
+    var buttons = exercises[i].getElementsByTagName('button');
+    const but   = buttons[0];
     
     // Turn the textarea into a Python editor
     const editor = CodeMirror.fromTextArea(ta, {
@@ -19,21 +21,36 @@ for (var i = 0; i < exercises.length; i++) {
     extraKeys: {
       "Shift-Enter": function(cm) {
         runCode(editor, out);   // 🚀 run code when Shift+Enter is pressed
-      }
+      },
+      Tab(cm) {
+      const n = cm.getOption("indentUnit");
+        cm.replaceSelection(" ".repeat(n), "end");
+      },
+      "Shift-Tab": "indentLess"
     }
     });
     
     if (exercises[i].hasAttribute("example")) {
-        editor.setOption("readOnly", "true");
+        if (exercises[i].hasAttribute("noneditable")){
+            editor.setOption("readOnly", "true");
+        }
         editor.setSize(null, (editor.lineCount()+.7) * editor.defaultTextHeight());
     } else {
         if (ta.hasAttribute("linecount")) {
-            editor.setSize(null, (Number(ta.getAttribute("linecount"))+.5) * editor.defaultTextHeight());
+            editor.setSize(null, (Number(ta.getAttribute("linecount"))+.7) * editor.defaultTextHeight());
         } else {
             editor.setSize(null, 6 * editor.defaultTextHeight());
         }
     }
     but.addEventListener("click", () => runCode(editor, out));
+    
+    // Reset button
+    if (buttons.length > 1){
+        buttons[1].addEventListener("click", () => {
+            editor.setValue(ta.value);   // restore original text
+            out.textContent = "";        // clear output
+        });
+    }
     editors.push(editor);
 }
 
@@ -52,7 +69,7 @@ for (var i = 0; i < solutions.length; i++) {
     });
     sol.setOption("readOnly", "true");
     
-    sol.setSize(null, (sol.lineCount()+.5) * sol.defaultTextHeight());
+    sol.setSize(null, (sol.lineCount()+.7) * sol.defaultTextHeight());
 }
 
 // numbering exercises

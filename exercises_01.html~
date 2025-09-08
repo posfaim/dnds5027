@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>01 PfE -- Exercises</title>
+    <title>01 Exercises PfE</title>
 
     <!-- CodeMirror styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
@@ -209,6 +209,74 @@ print(f"You have to pay {amount_per_person:.2f}.")</textarea>
 </p>
 </details>
 </div>
+
+
+<div class="exercise">
+<h2>Fixing the code</h2>
+
+<p> Your friend was asked to write code that asks for two numbers and calculates their difference.
+However, their solution does not seem to work. Help fix the problem!</p>
+
+<textarea class="codeinput" linecount="10">
+number = float(input("Enter a number"))
+number = float(input("Enter a number"))
+
+difference = number - number
+
+print("The difference is", difference)
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+The variable names need to be different, otherwise the second <code>input()</code> overwrites the first.
+<textarea class="solution">
+number1 = float(input("Enter a number"))
+number2 = float(input("Enter a number"))
+
+difference = number1 - number2
+
+print("The difference is", difference)</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Years since</h2>
+
+<p> Ask the user what year is it and print out the number of years since the release of Back to the future</p>
+
+<textarea class="codeinput" linecount="6">
+
+</textarea><br>
+
+<button class="run-button" disabled>▶ Run</button>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+year_now = int(input("What year is it?"))
+
+age = year_now - 1985
+
+print("Back to the future was released", age, "year ago.")
+
+# You can also combine printing and computing the age
+print("Back to the future was released", year_now-1985, "year ago.")
+
+</textarea>
+</p>
+</details>
+</div>
+
 
 
 <div class="exercise">
