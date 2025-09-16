@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03 PfE</title>
+
+    <!-- CodeMirror styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
+    <!-- CodeMirror scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/mode/python/python.js"></script>
+
+    <!-- pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    
+    <link rel="stylesheet" href="styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 03 Functions</h1>
+
+<p id="loading">⏳</p>
+
+<h2> Recap </h2>
+
+<p>Last week, we learned about boolean data type, which can take two possible values: <code>True</code> or <code>False</code>.
+Boolean values appear as a result comparison operators:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(3<12)
+print(3>12)
+print("apple"=="apple") # checks if two strings are exactly the same
+print("apple"!="pear")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+ <p>You can also create compound comparisons:</p>
+ <div class="exercise" example>
+<textarea class="codeinput">
+print( (3<12) and (4==4) )
+print( (3<12) or (4==4) )
+print( not "apple"=="pear")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+ 
+<p>We can use these boolean expressions to run code conditionally:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+score = 72
+if score >= 94:
+    print("You got an A!")
+else:
+    print("You didn't get an A :(")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>You can add multiple cases with <code>elif</code></p>
+<div class="exercise" example>
+<textarea class="codeinput">
+score = 72
+if score >= 94:
+    print("You got an A!")
+elif score >=64:
+    print("You didn't get an A, but you passed.")
+else:
+    print("You didn't pass.")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise">
+<h2>Age</h2>
+
+<p> The code below asks the user for their age. Write a conditional statement that prints out "Goo-goo-ga-ga!" if age is less or equal to one.</p>
+
+<textarea class="codeinput" linecount="6">
+age = float(input("Enter your age")) # we use float to allow fractional numbers</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+age = float(input("Enter your age"))
+
+if age <=1:
+    print("Goo-goo-ga-ga!")</textarea>
+</p>
+</details>
+</div>
+
+<h2>Functions</h2> 
+
+<p>Lots of python's functionality comes in the form of functions. For example, printing out data is done using the built-in <code>print</code> function</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print("we have done this before")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>
+<ul>
+<li>Name of the function: <code>print</code></li>
+<li>To call a function: <code>name_of_function( input_parameter_1, input_parameter_2 )</code></li>
+</ul>
+Whenever we call a function, we give a value to each parameter, this value is called an argument. (This sounds like a bit of nit picking. Many people use the two terms interchangeably and avoid confusion.)
+</p>
+
+<p>The function of <code>print</code> is to print out its input on the screen, it does not return anything.</p>
+
+<p>Another example of a common built-in function is <code>len</code>, which returns the length of a string (or other objects that we will learn about later):</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = 'supercalifragilisticexpialidocious'
+print(len(s))</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+
+<div class="exercise">
+<h2>Input length</h2>
+
+<p> Write code that prompts the user for an input string and prints out the length of this string. How many functions did you use?</p>
+
+<textarea class="codeinput" linecount="4">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+# Solution 1
+s = input("Please, type something here! ")
+length = len(s)
+print(length)
+
+# Solution 2
+print(len(input("Please, type something here! ")))</textarea>
+We used three functions: <code>input</code>, <code>len</code> and <code>print</code>.
+</p>
+</details>
+</div>
+
+
+<h2>User defined functions</h2>
+
+<p>The purpose of functions is to re-use code: if there is a task that you have to repeat many times, you don't have to type the code over and over again.</p>
+
+<p>Functions are also useful to organize your code into logical units. For example, having a separate function for printing means that the code for counting the number of characters in a string doesn't mix with the code needed for printing. This makes the code easier to read, write and debug.</p>
+
+<p>The functions <code>input</code>, <code>len</code> and <code>print</code> are built-in functions, meaning that they come with Python, you can just straight use them. It is also possible to define your own functions. </p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+def echo(message):
+    print(message)
+    print(message)
+</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>If I run the code, nothing seems to happen. What gives?</p>
+
+<p>This is because we only defined the function, but we did not run it. In order to run the function you need to add a function call:
+<div class="exercise" example>
+<textarea class="codeinput">
+echo("What's up?")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p><em>Note:</em> on this website the code boxes see each other, meaning that if you define a function in one of the boxes, you can use it in other boxes.</p>
+
+<div class="exercise">
+<h2>Greetings</h2>
+
+<p> Write a function called <code>greet</code> that takes  <code>name</code> as a parameter and prints out a greeting message addressed to <code>name</code>. For example, the function call <code>greet("Marton")</code> could print out:</p>
+<pre>Hello, Marton</pre>
+<p>(Or any other greeting.)</p>
+
+<textarea class="codeinput" linecount="6">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def greet(name):
+    print("Hello,", name)
+    
+greet("Marton")</textarea>
+</details>
+</div>
+
+
+
+<h2> Return value </h2>
+
+<p>The functions <code>print</code> and <code>echo</code> display a message on your screen, but they do not return anything. In contrast, the functions <code>input</code> and <code>len</code> return values that can be saved in variables and used later in your program:</p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "window"
+length = len(s)  # saving the return value in a variable
+print(s, length) # displays output on screen, no return value</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>User defined functions can also return values using the <code>return</code> statement:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+def double_return(x):
+    double = 2*x
+    
+    return double</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+We can call the function and save what it returns in a variable:
+<div class="exercise" example>
+<textarea class="codeinput">
+d = double_return(12)
+print(d)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>To highlight the difference between printing and returning, let's define a function that displays the double of <code>x</code>:
+<div class="exercise" example>
+<textarea class="codeinput">
+def double_print(x):
+    double = 2*x
+    
+    print(double)
+    
+    return # optional empty return
+print(d)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>Note that you can add an empty return indicating that the function ends here, but does not return anything.</p>
+
+<p>Let's try out our functions, by modifying the code below:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print_return(21)
+print(d)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise">
+<h2>Double double</h2>
+
+<p> Write a version of the double function that both prints and returns the double.</p>
+
+<textarea class="codeinput" linecount="8">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def double_double(x):
+    d = 2*x
+    print(d)
+    return d
+
+d=double_double(21) # this will print it out too
+print(d) # this will print it out a second time</textarea>
+<em>Important:</em></code> When you write a function (or other code for that matter), always test all expected behavior.</p>
+</details>
+</div>
+
+<h2>Multiple returns</h2>
+
+<p> A function can have multiple return statements. If a function reaches any one of the returns, it returns and halts there:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+def absolute_value(x):
+    if x<0:
+        return -x
+    else:
+        return x
+</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>Any time you call the function, only one of the return statements is executed. Which one depends on <code>x</code>.</p>
+
+
+<h2> Passing multiple arguments </h2>
+
+<p>In a previous exercise, we wrote code that divided a restaurant check among the diners. Let's put this in a function, so we can re-use the code later:</p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+def check_divider(check_total, tip_percentage, num_people):
+    
+    # Increase the total with the tip
+    total_to_pay = check_total * (1. + tip_percentage) 
+    
+    # Divide equally among the party
+    amount_a_pop = total_to_pay / num_people
+    
+    return amount_a_pop
+</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>The function <code>check_divider</code> requires three parameters to run: <code>check_total</code>, <code>tip_percentage</code> and <code>num_people</code>.
+There are several ways to pass the parameter values when we call the function.</p>
+
+<p>Positional:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(check_divider(10, .2, 2))</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>List the arguments in the order we gave when we defined the function.</p>
+
+<p>Keyword:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(check_divider(check_total=10, tip_percentage=.2, num_people=2))</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>With keywords the parameters do not have to be in order:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(check_divider(check_total=10, num_people=2, tip_percentage=.2))</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>Also, keywords are very explicit, which can make the code easier to understand.</p>
+
+<p>Mixed:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(check_divider(10, num_people=2, tip_percentage=.2))</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>But once switched to keyword, we can go back to positional:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(check_divider(check_total=10, .2, 2))</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise">
+<h2>Max</h2>
+
+<p> Write your own function called <code>max_of_two</code> that takes two numbers as input parameters and returns the larger one.</p>
+
+<p><em>Hint:</em> You can use multiple <code>return</code> statements.</p>
+
+<textarea class="codeinput" linecount="8">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def max_of_two(x, y):
+    if x>y:
+        return x
+    else:
+        return y
+
+print(max_of_two(3, 2))</textarea>
+<em>Important:</em></code> When you write a function (or other code for that matter), always test it using several inputs.</p>
+</details>
+</div>
+
+<h2>Functions within functions</h2>
+
+<p>You don't have to write functions from scratch, you can re-use your own code or build on the work of others by calling functions within functions. We done this many times with built-in functions, but we can also do it with user defined functions.</p>
+
+<p>For example, in the previous example you wrote a function <code>max_of_two</code>. We can use this function to build a function that finds the maximum value of three numbers:</p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+def max_of_three(x, y, z):
+    m2 = max_of_two(x, y) # get maximum of first two
+    m3 = max_of_two(m2, z) # compare to third
+    
+    return m3
+    
+print( max_of_three(1,13,2) )</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise">
+<h2>Add four numbers</h2>
+
+<p> First, write a function called <code>add2</code> that adds two numbers together. Then use the <code>add2</code> function to write a function called <code>add4</code> that adds four numbers together</p>
+
+<textarea class="codeinput" linecount="18">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def add2(x1, x2):
+    return x1+x2
+
+print(add2(3,39)) # test first function
+
+def add4(x1,x2,x3,x4):
+    s1 = add2(x1,x2)
+    s2 = add2(x3,x4)
+    
+    s = add2(s1, s2)  
+    
+    return s
+
+print(add4(1,2,3,4)) # test summing 4</textarea>
+<em>Important:</em></code> When you write a function (or other code for that matter), always test it using several inputs.</p>
+</details>
+</div>
+
+<h2>Modules</h2>
+
+<p>So far we only used the core functionality of python, this is pretty bare bones. Most of python's utility comes in provided in modules that have to be installed and imported separately. Modules can help with
+<ul>
+<li> Plotting</li>
+<li> Data cleaning</li>
+<li> Statistics, machine learning</li>
+<li> Computer vision</li>
+<li> Game development</li>
+<li> Opening a pdf</li>
+<li> ...</li>
+</ul>
+</p>
+
+<p>You don't have to implement your own algorithms or write your own modules, you can leverage the work of the community.</p>
+
+<p>For example, Python comes with a module called <code>math</code>, which contains common mathematical functions. If you would like to use a module, first you need to import it:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+import math</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>Nothing is shown in the output, but now you can access the functions implemented by <code>math</code>.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(math.sqrt(2), math.pi)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>Note that <code>math.pi</code> is not a function. It is a float variable containing the mathematical constant π.</p>
+
+<p>Check the documentation of the <code>math</code> module for a list of all available functions and constants: <a href="https://docs.python.org/3/library/math.html" target="_blank">https://docs.python.org/3/library/math.html</a></p>
+
+<p>If you do not want to type in the word <code>math</code> each time you use a function, you can introduce an abbreviation:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+import math as ma
+print(ma.sqrt(2), ma.pi)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>You can import specific functions to use directly</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+from math import sqrt, pi
+print(sqrt(2), pi)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>Or can import everything to be use without prepending it with anything:</p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+from math import *
+print(exp(2))</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>Note that in this case you might have a name clash by importing two modules that both have a function with the same name. It is also harder to keep track the origin of the functions that you are using.</p>
+
+
+
+
+
+<p>We have reached the end of the new material. You can find more practice exercises <a href="exercises_03.html" target="_blank">here</a>.</p>
+
+<script src="exercises.js"></script>
+</body>
+</html>

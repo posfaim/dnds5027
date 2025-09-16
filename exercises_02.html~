@@ -280,9 +280,7 @@ elif subject=="Philosophy":
 points = 97
 subject = "Math"
 if points>94:
-    print("You got an A in", subject)
-
-</textarea>
+    print("You got an A in", subject)</textarea>
 </p>
 </details>
 </div>
@@ -291,7 +289,7 @@ if points>94:
 <div class="exercise">
 <h2>Fizzbuzz</h2>
 
-<p>Imaging a scenario where you are really bad at the game of <a href="https://en.wikipedia.org/wiki/Fizz_buzz">Fizzbuzz</a>, but you also do not like to loose. Write a Python program that helps you win the game!</p>
+<p>Imaging a scenario where you are really bad at the game of <a href="https://en.wikipedia.org/wiki/Fizz_buzz" target="_blank">Fizzbuzz</a>, but you also do not like to loose. Write a Python program that helps you win the game!</p>
 
 <p>Ask the user for a number and print out the following:
 <ul>
