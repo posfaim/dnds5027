@@ -52,7 +52,7 @@ Exercises</h1>
 <textarea class="codeinput" linecount="2">
 print("Hello"</textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -72,7 +72,7 @@ print("Hello")</textarea>
 print("Hello,"; "dude!")
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -91,7 +91,7 @@ print("Hello,", "dude!")</textarea>
 print(Hello)
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -124,7 +124,7 @@ print(number_of_eggs_I_am_planning_to_buy * price_of_a_single_egg_in_store)
 UserName = input("Please, enter your name")
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -161,7 +161,7 @@ num2 = 1
 num3 = 29
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -196,7 +196,7 @@ tip_percentage = 0.10
 check_total = 30.5
 num_people = 10</textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -226,7 +226,7 @@ difference = number - number
 print("The difference is", difference)
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -255,7 +255,7 @@ print("The difference is", difference)</textarea>
 
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -294,7 +294,7 @@ print("Back to the future was released", year_now-1985, "year ago.")
 
 </textarea><br>
 
-<button class="run-button" disabled>▶ Run</button>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
 
 <h3>Output:</h3>
 <pre class="output"></pre>
@@ -308,6 +308,31 @@ print("|| "*age)
 print("|| "*age)</textarea>
 </p>
 </details>
+</div>
+
+
+
+<div class="exercise" homework>
+<h2>HOMEWORK: Fix the code</h2>
+
+<p> The following code has several problems, both substantially and in style. Fix the code!</p>
+
+<p>Submit your solution by copy-pasting it into the moodle assignment.</p>
+
+<textarea class="codeinput" linecount="10">
+weeks = "12"
+hello = 10
+
+total_hours = weeks*hello
+
+print("I will practice Python for", total_hours, "in total)
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
 </div>
 
 

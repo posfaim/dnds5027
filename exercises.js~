@@ -31,7 +31,7 @@ for (var i = 0; i < exercises.length; i++) {
     });
     
     if (exercises[i].hasAttribute("example")) {
-        if (! (exercises[i].hasAttribute("noneditable"))){
+        if (exercises[i].hasAttribute("noneditable")){
             editor.setOption("readOnly", "true");
         }
         editor.setSize(null, (editor.lineCount()+.7) * editor.defaultTextHeight());
