@@ -111,6 +111,39 @@ average(12, 64, 50)</textarea>
 </details>
 </div>
 
+
+<div class="exercise">
+<h2>Annoying cultural differences</h2>
+
+<p> Fuel efficiency in the USA is measured as miles per gallon, which means higher numbers are better. In Europe, fuel efficiency is measured as liters per 100 km, which means lower values are better.
+Help a poor European visiting the US by writing a function that converts miles per gallon to liters per 100 km!</p>
+
+<p>Some numbers to help: 1 mi = 1.6 km and 1 gal = 3.79 l</p>
+<textarea class="codeinput" linecount="8">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def mpg_to_lp100(mpg):
+    lp100 = 100*3.79/1.6/mpg
+
+    return lp100
+    
+# or without the local variable
+def mpg_to_lp100(mpg):
+    return 100*3.79/1.6/mpg
+
+print(mpg_to_lp100(32))</textarea>
+</p>
+</details>
+</div>
+
 <div class="exercise">
 <h2>Weekly earnings</h2>
 
@@ -170,6 +203,50 @@ random.randint(1,6)</textarea>
 </details>
 </div>
 
+
+<div class="exercise">
+<h2>Coin flip</h2>
+
+<p>Write a function that simulates a coin flip! The function should not take any parameters, and it should print out "Heads!" or "Tails!" randomly with equal probability.</p>
+
+<p><em>Hint:</em> You can again make use of the <code>random</code> module.</p>
+
+<textarea class="codeinput" linecount="12">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+import random
+
+# Solution 1
+# Making use of the previous exercise
+def coinflip():
+    if random.randint(1,2)==1:
+        print("Heads!")
+    else:
+        print("Tails!")
+    return
+    
+# Solution 2
+def coinflip():
+    if random.random()<0.5: # random.random() gives a random float between 0 and 1
+        print("Heads!")
+    else:
+        print("Tails!")
+    return
+    
+coinflip()
+coinflip()
+coinflip()</textarea>
+</p>
+</details>
+</div>
 
 <script src="exercises.js"></script>
 

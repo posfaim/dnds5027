@@ -285,6 +285,57 @@ if points>94:
 </details>
 </div>
 
+<div class="exercise">
+<h2>Compound conditional statement</h2>
+
+<p>You can write compound conditional statements using the operators <code>and</code> and <code>or</code>. Re-write the following double if statements as a single if statement with a compound condition.</p>
+
+<textarea class="codeinput" linecount="5">
+x = int(input("Enter your rating"))
+if x>=1:
+    if x<=5:
+        print("x is in the correct range.")</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+x = int(input("Enter your rating"))
+if x>=1 and x<=5:
+        print("x is in the correct range.")</textarea>
+</p>
+</details>
+
+<br><br>
+<div class="exercise">
+<textarea class="codeinput" linecount="7">
+x = int(input("Enter your rating"))
+if x<1:
+    print("x is out of range.")
+if x>5:
+    print("x is out of range.")</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+x = int(input("Enter your rating"))
+if x<1 or x>5:
+        print("x is out of range.")</textarea>
+</p>
+</details>
+
+
+</div>
+
 
 <div class="exercise">
 <h2>Fizzbuzz</h2>
@@ -451,6 +502,25 @@ else:
 </p>
 </details>
 </div>
+
+
+<div class="exercise" homework>
+<h2>HOMEWORK: Goldilocks and her soup</h2>
+
+<p> Goldilocks likes her soup at the <a href="https://ift.onlinelibrary.wiley.com/doi/full/10.1111/1750-3841.14699">ideal temperature</a> of 60 degrees Celsius.</p>
+
+<p>Write code that asks Goldilocks for a soup temperature (fractional temperatures allowed). Then the code prints out "Too cold!" if it is below 59°C, "Too hot!" if it is above 61°C, and "Just right!" otherwise.</p>
+
+
+<textarea class="codeinput" linecount="10">
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
 
 
 <script src="exercises.js"></script>
