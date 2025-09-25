@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>01 Exercises PfE</title>
+    <title>03 Exercises PfE</title>
 
     <!-- CodeMirror styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
@@ -111,6 +111,39 @@ average(12, 64, 50)</textarea>
 </details>
 </div>
 
+
+
+<div class="exercise">
+<h2>Hierarchical greeting</h2>
+
+<p>Write a function that takes a name as input. If the name refers to me (aka your instructor) than it should print out "Good evening, professor!" otherwise it should print out "Sup!", or equivalent greetings.</p>
+
+<p>Advanced: To more generally perpetuate hierarchy in academy, say "Good evening!" to anyone who has "Prof" in their name. You you can test this with the expression: <code>"Prof" in name</code>, this evaluates to <code>True</code> if the string <code>name</code> contains the substring <code>"Prof"</code>.</p>
+
+<textarea class="codeinput" linecount="12">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def greetings(name):
+    if name=="Marton" or name=="Posfai" or name=="Marci": # I test multiple variants
+        print("Good evening, (associate) professor!")
+    else:
+        print("Hey!")
+
+    return
+    
+greetings("Marton")
+greetings("Zsofi")</textarea>
+</p>
+</details>
+</div>
 
 <div class="exercise">
 <h2>Annoying cultural differences</h2>
@@ -247,6 +280,56 @@ coinflip()</textarea>
 </p>
 </details>
 </div>
+
+<div class="exercise" homework>
+<h2>HOMEWORK: Write an exercise</h2>
+
+<p>What was the most difficult part to understand about Python functions? Come up with an exercise that tests your (or anyone's) understanding of this topic! Don't forget to provide a solution.</p>
+
+
+<textarea class="codeinput" linecount="10">
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<div class="exercise">
+<h2>Advanced and fun: Recursion</h2>
+
+<p>We have seen that we can call functions from within functions. A function can even call itself! This is called <a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)">recursion</a>.</p>
+
+<p>Write a function that takes a number <code>n</code> as a parameter and counts from 1 to <code>n</code>. For example, for <code>n=3</code> it prints out the number 1,2,3.</p>
+
+<p><em>Hint:</em> Counting to 10 is the same as counting to 9 + printing out 10. More generally, counting to <code>n</code> is the same as counting to <code>n-1</code> + printing out <code>n</code>.</p>
+
+<textarea class="codeinput" linecount="12">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def count(n):
+    if n==1:
+        print(1)
+    else:
+        count(n-1)
+        print(n)
+    return
+    
+count(10)</textarea>
+</p>
+</details>
+</div>
+
+
 
 <script src="exercises.js"></script>
 

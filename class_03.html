@@ -477,6 +477,87 @@ print(add4(1,2,3,4)) # test summing 4</textarea>
 
 <h2>Local and global variables</h2>
 
+<p>In the above examples, we often created new variables inside functions.
+These variables have a limited life: they are only available as long as the function runs and are not accessible outside the function.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+def longer(word1,word2):
+    length1 = len(word1)
+    length2 = len(word2)
+    
+    if length1>length2:
+        print(word1, "is longer")
+    else:
+        print(word2, "is longer")
+    return
+    
+longer("Dude", "Duderino")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+longer("Dude", "Duderino")
+print(length1)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>This is neat, because now the variable names inside the function do not collide with variable names on the outside. Such variables are called <em>local</em>, because they are only used locally.</p>
+
+<p>In contrast, variables defined outside of functions are visible from anywhere, hence they are called <em>global</em>. This includes from the inside of functions:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+def print_sum():
+    print(x1+x2)
+    return
+
+x1 = 2
+x2 = 3
+print_sum()</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>This works, but absolutely not recommended! You should pass all the data that a function relies on as a parameters. If you pass all relevant info as a parameter, it will always be clear what your function needs when you actually call it and nothing will remain hidden. Your function will not change variables sneakily. Both of these features will make your code more readable and less error prone.</p>
+
+<p>What if a local variable has the same name as a global? When referencing a variable inside a function, Python first looks around if there is a local variable of that name (either defined inside or passed as a parameter), if there is none, it moves one step up and looks for a global variable.</p>
+
+<div class="exercise">
+<h2>Fix local-global</h2>
+
+<p>The code below does not work as intended. Please, fix it!</p>
+
+<textarea class="codeinput" linecount="8">
+name = "Vera"
+
+def say_hello(given_name):
+    print("Hello", name)
+
+say_hello("Vera")
+say_hello("Ilka")</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+name = "Vera"
+
+def say_hello(given_name):
+    print("Hello", given_name) # we printed out the global variable name, instead of the local given_name
+
+say_hello("Vera")
+say_hello("Ilka")</textarea>
+<em>Important:</em></code> </p>
+</details>
+</div>
 
 
 <h2>Modules</h2>
