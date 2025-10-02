@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04 PfE</title>
+
+    <!-- CodeMirror styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
+    <!-- CodeMirror scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/mode/python/python.js"></script>
+
+    <!-- pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    
+    <link rel="stylesheet" href="styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 04 Strings</h1>
+
+<p id="loading">⏳</p>
+
+<h2> Recap </h2>
+
+<p>So far, we learned how to create variables to store and manipulate data:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "" # string:  text
+i = 42 # integer: whole numbers
+f = 0.0073 # floats: fractional numbers
+print(s,i,f)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+ <p>We used operators to perform calculations and modify variables:</p>
+ <div class="exercise" example>
+<textarea class="codeinput">
+print(3 + 4**2)
+i = 12 # dozen (assignment operator)
+print(i)
+i += 1 # backer's dozen (increment operator)
+print(i)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>We used if-else statements to conditionally run code</p>
+ <div class="exercise" example>
+<textarea class="codeinput">
+hour   = 12 # hour of the day
+if hour<12:
+    print("Good morning!")
+elif hour<18:
+    print("Good afternoon!")
+else:
+    print("Good evening!")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>Last class, we imported modules and called functions to access Python's various capabilities.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+import random
+r = random.randint(1, 2) # get random number integer 1 or 2
+if r == 1:
+    print("Heads!")
+else:
+    print("Tails!")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>We also defined our own functions to organize and re-use our code.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+def echo(text):
+    print(text)
+    print(text)
+    
+    return
+
+echo("Hello!")</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>We <em>always</em> give meaningful names to our variables and comment our code.</p>
+
+
+<h2>Strings</h2>
+
+<p>Strings are a data type that represents text.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s1 = "Abel" # Create a string by writing text between quotation marks
+s2 = 'Cain' # You can also use single quotation marks, but don't mix
+print(s1, s2)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>We already did a few things with strings:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print("CEU"+" PU")  # concatonate
+print("he"*5) # repeat
+print(s1==s2) # compare
+print(str(7)+" dwarfs") # converted to
+print(int("41")+1) # and from</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>Today we will cover much more: we will learn how to
+<ul>
+<li> access individual characters and substrings,</li>
+<li>we will use string methods modify strings and find patterns,</li>
+<li>f-strings to insert variables into strings,</li>
+<li>and we will enjoy brand new error messages.</li> 
+</ul></p>
+
+
+<h2>Accessing characters</h2>
+
+<p>Another thing that we have done before is obtaining the length of a string using the <code>len</code> function.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+l = len("Bird is the word.") # count the length
+print(l)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>What happened above is that we called the <code>len</code> and we passed the string <code>"Bird is the word."</code> as an argument. The function <code>len</code> then returned the number of characters in the string as an integer (space and . included), which we stored in the variable <code>l</code>. Finally, we printed out the contents of <code>l</code> on the screen by calling the <code>print</code> function and passing <code>l</code> as an argument. The <code>print</code> function does not return anything.</p>
+
+<p>Let's save the string in a variable:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "Bird is the word."</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>This string is a sequence of characters, and each character has an index indicating its location in the sequence:</p>
+<img src="images/string.png" style="display:block; margin: 0 auto;width: 70%; height: auto;">
+<p>Note that in Python indexing starts from <em>0</em>. Python makes it possible to access individual characters from a string via their index:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print( s[10] )</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>The square bracket <code>[]</code> is an operator that looks up the character at the index that it encloses.</p>
+
+
+<div class="exercise">
+<h2>Secret message</h2>
+
+<p>The following string contains a hidden message. To reveal the message print out every third character, starting with character at index 0.</p>
+
+<textarea class="codeinput" linecount="4">
+message = "Bono look!"</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+secret = message[0]+message[3]+message[6]+message[9]
+print(secret)</textarea>
+</p>
+</details>
+</div>
+
+<p>You can also access characters of a string from the back:</p>
+<img src="images/string_reverse.png" style="display:block; margin: 0 auto;width: 70%; height: auto;">
+<br>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(s[-1], s[-11])</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p> There is one more thing that the <code>[]</code> operator can do: it can access sub-strings. This is called slicing.</p>
+<img src="images/string_slice.png" style="display:block; margin: 0 auto;width: 70%; height: auto;">
+<br>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+print(s[5:11])</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>If you leave out the first index, the slice will start from the beginning of the string. Likewise, if you leave the second index blank, the slice will end at the end of the string.</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print(s[:5]) # from the beginning
+print(s[12:]) # to the end</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<h2>Methods</h2>
+
+<p>Methods are functions that are bound to an object, they provide a logical way to organize code: functions that are meant to manipulate a string come packaged together with a string.</p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+nice_string = "Dodo bird"
+num_ds = nice_string.count("d")
+
+print(num_ds)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<img src="images/string_method.png" style="display:block; margin: 0 auto;width: 55%; height: auto;">
+<br>
+
+<p>We have reached the end of the new material. You can find more practice exercises <a href="exercises_04.html" target="_blank">here</a>.</p>
+
+<script src="exercises.js"></script>
+</body>
+</html>
