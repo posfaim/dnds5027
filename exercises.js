@@ -90,6 +90,8 @@ let pyodide = null;
     pyodide = await loadPyodide();
     document.getElementById("loading").textContent = "✅";
     //await pyodide.loadPackage("numpy");
+    //await pyodide.loadPackage("pyodide-http");
+    await pyodide.loadPackage("requests")
     pyodide.runPython(`
     import builtins
     from js import prompt

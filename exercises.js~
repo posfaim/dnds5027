@@ -75,7 +75,7 @@ for (var i = 0; i < solutions.length; i++) {
 // numbering exercises
 var n=1
 for (var i = 0; i < exercises.length; i++) {
-    if (!exercises[i].hasAttribute("example") ) {
+    if (!exercises[i].hasAttribute("example") && !exercises[i].hasAttribute("homework") ) {
         const h = exercises[i].querySelector("h2");
         if (h) {
             h.textContent = "Exercise "+String(n).padStart(2, "0")+" -- "+h.textContent;
@@ -90,10 +90,13 @@ let pyodide = null;
     pyodide = await loadPyodide();
     document.getElementById("loading").textContent = "✅";
     //await pyodide.loadPackage("numpy");
+    await pyodide.loadPackage("pyodide-http");
     pyodide.runPython(`
     import builtins
     from js import prompt
     builtins.input = lambda msg="": prompt(msg)
+    import pyodide_http
+    pyodide_http.patch_all()
     `)
   
     for (var i = 0; i < exercises.length; i++) {
