@@ -42,7 +42,7 @@ for (var i = 0; i < exercises.length; i++) {
             editor.setSize(null, 6 * editor.defaultTextHeight());
         }
     }
-    but.addEventListener("click", () => runCode(editor, out));
+    //but.addEventListener("click", () => runCode(editor, out));//run button without changing its color
     
     // Reset button
     if (buttons.length > 1){
@@ -52,6 +52,26 @@ for (var i = 0; i < exercises.length; i++) {
         });
     }
     editors.push(editor);
+    
+    //change color of run-button if the code has been run
+    //reset if code changes
+    editor.isDirty = true;
+
+    editor.on("change", () => {
+    if (!editor.isDirty) {
+      editor.isDirty = true;
+      //but.classList.remove("ran");   // remove "ran" state
+      but.textContent = "▶ Run";
+    }
+    });
+
+    // Run button
+    but.addEventListener("click", async () => {
+        await runCode(editor, out);
+        editor.isDirty = false;
+        //but.classList.add("ran");        // mark as "ran"
+        but.textContent = "✓ Run";
+    });
 }
 
 // solutions of exercises

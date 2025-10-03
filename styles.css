@@ -123,6 +123,11 @@ code {
   background: var(--c1);
 }
 
+.run-button.ran {
+  background: var(--c3);
+  opacity: .65;
+}
+
 .reset-button {
   background: var(--c1);
 }
