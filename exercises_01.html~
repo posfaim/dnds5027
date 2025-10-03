@@ -317,7 +317,7 @@ print("|| "*age)</textarea>
 
 <p> The following code has several problems, both substantially and in style. Fix the code!</p>
 
-<p>Submit your solution by copy-pasting it into the moodle assignment.</p>
+<p>Don't forget to <em>submit</em> your solution by copy-pasting it into the moodle assignment.</p>
 
 <textarea class="codeinput" linecount="10">
 weeks = "12"

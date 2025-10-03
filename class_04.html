@@ -139,7 +139,7 @@ print(l)</textarea><br>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
-<p>What happened above is that we called the <code>len</code> and we passed the string <code>"Bird is the word."</code> as an argument. The function <code>len</code> then returned the number of characters in the string as an integer (space and . included), which we stored in the variable <code>l</code>. Finally, we printed out the contents of <code>l</code> on the screen by calling the <code>print</code> function and passing <code>l</code> as an argument. The <code>print</code> function does not return anything.</p>
+<p>What happened above is that we called the <code>len</code> function and we passed the string <code>"Bird is the word."</code> as an argument. The <code>len</code> function then returned the number of characters in the string as an integer (space and . included), which we stored in the variable <code>l</code>. Finally, we printed out the contents of <code>l</code> on the screen by calling the <code>print</code> function and passing <code>l</code> as an argument. The <code>print</code> function does not return anything.</p>
 
 <p>Let's save the string in a variable:</p>
 <div class="exercise" example>
@@ -163,10 +163,23 @@ print( s[10] )</textarea><br>
 <p>The square bracket <code>[]</code> is an operator that looks up the character at the index that it encloses.</p>
 
 
+<p>Expanding our Python toolkit, we also expand the types of error messages that we encounter! If you try to access an index that is out of range (in our example, anything larger than 16), you get an <code>IndexError</code>:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+print( s[19] )</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>As always when you get an error message, read it carefully, starting at the bottom.</p>
+
+
 <div class="exercise">
 <h2>Secret message</h2>
 
 <p>The following string contains a hidden message. To reveal the message print out every third character, starting with character at index 0.</p>
+
 
 <textarea class="codeinput" linecount="4">
 message = "Bono look!"</textarea><br>
@@ -184,6 +197,7 @@ print(secret)</textarea>
 </p>
 </details>
 </div>
+
 
 <p>You can also access characters of a string from the back:</p>
 <img src="images/string_reverse.png" style="display:block; margin: 0 auto;width: 70%; height: auto;">
@@ -217,6 +231,47 @@ print(s[12:]) # to the end</textarea><br>
 <pre class="output"></pre>
 </div>
 
+<p>The following bit of code imports the <code>requests</code> library that can be used to download webpages. We use this package to obtain Moby Dick and store it in a string.</p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+import requests # import package
+
+# download resource
+response = requests.get("https://posfaim.github.io/dnds5027/data/moby_dick-english.txt") # this returns a special object, not a string
+moby_dick = response.text # extract the contents of the webpage into a string</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<div class="exercise">
+<h2>First sentence</h2>
+
+<p>Use slicing to print out the famous first sentence of Moby Dick. You need to find the indices by trial and error.</p>
+
+<textarea class="codeinput" linecount="4">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+first_sentence = moby_dick[22:38]
+print(first_sentence)
+
+#or
+
+print(moby_dick[22:38])</textarea>
+</p>
+</details>
+</div>
+
+
 <h2>Methods</h2>
 
 <p>Methods are functions that are bound to an object, they provide a logical way to organize code: functions that are meant to manipulate a string come packaged together with a string.</p>
@@ -231,8 +286,252 @@ print(num_ds)</textarea><br>
 <h3>Output:</h3>
 <pre class="output"></pre>
 </div>
+
+
 <img src="images/string_method.png" style="display:block; margin: 0 auto;width: 55%; height: auto;">
 <br>
+<p>In order to call a method, we first write the objects name, followed by a dot "." and the name of the method. The same way as regular functions, we pass arguments to the method as input in parenthesis (). This is the data that the method will work with. There is one exception: a method always has access to the object that it belongs to, we do not have to pass it as an argument separately.</p>
+
+<p>The same way as regular functions, methods may or may not return something. In the above example the <code>count</code> method returns an integer number: the number of occurrences of "d" in the string.</p>
+
+<p>Strings come with many methods, here are some:</p>
+
+<p><code>.strip()</code></p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "  void  "
+print("There is a lot of space around the", s)
+new_s = s.strip() # remove whitespaces from the beginning and end
+
+print("There is no space around the", new_s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<br>
+
+<p><code>.replace()</code></p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "I am a dog person."
+print(s)
+
+new_s = s.replace("dog", "cat") # replace substring, this requires 2 arguments
+print(new_s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>Note that <code>.replace()</code> does not modify the original string <code>s</code>, instead it returns a brand new one that we store in the variable <code>new_s</code>.</p>
+<br>
+
+
+<p><code>.capitalize()</code></p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "nemecsek"
+print(s)
+
+new_s = s.capitalize() # this requires no arguments
+print(new_s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<br>
+
+<p><code>.find()</code></p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "educated cat"
+first_location = s.find("cat")
+print("The first occurrence of cat starts at index", first_location)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>What does <code>.find()</code> return if the string does not contain the substring that we are looking for?</p>
+
+<p>And there are many others, you can check more of them out <a href="https://www.w3schools.com/python/python_ref_string.asp" target="_blank">here</a>.</p>
+
+<div class="exercise">
+<h2>Remove a doctorate</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/P%C3%A1l_Schmitt" target="_blank">Pál Schmitt</a> received his doctorate in 1992; it later became clear, however, that 200 out of 215 pages were plagiarized. Figure our how to use the <code>replace()</code> string method to remove "Dr." from his name.</p>
+
+<textarea class="codeinput" linecount="4">
+president = 'Dr. Pál Schmitt'
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+expresident = president.replace('Dr. ','')
+print(expresident)</textarea>
+</p>
+</details>
+</div>
+
+<h2>f-strings</h2>
+
+<p>Sometimes, we would like to insert a number into a string to print out a message that depends on a variable. For example, we did things like this:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+num_diners = 7
+num_pizzas = 12
+
+message = "The " + str(num_diners)+" diners get " + str(num_pizzas/num_diners) + " pizzas each."
+print(message)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>This method is cumbersome, difficult to read and not too flexible. Therefore, Python has a better way to insert variables into strings and format them called f-strings.</p>
+
+<div class="exercise" example>
+<textarea class="codeinput">
+message = f"The {num_diners} diners get {num_pizzas/num_diners} pizzas each."
+print(message)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>f-strings are pleasantly simple: we prepend the definition of a string with the letter <code>f</code>, allowing us to include variables inside the string encased in curly brackets <code>{}</code>. f-strings also allow formatting options, for example, we can specify the number of digits of a float that we would like to display.</p>
+
+
+<div class="exercise" example>
+<textarea class="codeinput">
+message = f"The {num_diners} diners get {num_pizzas/num_diners:.3f} pizzas each."
+print(message)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>You can find more f-string formatting options <a href="https://docs.python.org/3/tutorial/inputoutput.html#tut-f-strings" target="_blank">here</a>.</p>
+
+<div class="exercise">
+<h2>Recipe scaling</h2>
+
+<p>You can make peanut butter cookies from just three ingredients (according to some blog that I found). To make a dozen cookies, you need one cup of peanut butter, 1/2 cup of sugar and one egg. Write a function that takes the number of cookies you would like to cook and prints out the amount of each ingredient needed up to 2 digits precision.</p>
+
+<p>The function should not return anything.</p>
+
+<p>Extra task: if you have time, figure out how to round up the number of eggs to the next integer (e.g., 2.8 rounds up to 3 or 1.2 rounds up to 2). The function that does this is called the ceiling function in mathematics, look it up in the <code>math</code> module.</p>
+
+<textarea class="codeinput" linecount="14">
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def cookie_ingredients(num_cookies):
+    peanut_butter = 1 * num_cookies/12
+    sugar = 0.5 * num_cookies/12
+    eggs = 1 * num_cookies/12
+    
+    print( f"You need {peanut_butter:.2f} cups of peanut butter, {sugar:.2f} cups of sugar, and {eggs:.2f} eggs.")
+    
+    return # return nothing
+    
+cookie_ingredients(6)
+
+# with extra task
+import math
+
+def cookie_ingredients(num_cookies):
+    peanut_butter = 1 * num_cookies/12
+    sugar = 0.5 * num_cookies/12
+    eggs = np.ceil(1 * num_cookies/12)
+    
+    print( f"You need {peanut_butter:.2f} cups of peanut butter, {sugar:.2f} cups of sugar, and {eggs:.0} eggs.")
+    
+    return # return nothing
+
+cookie_ingredients(12)
+cookie_ingredients(13)</textarea>
+</p>
+</details>
+</div>
+
+
+<h2>Escape sequences</h2>
+
+<p>Sometimes we need to include a character in our string that cannot be typed in the Python code because it has a special meaning. The most common example of this is including a line break: if we hit enter, it starts a new line in the code and we get an error message:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "Do I contradict myself?
+Very well then I contradict myself,
+(I am large, I contain multitudes.)"
+
+print(s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>We can include line breaks using a so-called escape sequence: <code>"\n"</code></p> 
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "Do I contradict myself?\nVery well then I contradict myself,\n(I am large, I contain multitudes.)"
+
+print(s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+<p>The backslash <code>\</code> has a special meaning inside strings, it indicates that the next character should be interpreted as a placeholder for something that is not possible or impractical to be typed in directly. Another common one is <code>"\t"</code> substituting the tab (it is hard to type, since most editor insert four spaces instead of the actual tab character).</p>
+
+<p>Trick question: how to include an actual backslash (\)? </p>
+
+<div class="exercise">
+<h2>Escape</h2>
+
+<p>Create a string that when printed displays this on the screen:</p>
+<pre>
+And then the witch doctor, he told me what to do
+He said that
+"Ooh eee, ooh ah-ah, ting tang
+Walla-walla, bing-bang"
+</pre>
+
+<p>Quotation marks too! You'll need to figure that out or look it up.</p>
+
+<textarea class="codeinput" linecount="4">
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+lyrics = "And then the witch doctor, he told me what to do\nHe said that\n\"Ooh eee, ooh ah-ah, ting tang\nWalla-walla, bing-bang\""
+
+print(lyrics)</textarea>
+</p>
+</details>
+</div>
 
 <br><br><br><br><br>
 <p>We have reached the end of the new material. You can find more practice exercises <a href="exercises_04.html" target="_blank">here</a>.</p>

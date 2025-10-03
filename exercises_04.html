@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04 Exercises PfE</title>
+
+    <!-- CodeMirror styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.css">
+    <!-- CodeMirror scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/lib/codemirror.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.14/mode/python/python.js"></script>
+
+    <!-- pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    
+    <link rel="stylesheet" href="styles.css" >
+    
+    <style>
+    
+    .exercise:not([example]) {
+    border:0px solid #aaaaaa;
+    border-radius: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin: 0px;
+    }
+        
+    .exercise .CodeMirror {
+    height: 50vh;
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 04 Strings<br>
+Exercises</h1>
+
+<p id="loading">⏳</p>
+
+<div class="exercise">
+<h2>Cat counting</h2>
+
+<p>Write a function that takes a string <code>s</code> as an argument and prints out the message "The string s contains the word cat x times!", where replace "s" with the string and x with the number of occurrences of the word cat.</p>
+
+<p>The function should not return anything.</p>
+
+<textarea class="codeinput" linecount="8">
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def cat_counter(s):
+    n_cats = s.count("cat")
+    print( f"The string {s} contains the word cat {n_cats} times!")
+    
+    return # return nothing
+    
+cat_counter("The cat overcommunicates.")</textarea>
+</p>
+</details>
+</div>
+
+<div class="exercise">
+<h2>Elections</h2>
+
+<p> The election results are in! There were two candidates. Write a function that takes the names of the candidates and the number of votes that they recieved as parameters. The function should print out a message announcing the winner. If the vote is a tie, print out the message "Recount!". The function should not return anything.</p>
+
+<textarea class="codeinput" linecount="15">
+def elections(candidate1, votes1, candidate2, votes2):
+    # Write your solution here
+    
+    
+</textarea><br>
+
+    
+    
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def elections(candidate1, votes1, candidate2, votes2):
+    if votes1>votes2:
+        print("The winner is:", candidate1)
+    elif votes2>votes1:
+        print("The winner is:", candidate2)
+    else:
+        print("Recount!")
+    
+    return
+
+# Test all cases
+elections("Napoleon", 3, "Eve", 4)
+elections("Napoleon", 3, "Eve", 1)
+elections("Napoleon", 2, "Eve", 2)</textarea>
+</p>
+</details>
+</div>
+
+
+
+<div class="exercise" homework>
+<h2>HOMEWORK: TBD</h2>
+
+<p>TBD</p>
+
+
+<textarea class="codeinput" linecount="10">
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+
+<br><br><br><br><br>
+
+<script src="exercises.js"></script>
+
+</body>
+</html>

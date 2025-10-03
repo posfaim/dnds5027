@@ -507,9 +507,9 @@ else:
 <div class="exercise" homework>
 <h2>HOMEWORK: Goldilocks and her soup</h2>
 
-<p> Goldilocks likes her soup at the ideal temperature of 60 degrees Celsius.</p>
+<p> Goldilocks likes her soup at the <a href="https://ift.onlinelibrary.wiley.com/doi/full/10.1111/1750-3841.14699">ideal temperature</a> of 60 degrees Celsius.</p>
 
-<p>Write code that asks Goldilocks for a soup temperature (fractional temperatures allowed). Then the code prints out "Too cold!" if it is below 59C, "Too hot!" if it is above 61C, and "Just right!" otherwise.</p>
+<p>Write code that asks Goldilocks for a soup temperature (fractional temperatures allowed). Then the code prints out "Too cold!" if it is below 59°C, "Too hot!" if it is above 61°C, and "Just right!" otherwise.</p>
 
 
 <textarea class="codeinput" linecount="10">
