@@ -42,12 +42,78 @@ Exercises</h1>
 
 <p id="loading">⏳</p>
 
+<p>Load Moby Dick for latter usage:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+import requests # import package
+
+# download resource
+response = requests.get("https://posfaim.github.io/dnds5027/data/moby_dick-english.txt") # this returns a special object, not a string
+moby_dick = response.text # extract the contents of the webpage into a string</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+
+
+<div class="exercise">
+<h2>Last sentence of Moby Dick</h2>
+
+<p>You already printed out the first sentence of Moby Dick. Now find the last sentence!</p>
+
+<p><em>Hint</em>: Use negative indices to index charecters backwards from the end of the string.</p>
+
+<textarea class="codeinput" linecount="6">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+middle_index = len(moby_dick)//2 # // means integer part of the division. index cannot be float
+
+print(moby_dick[middle_index])</textarea>
+</p>
+</details>
+</div>
+
+
+<div class="exercise">
+<h2>Middle of Moby Dick</h2>
+
+<p>What text character can be found at the middle of Moby Dick?</p>
+
+<textarea class="codeinput" linecount="6">
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+middle_index = len(moby_dick)//2 # // means integer part of the division. index cannot be float
+
+print(moby_dick[middle_index])</textarea>
+</p>
+</details>
+</div>
+
 <div class="exercise">
 <h2>Cat counting</h2>
 
-<p>Write a function that takes a string <code>s</code> as an argument and prints out the message "The string s contains the word cat x times!", where replace "s" with the string and x with the number of occurrences of the word cat.</p>
+<p>Write a function that takes a string <code>s</code> as an argument and returns the number of occurrences of the word cat. Count both upper and lower case letters.</p>
 
 <p>The function should not return anything.</p>
+
+<p><em>Hint</em>: Take a look at the list of string methods <a href="https://www.w3schools.com/python/python_ref_string.asp" target="_blank">here</a>.</p>
 
 <textarea class="codeinput" linecount="8">
 
@@ -63,26 +129,26 @@ Exercises</h1>
 <p>
 <textarea class="solution">
 def cat_counter(s):
-    n_cats = s.count("cat")
-    print( f"The string {s} contains the word cat {n_cats} times!")
+    s_lower = s.lower()
+    n_cats = s_lower.count("cat")
+    print( f"The string \"{s}\" contains the word cat {n_cats} times!")# escape " to include inside string
     
     return # return nothing
     
-cat_counter("The cat overcommunicates.")</textarea>
+cat_counter("The Cat overcommunicates.")</textarea>
 </p>
 </details>
 </div>
 
+
 <div class="exercise">
-<h2>Elections</h2>
+<h2>Date conversion</h2>
 
-<p> The election results are in! There were two candidates. Write a function that takes the names of the candidates and the number of votes that they recieved as parameters. The function should print out a message announcing the winner. If the vote is a tie, print out the message "Recount!". The function should not return anything.</p>
+<p>You are supplied with historical dates as strings in the format "753 BC" and "1992 AD". Write a function that takes a date as an argument and converts it into a signed number. For example, "753 BC" -> -753 and "1992 AD" -> 1992.</p>
 
-<textarea class="codeinput" linecount="15">
-def elections(candidate1, votes1, candidate2, votes2):
-    # Write your solution here
-    
-    
+<p><em>Hint</em>: use slices to separate the year from the "BC" and "AD".</p>
+
+<textarea class="codeinput" linecount="12">
 </textarea><br>
 
     
@@ -95,20 +161,15 @@ def elections(candidate1, votes1, candidate2, votes2):
 <details><summary>Solution</summary>
 <p>
 <textarea class="solution">
-def elections(candidate1, votes1, candidate2, votes2):
-    if votes1>votes2:
-        print("The winner is:", candidate1)
-    elif votes2>votes1:
-        print("The winner is:", candidate2)
+def date_coversion(date_string):
+    year = int(date_string[:-3])
+    if date_string[-2:]=="BC":
+        return -year
     else:
-        print("Recount!")
-    
-    return
+        return  year
 
-# Test all cases
-elections("Napoleon", 3, "Eve", 4)
-elections("Napoleon", 3, "Eve", 1)
-elections("Napoleon", 2, "Eve", 2)</textarea>
+print( date_coversion("753 BC") )
+print( date_coversion("1992 AD") )</textarea>
 </p>
 </details>
 </div>

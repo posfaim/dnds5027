@@ -533,6 +533,58 @@ print(lyrics)</textarea>
 </details>
 </div>
 
+<div class="exercise">
+<h2>Guessing Moby Dick</h2>
+
+<p>Challenge your classmates to a friendly game of guess-the-word-count-in-Moby-Dick! Write a function that takes a word as an argument, then using the <code>input()</code> function to ask two player to guess the number of times the word appears in Moby dick. The winner is whoever guessed closer. Print out a congratulatory message together with the guesses and the correct answer!</p>
+
+<p>The function should not return anything.</p>
+
+<textarea class="codeinput" linecount="26">
+
+
+</textarea><br>
+
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+def moby_dick_game(word, moby_dick):
+    player1 = int(input(f"Player 1: How many times does f{word} appear in Moby Dick?"))
+    player2 = int(input(f"Player 2: How many times does f{word} appear in Moby Dick?"))
+    
+    correct = moby_dick.count(word)
+    
+    print(f"Player 1's guess: {player1}")
+    print(f"Player 2's guess: {player2}")
+    
+    print(f"The correct answer is {correct}.")
+    
+    diff_player1 = abs(player1-correct)
+    diff_player2 = abs(player2-correct)
+    
+    
+    print("And the winner is:")
+    if diff_player1<diff_player2:
+        print("\t\tPlayer 1")
+    elif diff_player1>diff_player2:
+        print("\t\tPlayer 2")
+    else:
+        print("\t\tIt's a tie!")
+
+    return
+
+moby_dick_game("coffin", moby_dick)
+</textarea>
+</p>
+</details>
+</div>
+
+
 <br><br><br><br><br>
 <p>We have reached the end of the new material. You can find more practice exercises <a href="exercises_04.html" target="_blank">here</a>.</p>
 <br><br><br><br><br>
