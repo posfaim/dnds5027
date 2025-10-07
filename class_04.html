@@ -380,6 +380,55 @@ print(expresident)</textarea>
 </details>
 </div>
 
+<h2>Chaining methods</h2>
+
+<p>When you modify a string with a method (for example, with <code>.replace()</code> or <code>.capitalize()</code>) a new string is created and the original remains unchange:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "Vera is four years old."
+new_s = s.replace("four", "five")
+print("Original string:", s)
+print("New string:", new_s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>If you would like to change the original, you can overwrite it:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "Vera is four years old."
+s = s.replace("four", "five")
+print("The string s changed:", s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>Sometimes you need to make multiple chages:</p>
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "Vera is four years old."
+s = s.replace("four", "five")
+s = s.replace(".","!")
+print(s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+<p>You can do multiple changes in one line by chaining the methods:
+<div class="exercise" example>
+<textarea class="codeinput">
+s = "Vera is four years old."
+s = s.replace("four", "five").replace(".","!")
+print(s)</textarea><br>
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+<h3>Output:</h3>
+<pre class="output"></pre>
+</div>
+
+
 <h2>f-strings</h2>
 
 <p>Sometimes, we would like to insert a number into a string to print out a message that depends on a variable. For example, we did things like this:</p>
