@@ -42,6 +42,39 @@ Exercises</h1>
 
 <p id="loading">⏳</p>
 
+
+<div class="exercise">
+<h2>Change of heart</h2>
+
+<p>In an alternative ending to Romeo and Juliet, Romeo passes away and Juliet moves on. She eventually finds a new love interest called Carl. Help her update her repertoire by replacing Romeo Montague with Carl Miller.</p>
+
+<textarea class="codeinput" linecount="12">
+monologue = """O Romeo, Romeo, wherefore art thou Romeo?
+Deny thy father and refuse thy name.
+Or if thou wilt not, be but sworn my love
+And I’ll no longer be a Capulet.
+‘Tis but thy name that is my enemy:
+Thou art thyself, though not a Montague.
+"""
+</textarea><br>
+
+    
+    
+<div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
+
+<h3>Output:</h3>
+<pre class="output"></pre>
+
+<details><summary>Solution</summary>
+<p>
+<textarea class="solution">
+monologue = monologue.replace("Romeo","Carl").replace("Montague", "Miller")
+
+print( monologue )</textarea>
+</p>
+</details>
+</div>
+
 <p>Load Moby Dick for latter usage:</p>
 <div class="exercise" example>
 <textarea class="codeinput">
@@ -58,13 +91,13 @@ moby_dick = response.text # extract the contents of the webpage into a string</t
 
 
 <div class="exercise">
-<h2>Last sentence of Moby Dick</h2>
+<h2>Ending of Moby Dick</h2>
 
 <p>You already printed out the first sentence of Moby Dick. Now find the last sentence!</p>
 
 <p><em>Hint</em>: Use negative indices to index charecters backwards from the end of the string.</p>
 
-<textarea class="codeinput" linecount="6">
+<textarea class="codeinput" linecount="4">
 </textarea><br>
 
 <div class="button-row"><button class="run-button" disabled>▶ Run</button> <button class="reset-button">↻</button></div>
@@ -75,9 +108,7 @@ moby_dick = response.text # extract the contents of the webpage into a string</t
 <details><summary>Solution</summary>
 <p>
 <textarea class="solution">
-middle_index = len(moby_dick)//2 # // means integer part of the division. index cannot be float
-
-print(moby_dick[middle_index])</textarea>
+print(moby_dick[-121:])</textarea>
 </p>
 </details>
 </div>
@@ -109,9 +140,10 @@ print(moby_dick[middle_index])</textarea>
 <div class="exercise">
 <h2>Cat counting</h2>
 
-<p>Write a function that takes a string <code>s</code> as an argument and returns the number of occurrences of the word cat. Count both upper and lower case letters.</p>
+<p>Write a function that takes a string <code>s</code> as an argument and prints out the number of occurrences of the word cat. Count both upper and lower case letters.</p>
 
-<p>The function should not return anything.</p>
+<p>For example, for the argument <code>"The Cat overcommunicates."</code> the function should print out:</p>
+<pre>The string "The Cat overcommunicates." contains the word cat 2 times!</pre>
 
 <p><em>Hint</em>: Take a look at the list of string methods <a href="https://www.w3schools.com/python/python_ref_string.asp" target="_blank">here</a>.</p>
 
@@ -146,7 +178,7 @@ cat_counter("The Cat overcommunicates.")</textarea>
 
 <p>You are supplied with historical dates as strings in the format "753 BC" and "1992 AD". Write a function that takes a date as an argument and converts it into a signed number. For example, "753 BC" -> -753 and "1992 AD" -> 1992.</p>
 
-<p><em>Hint</em>: use slices to separate the year from the "BC" and "AD".</p>
+<p><em>Hint</em>: use slices to separate the year from "BC" and "AD".</p>
 
 <textarea class="codeinput" linecount="12">
 </textarea><br>
@@ -177,10 +209,19 @@ print( date_coversion("1992 AD") )</textarea>
 
 
 <div class="exercise" homework>
-<h2>HOMEWORK: TBD</h2>
+<h2>HOMEWORK: Time conversion</h2>
 
-<p>TBD</p>
+<p>Write a function that takes a string as an argument wich contains the time in AM/PM format and converts it to 24-hour format, for example:</p>
+<pre>
+"11:12 AM" -> "11:12"
+"02:30 PM" -> "14:30"
+</pre>
 
+<p>You can assume that string passed as an argument always contains 9 characters: 0-1 is the hours, 3 is a ":", 4-5 are the minutes, 6 is a " ", and 7-8 is "AM" or "PM".</p>
+
+<p>The function should return the new string.</p>
+
+<p><em>Hint</em>: Use slicing to isolate the different parts of input string and use an f-string to create the new timestamp.</p>
 
 <textarea class="codeinput" linecount="10">
 
