@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generator</title>
+
+  <style>
+    :root {
+          --c1: #F0BC01;
+          --c2: #E34B4C;
+          --c3: #4BE375;
+          --c4: #4B59E3;
+          --c5: #5E8E6B;
+          --c6: #636053;
+
+        }
+        
+      body {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 75vh;
+          %background: linear-gradient(to bottom right, #e0e7ff, #fdf2f8);
+        }
+        
+      h1 {
+          font-family: Roboto, Arial, sans-serif;
+          font-weight: 300;
+                font-size: 2em;
+          color: var(--c2);
+          background: var(--bg);
+        }
+      button {
+          appearance: none;
+          border: 1px solid var(--border);
+          border-radius: 2px;
+          padding: 8px 14px;
+          font-size: 90%;
+          cursor: pointer;
+          transition: transform .02s ease, box-shadow .15s ease;
+          box-shadow: 0 1px 2px rgba(0,0,0,.04);
+          background: var(--c1);
+        }
+    #sentence {
+        font-family: "Lato", sans-serif;
+        padding: 24px;
+        max-width: 600px;
+        font-weight: 300;
+        margin: 0 auto;
+      font-size: 1.6em;
+      text-align: center;
+      margin: 20px;
+      color: #111;
+    
+  </style>
+</head>
+<body>
+  <h1>Digital Humanities strategy</h1>
+  <br>
+  <br>
+  <div id="sentence"><br>...</div>
+  <button onclick="generateSentence()">Say something smart!</button>
+
+  <script>
+    const l_sub = [
+      'Members of the SLT',
+      'Inter-departmental committees',
+      'Student representatives',
+      'Peer reviewers',
+      'Digital humanists',
+      'Major stakeholders'
+    ];
+
+    const l_verb1 = ['must', 'need to', 'would love to', 'are too ignorant to'];
+    const l_verb2 = ['understand', 'increase', 'incorporate', 'elevate', 'herald in the age of'];
+    const l_adj = ['digital', 'epistemological', 'multi-layered', 'the essence of', 'AI-driven', 'quantifiable'];
+    const l_obj = [
+      'ontologies',
+      'visual storytelling',
+      'computational resource building',
+      'interoperations',
+      'graphical excellence',
+      'synergistic opportunities'
+    ];
+
+    function randomChoice(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function generateSentence() {
+      const sentence =
+        `${randomChoice(l_sub)} ` +
+        `${randomChoice(l_verb1)} ` +
+        `${randomChoice(l_verb2)} ` +
+        `${randomChoice(l_adj)} ` +
+        `${randomChoice(l_obj)}!`;
+
+      document.getElementById('sentence').textContent = sentence;
+    }
+  </script>
+</body>
+</html>
+
