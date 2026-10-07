@@ -13,7 +13,7 @@
     <!-- pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
     
-    <link rel="../stylesheet" href="styles.css" >
+    <link rel="stylesheet" href="../styles.css" >
 </head>
 
 
@@ -509,9 +509,9 @@ import math
 def cookie_ingredients(num_cookies):
     peanut_butter = 1 * num_cookies/12
     sugar = 0.5 * num_cookies/12
-    eggs = np.ceil(1 * num_cookies/12)
+    eggs = math.ceil(1 * num_cookies/12)
     
-    print( f"You need {peanut_butter:.2f} cups of peanut butter, {sugar:.2f} cups of sugar, and {eggs:.0} eggs.")
+    print( f"You need {peanut_butter:.2f} cups of peanut butter, {sugar:.2f} cups of sugar, and {eggs} eggs.")
     
     return # return nothing
 
