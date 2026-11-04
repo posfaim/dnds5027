@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>07 Quiz PfE</title>
+
+    <link rel="stylesheet" href="../styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 07 Dictionaries<br>
+Quiz</h1>
+
+<p>Check yourself: answer without running the code. Your first click counts.</p>
+
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Looking up a value</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>d = {"a": 1, "b": 2}
+print(d["b"])</code></pre>
+
+<ul class="choices">
+<li><code>b</code></li>
+<li><code>2</code></li>
+<li><code>1</code></li>
+<li><code>KeyError</code></li>
+</ul>
+
+<div class="explanation">
+<p>The key <code>"b"</code> is used to look up its value, <code>2</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Missing key</h2>
+
+<p>What happens when you run this code?</p>
+
+<pre><code>d = {"a": 1}
+print(d["c"])</code></pre>
+
+<ul class="choices">
+<li>It prints <code>0</code>.</li>
+<li>Nothing, the line is skipped.</li>
+<li><code>KeyError</code></li>
+<li>It prints <code>c</code>.</li>
+</ul>
+
+<div class="explanation">
+<p>The dictionary has no key <code>"c"</code>. You may check first with <code>if "c" in d:</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Changing and adding</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>d = {"a": 1}
+d["a"] = 5
+d["b"] = 2
+print(d)</code></pre>
+
+<ul class="choices">
+<li><code>{'a': 5, 'b': 2}</code></li>
+<li><code>{'a': 1, 'b': 2}</code></li>
+<li><code>{'a': 1, 'a': 5, 'b': 2}</code></li>
+<li><code>KeyError</code></li>
+</ul>
+
+<div class="explanation">
+<p>Assigning to an existing key changes its value; assigning to a new key adds an entry. Keys are unique.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Length</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>print(len({"x": 10, "y": 20, "z": 30}))</code></pre>
+
+<ul class="choices">
+<li><code>6</code></li>
+<li><code>3</code></li>
+<li><code>60</code></li>
+<li><code>2</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>len</code> counts the entries (key: value pairs).</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>The in operator</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>ages = {"Ann": 31, "Bob": 25}
+print(25 in ages)</code></pre>
+
+<ul class="choices">
+<li><code>True</code></li>
+<li><code>Bob</code></li>
+<li><code>False</code></li>
+<li><code>KeyError</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>in</code> checks the keys, not the values. <code>"Bob" in ages</code> would be <code>True</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1,2,4">
+<h2>Keys</h2>
+
+<p>Which of these can be used as a dictionary key? Select all that apply, then press Check.</p>
+
+<ul class="choices">
+<li><code>"apple"</code></li>
+<li><code>42</code></li>
+<li><code>[1, 2]</code></li>
+<li><code>3.5</code></li>
+</ul>
+
+<div class="explanation">
+<p>Keys must be immutable: strings and numbers are fine, lists are not (<code>TypeError: unhashable type: 'list'</code>).</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>Looping with items</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>for k, v in {"a": 1, "b": 2}.items():
+    print(k, v)</code></pre>
+
+<ul class="choices">
+<li><code>a</code>, then <code>b</code></li>
+<li><code>1</code>, then <code>2</code></li>
+<li><code>ValueError</code></li>
+<li><code>a 1</code>, then <code>b 2</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>.items()</code> gives the key and the value together, so the loop has two variables.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>List of dictionaries</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>movies = [
+    {"title": "Up", "rating": 8},
+    {"title": "Cats", "rating": 2},
+]
+print(movies[1]["title"])</code></pre>
+
+<ul class="choices">
+<li><code>Cats</code></li>
+<li><code>Up</code></li>
+<li><code>2</code></li>
+<li><code>KeyError</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>movies[1]</code> is the second dictionary in the list (counting from 0), and <code>["title"]</code> looks up its title.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Why dictionaries?</h2>
+
+<p>Why use a dictionary instead of two lists (one for the keys, one for the values)?</p>
+
+<ul class="choices">
+<li>Lists cannot contain strings.</li>
+<li>A dictionary finds a value in a single step, no matter how large it is.</li>
+<li>With two lists it is impossible to find a value.</li>
+<li>A dictionary keeps its keys in alphabetical order.</li>
+</ul>
+
+<div class="explanation">
+<p>With two lists you have to check the keys one by one, which is slow for large data. A dictionary looks up a key directly.</p>
+</div>
+</div>
+
+
+<p id="quiz-score"></p>
+
+<button id="quiz-reset" class="run-button">↻ Start again</button>
+
+<p>More practice: <a href="../notebooks/exercises_07.ipynb">Exercises 07</a></p>
+
+<br><br><br>
+
+<script src="../quiz.js"></script>
+
+</body>
+</html>

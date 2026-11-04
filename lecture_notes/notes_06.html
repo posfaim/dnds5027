@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Session 06 — Loops</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f5f5f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } 
+code span.an { } 
+code span.at { } 
+code span.bn { color: #116644; } 
+code span.bu { color: #3300aa; } 
+code span.cf { color: #770088; } 
+code span.ch { color: #aa1111; } 
+code span.cn { } 
+code span.co { color: #aa5500; } 
+code span.cv { } 
+code span.do { color: #aa5500; } 
+code span.dt { } 
+code span.dv { color: #116644; } 
+code span.er { color: #ff0000; } 
+code span.ex { } 
+code span.fl { color: #116644; } 
+code span.fu { color: #0000ff; } 
+code span.im { color: #770088; } 
+code span.in { } 
+code span.kw { color: #770088; } 
+code span.op { } 
+code span.ot { } 
+code span.pp { } 
+code span.sc { color: #aa1111; } 
+code span.ss { color: #aa1111; } 
+code span.st { color: #aa1111; } 
+code span.va { color: #770088; } 
+code span.vs { color: #aa1111; } 
+code span.wa { } 
+</style>
+  <style type="text/css">
+@page {
+size: A4;
+margin: 18mm 18mm 20mm 18mm;
+}
+:root {
+
+--c1: #F0BC01; 
+--c2: #E34B4C; 
+--c3: #4BE375; 
+--c4: #4B59E3; 
+--c5: #5E8E6B;
+--c6: #636053;
+--text: #000;
+--muted: #636053;
+--code-bg: #f5f5f5;
+--output-bg: #f0f0f0;
+--border: #aaaaaa;
+--border-light: #cccccc;
+}
+html {
+font-size: 9.5pt;
+}
+body {
+font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+color: var(--text);
+background: #fff;
+line-height: 1.45;
+max-width: 52em;
+margin: 0 auto;
+padding: 0;
+}
+h1, h2, h3, p.subtitle {
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+}
+header#title-block-header {
+margin-bottom: 1.2em;
+}
+h1.title {
+font-size: 2.1em;
+margin: 0;
+color: var(--text);
+}
+p.subtitle {
+margin: 0.2em 0 0;
+color: var(--muted);
+font-size: 1.1em;
+}
+h2 {
+font-size: 1.55em;
+color: var(--text);
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+h3 {
+font-size: 1.25em;
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+p, li {
+orphans: 3;
+widows: 3;
+}
+ul, ol {
+padding-left: 1.4em;
+margin: 0.4em 0;
+}
+li {
+margin: 0.15em 0;
+}
+code {
+font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 0.05em 0.2em;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--border);
+border-left: 4px solid var(--c1);
+border-radius: 2px;
+padding: 0.4em 0.8em;
+margin: 0.4em 0 0.6em;
+overflow-x: auto;
+break-inside: avoid;
+}
+pre code {
+background: none;
+padding: 0;
+font-size: 0.88em;
+}
+
+div.sourceCode {
+break-inside: avoid;
+}
+
+div.sourceCode:has(+ pre.output),
+pre:has(+ pre.output) {
+break-after: avoid;
+margin-bottom: 0;
+}
+
+.pair.side {
+display: grid;
+grid-template-columns: minmax(55%, max-content) 1fr;
+gap: 0.5em;
+margin: 0.4em 0 0.6em;
+break-inside: avoid;
+}
+.pair.side > *,
+.pair.side pre {
+margin: 0;
+}
+.pair.side > div.sourceCode > pre {
+height: 100%;
+box-sizing: border-box;
+}
+
+pre.output {
+white-space: pre-wrap; 
+overflow-wrap: anywhere;
+background: var(--output-bg);
+border: 1px solid var(--border-light);
+margin-top: 0.2em;
+}
+pre.output::before {
+content: "Output:";
+display: block;
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+font-size: 0.95em;
+color: var(--text);
+margin-bottom: 0.15em;
+}
+
+.box {
+border: 1px solid var(--border);
+border-radius: 2px;
+padding: 0.2em 1em 0.5em;
+margin: 1.2em 0;
+}
+
+.box li {
+break-inside: avoid;
+}
+.box h3 {
+font-size: 1.45em;
+margin-top: 0.4em;
+}
+.mistakes h3 {
+color: var(--c2);
+}
+
+blockquote {
+margin: 0.8em 0;
+padding: 0.5em 0.9em;
+background: #fff;
+border: 1px solid var(--border-light);
+border-left: 4px solid var(--c3);
+border-radius: 2px;
+color: var(--text);
+}
+blockquote p {
+margin: 0;
+}
+blockquote strong:first-child {
+color: var(--c5);
+}
+table {
+border-collapse: collapse;
+margin: 0.7em 0 1em;
+break-inside: avoid;
+font-size: 0.95em;
+}
+th, td {
+border: 1px solid var(--border-light);
+padding: 0.15em 0.5em;
+vertical-align: top;
+}
+th {
+background: var(--code-bg);
+}
+a {
+color: var(--c4);
+}
+
+@media screen {
+html {
+font-size: 16px;
+}
+body {
+padding: 2em 1em 3em;
+}
+table {
+display: block;
+overflow-x: auto;
+}
+}
+
+@media screen and (max-width: 40em) {
+.pair.side {
+display: block;
+}
+.pair.side > * + * {
+margin-top: 0.2em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Session 06 — Loops</h1>
+<p class="subtitle">Python for Everyone · Lecture notes</p>
+</header>
+<blockquote>
+<p><strong>How to read the code boxes:</strong> grey boxes with a yellow
+bar contain Python code. The box labelled <strong>Output</strong> next
+to it (or below it) shows what Python prints when you run that code. In
+a Jupyter notebook, if the last line of a cell is just a value (like
+<code>titles</code> below), the notebook displays it; this is also shown
+as output.</p>
+</blockquote>
+<h2 id="why-loops">Why loops?</h2>
+<ul>
+<li>Repeating a command by copy-pasting it is cumbersome, hard to change
+and not very readable. And what if you need to repeat the code 30 or 3
+million times?</li>
+<li>A <strong>loop</strong> runs a piece of code again and again. Python
+has two kinds: <code>while</code> and <code>for</code>. Loops are an
+essential part of every programming language, so practise them!</li>
+</ul>
+<h2 id="the-while-loop">The <code>while</code> loop</h2>
+<ul>
+<li><code>while</code> repeats a block of code <strong>as long as a
+condition is <code>True</code></strong>.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> num <span class="op">&lt;=</span> <span class="dv">5</span>:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num, <span class="st">&quot;sheep&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    num <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<pre class="output"><code>1 sheep
+2 sheep
+3 sheep
+4 sheep
+5 sheep</code></pre>
+</div>
+<p><strong>Anatomy of a <code>while</code> loop:</strong></p>
+<ul>
+<li><code>num &lt;= 5</code> is the <strong>condition</strong>, checked
+before every round: <code>True</code> → run again, <code>False</code> →
+stop. The header line ends with a colon <code>:</code>.</li>
+<li>The <strong>indented</strong> block is the <strong>body</strong>:
+the code that is repeated.</li>
+<li><code>num</code> is a <strong>helper variable</strong> that keeps
+track of where we are. Updating it (<code>num += 1</code>) is what
+eventually makes the condition <code>False</code>.</li>
+</ul>
+<p><strong>Infinite loop:</strong> if the condition never becomes
+<code>False</code>, the loop never stops. Here <code>num</code> goes
+down instead of up, so <code>num &lt;= 10</code> stays
+<code>True</code>:</p>
+<div class="pair side">
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> num <span class="op">&lt;=</span> <span class="dv">10</span>:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    num <span class="op">-=</span> <span class="dv">1</span></span></code></pre></div>
+<pre class="output"><code>1
+0
+-1
+-2
+... (never stops)</code></pre>
+</div>
+<ul>
+<li>If this happens, interrupt Python: in Jupyter press the ■ (stop)
+button.</li>
+</ul>
+<h2 id="break"><code>break</code></h2>
+<ul>
+<li><code>while True:</code> would run forever, unless the body contains
+<code>break</code>.</li>
+<li><code>break</code> <strong>exits the loop immediately</strong>; the
+program continues after the loop.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>correct_password <span class="op">=</span> <span class="st">&quot;cat&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    password <span class="op">=</span> <span class="bu">input</span>(<span class="st">&quot;Enter password: &quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> password <span class="op">==</span> correct_password:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Access granted!&quot;</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span>    <span class="co"># leave the loop</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Wrong password, try again.&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>Enter password: dog
+Wrong password, try again.
+Enter password: cat
+Access granted!</code></pre>
+</div>
+<ul>
+<li>Compared with <code>while password != correct_password:</code>, this
+version needs only one <code>input()</code>, and the code asking for the
+password sits right next to the check.</li>
+</ul>
+<h2 id="the-for-loop">The <code>for</code> loop</h2>
+<ul>
+<li><code>for</code> goes through the elements of a container (e.g. a
+list) <strong>one by one</strong>.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>books <span class="op">=</span> [</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Moby Dick (1851)&#39;</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;The world according to Garp (1978)&#39;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Networks: an Introduction (2018)&#39;</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Portraits of Empires (2023)&#39;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> books:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(b[:<span class="op">-</span><span class="dv">7</span>])    <span class="co"># title without the year</span></span></code></pre></div>
+<pre class="output"><code>Moby Dick
+The world according to Garp
+Networks: an Introduction
+Portraits of Empires</code></pre>
+</div>
+<p><strong>Anatomy of a <code>for</code> loop:</strong></p>
+<ul>
+<li><code>for b in books:</code> is the <strong>header</strong>.
+<code>b</code> holds the <strong>current element</strong> (you choose
+its name); the <strong>indented</strong> body is repeated for every
+element.</li>
+<li><code>books</code> can be any <strong>iterable</strong>: a container
+that can serve up its elements one by one (list, string,
+<code>range</code>, …).</li>
+<li>The same could be done with <code>while</code> and an index helper
+variable (<code>books[i]</code>, <code>i += 1</code>, see class notebook
+for example), but <code>for</code> is simpler.</li>
+</ul>
+<p>A common pattern: start with an empty list and <code>append</code> to
+it in the loop:</p>
+<div class="pair">
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>titles <span class="op">=</span> []</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> books:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    titles.append(b[:<span class="op">-</span><span class="dv">7</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>titles</span></code></pre></div>
+<pre class="output"><code>[&#39;Moby Dick&#39;, &#39;The world according to Garp&#39;, &#39;Networks: an Introduction&#39;, &#39;Portraits of Empires&#39;]</code></pre>
+</div>
+<h2 id="iterating-over-other-container-objects">Iterating over other
+container objects</h2>
+<ul>
+<li>A <strong>string</strong> gives its characters one-by-one:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> char <span class="kw">in</span> <span class="st">&quot;Boo!&quot;</span>:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(char)</span></code></pre></div>
+<pre class="output"><code>B
+o
+o
+!</code></pre>
+</div>
+<ul>
+<li><code>range(n)</code> gives the whole numbers
+<code>0, 1, ..., n-1</code>:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i, <span class="st">&quot;sheep&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>0 sheep
+1 sheep
+2 sheep
+3 sheep
+4 sheep</code></pre>
+</div>
+<ul>
+<li><code>range(start, stop)</code>: like slicing, <code>start</code> is
+<strong>included</strong> and <code>stop</code> is
+<strong>excluded</strong>:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">6</span>):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+<pre class="output"><code>3
+4
+5</code></pre>
+</div>
+<ul>
+<li><code>range(len(L))</code> gives all valid indices of a list
+<code>L</code>: <code>for i in range(len(books)):</code> then use
+<code>books[i]</code> in the body.</li>
+<li>Later you will also iterate over dictionaries and over the rows of a
+file.</li>
+</ul>
+<h2 id="example-finding-the-maximum">Example: finding the maximum</h2>
+<ul>
+<li>Python has <code>max(nums)</code>, but let’s write it
+ourselves.</li>
+<li><strong>Make a plan first:</strong> how would you do it by hand?
+Remember the first number; look at each next number; if it is larger
+than the one you remember, remember it instead. At the end of the list
+you remember the largest number.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>nums <span class="op">=</span> [<span class="dv">34</span>, <span class="dv">42</span>, <span class="dv">5</span>, <span class="dv">8</span>]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="dv">0</span>              <span class="co"># helper: largest value so far</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> num <span class="kw">in</span> nums:</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> m <span class="op">&lt;</span> num:    <span class="co"># larger than the maximum so far?</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> num    <span class="co"># update the maximum</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div>
+<pre class="output"><code>42</code></pre>
+</div>
+<h2 id="nested-loops">Nested loops</h2>
+<ul>
+<li>A loop can contain another loop. The inner loop runs completely for
+<strong>every</strong> round of the outer loop.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i, j)</span></code></pre></div>
+<pre class="output"><code>0 0
+0 1
+0 2
+1 0
+1 1
+1 2</code></pre>
+</div>
+<h2 id="debugging">Debugging</h2>
+<ul>
+<li>Mistakes in loops are normal. To find them, <strong>print out
+variables inside the loop</strong> to see what happens in each
+round.</li>
+<li>In class we fixed a broken version of the sorting code: it removed
+the number from <code>sorted_nums</code> instead of <code>nums</code>,
+so <code>nums</code> never got shorter and the <code>while</code> loop
+never stopped.</li>
+</ul>
+<section id="common-mistakes" class="box mistakes">
+<h3>Common mistakes</h3>
+<ul>
+<li><strong>Missing colon:</strong> <code>while num &lt;= 5</code>
+without <code>:</code> at the end gives
+<code>SyntaxError: expected &#39;:&#39;</code>. The same goes for
+<code>for</code>.</li>
+<li><strong>Missing indentation:</strong> the body must be indented,
+otherwise you get
+<code>IndentationError: expected an indented block after &#39;while&#39; statement ...</code>.</li>
+<li><strong>Indenting too much:</strong> code meant to run
+<em>after</em> the loop (e.g. <code>print(&quot;Blast off!&quot;)</code>) must not
+be indented, otherwise it runs in every round.</li>
+<li><strong>Forgetting to update a helper variable</strong> (or changing
+it the wrong way). If you get an infinite loop, press ■ to stop it.</li>
+<li><strong>Off by one with <code>range</code>:</strong>
+<code>range(5)</code> is <code>0, 1, 2, 3, 4</code>, not
+<code>1, ..., 5</code>. For <code>1, ..., 5</code> use
+<code>range(1, 6)</code>.</li>
+</ul>
+</section>
+<h2 id="summary">Summary</h2>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term / code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>while condition:</code></td>
+<td>repeat the body as long as the condition is <code>True</code></td>
+</tr>
+<tr>
+<td><code>for x in container:</code></td>
+<td>repeat the body for every element; <code>x</code> is the current
+one</td>
+</tr>
+<tr>
+<td><code>IndentationError</code></td>
+<td>the body of a loop is not indented</td>
+</tr>
+<tr>
+<td>helper variable</td>
+<td>keeps track of the state (counter, maximum so far, …)</td>
+</tr>
+<tr>
+<td>infinite loop</td>
+<td>the condition never becomes <code>False</code>; stop it with ■</td>
+</tr>
+<tr>
+<td><code>while True:</code> + <code>break</code></td>
+<td>loop until <code>break</code> exits it</td>
+</tr>
+<tr>
+<td>iterable</td>
+<td>anything a <code>for</code> loop can go through: list, string,
+<code>range</code></td>
+</tr>
+<tr>
+<td><code>range(n)</code></td>
+<td><code>0, 1, ..., n-1</code></td>
+</tr>
+<tr>
+<td><code>range(a, b)</code></td>
+<td><code>a, a+1, ..., b-1</code></td>
+</tr>
+<tr>
+<td><code>range(len(L))</code></td>
+<td>all indices of the list <code>L</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Check yourself:</strong> take the short quiz on the course
+website: <a href="https://posfaim.github.io/dnds5027/web_classes/quiz_06.html">Quiz
+06</a>.</p>
+</body>
+</html>

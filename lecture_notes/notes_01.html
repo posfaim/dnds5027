@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Session 01 — Printing and variables</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f5f5f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } 
+code span.an { } 
+code span.at { } 
+code span.bn { color: #116644; } 
+code span.bu { color: #3300aa; } 
+code span.cf { color: #770088; } 
+code span.ch { color: #aa1111; } 
+code span.cn { } 
+code span.co { color: #aa5500; } 
+code span.cv { } 
+code span.do { color: #aa5500; } 
+code span.dt { } 
+code span.dv { color: #116644; } 
+code span.er { color: #ff0000; } 
+code span.ex { } 
+code span.fl { color: #116644; } 
+code span.fu { color: #0000ff; } 
+code span.im { color: #770088; } 
+code span.in { } 
+code span.kw { color: #770088; } 
+code span.op { } 
+code span.ot { } 
+code span.pp { } 
+code span.sc { color: #aa1111; } 
+code span.ss { color: #aa1111; } 
+code span.st { color: #aa1111; } 
+code span.va { color: #770088; } 
+code span.vs { color: #aa1111; } 
+code span.wa { } 
+</style>
+  <style type="text/css">
+@page {
+size: A4;
+margin: 18mm 18mm 20mm 18mm;
+}
+:root {
+
+--c1: #F0BC01; 
+--c2: #E34B4C; 
+--c3: #4BE375; 
+--c4: #4B59E3; 
+--c5: #5E8E6B;
+--c6: #636053;
+--text: #000;
+--muted: #636053;
+--code-bg: #f5f5f5;
+--output-bg: #f0f0f0;
+--border: #aaaaaa;
+--border-light: #cccccc;
+}
+html {
+font-size: 9.5pt;
+}
+body {
+font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+color: var(--text);
+background: #fff;
+line-height: 1.45;
+max-width: 52em;
+margin: 0 auto;
+padding: 0;
+}
+h1, h2, h3, p.subtitle {
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+}
+header#title-block-header {
+margin-bottom: 1.2em;
+}
+h1.title {
+font-size: 2.1em;
+margin: 0;
+color: var(--text);
+}
+p.subtitle {
+margin: 0.2em 0 0;
+color: var(--muted);
+font-size: 1.1em;
+}
+h2 {
+font-size: 1.55em;
+color: var(--text);
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+h3 {
+font-size: 1.25em;
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+p, li {
+orphans: 3;
+widows: 3;
+}
+ul, ol {
+padding-left: 1.4em;
+margin: 0.4em 0;
+}
+li {
+margin: 0.15em 0;
+}
+code {
+font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 0.05em 0.2em;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--border);
+border-left: 4px solid var(--c1);
+border-radius: 2px;
+padding: 0.4em 0.8em;
+margin: 0.4em 0 0.6em;
+overflow-x: auto;
+break-inside: avoid;
+}
+pre code {
+background: none;
+padding: 0;
+font-size: 0.88em;
+}
+
+div.sourceCode {
+break-inside: avoid;
+}
+
+div.sourceCode:has(+ pre.output),
+pre:has(+ pre.output) {
+break-after: avoid;
+margin-bottom: 0;
+}
+
+.pair.side {
+display: grid;
+grid-template-columns: minmax(55%, max-content) 1fr;
+gap: 0.5em;
+margin: 0.4em 0 0.6em;
+break-inside: avoid;
+}
+.pair.side > *,
+.pair.side pre {
+margin: 0;
+}
+.pair.side > div.sourceCode > pre {
+height: 100%;
+box-sizing: border-box;
+}
+
+pre.output {
+white-space: pre-wrap; 
+overflow-wrap: anywhere;
+background: var(--output-bg);
+border: 1px solid var(--border-light);
+margin-top: 0.2em;
+}
+pre.output::before {
+content: "Output:";
+display: block;
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+font-size: 0.95em;
+color: var(--text);
+margin-bottom: 0.15em;
+}
+
+.box {
+border: 1px solid var(--border);
+border-radius: 2px;
+padding: 0.2em 1em 0.5em;
+margin: 1.2em 0;
+}
+
+.box li {
+break-inside: avoid;
+}
+.box h3 {
+font-size: 1.45em;
+margin-top: 0.4em;
+}
+.mistakes h3 {
+color: var(--c2);
+}
+
+blockquote {
+margin: 0.8em 0;
+padding: 0.5em 0.9em;
+background: #fff;
+border: 1px solid var(--border-light);
+border-left: 4px solid var(--c3);
+border-radius: 2px;
+color: var(--text);
+}
+blockquote p {
+margin: 0;
+}
+blockquote strong:first-child {
+color: var(--c5);
+}
+table {
+border-collapse: collapse;
+margin: 0.7em 0 1em;
+break-inside: avoid;
+font-size: 0.95em;
+}
+th, td {
+border: 1px solid var(--border-light);
+padding: 0.15em 0.5em;
+vertical-align: top;
+}
+th {
+background: var(--code-bg);
+}
+a {
+color: var(--c4);
+}
+
+@media screen {
+html {
+font-size: 16px;
+}
+body {
+padding: 2em 1em 3em;
+}
+table {
+display: block;
+overflow-x: auto;
+}
+}
+
+@media screen and (max-width: 40em) {
+.pair.side {
+display: block;
+}
+.pair.side > * + * {
+margin-top: 0.2em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Session 01 — Printing and variables</h1>
+<p class="subtitle">Python for Everyone · Lecture notes</p>
+</header>
+<blockquote>
+<p><strong>How to read the code boxes:</strong> grey boxes with a yellow
+bar contain Python code. The box labelled <strong>Output</strong> next
+to it (or below it) shows what Python prints when you run that code.</p>
+</blockquote>
+<h2 id="what-is-a-program">What is a program?</h2>
+<ul>
+<li>A <strong>program</strong> is a series of instructions
+(<strong>commands</strong>) that the computer carries out <strong>one by
+one, from top to bottom</strong>.</li>
+<li>A program takes some <strong>input</strong> (keyboard, file,
+internet, …), processes it, and produces some <strong>output</strong>
+(screen, file, …).</li>
+<li><strong>Python</strong> is a programming language: a precise way of
+writing these instructions so that the computer understands them.</li>
+</ul>
+<h2 id="printing">Printing</h2>
+<ul>
+<li><code>print(...)</code> displays a message on the screen.</li>
+<li>Text must be inside quotation marks <code>&quot;...&quot;</code> (or
+<code>&#39;...&#39;</code>).</li>
+<li>Several commands are executed in the order they appear.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Hello.&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Ding-dong! The Witch is dead&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>Hello.
+Ding-dong! The Witch is dead</code></pre>
+</div>
+<ul>
+<li><strong>Syntax</strong> = the rules for how code must be written.
+Even a small deviation, like a missing quotation mark, makes Python stop
+with a <code>SyntaxError</code>:</li>
+</ul>
+<div class="pair">
+<pre class="text"><code>print(&quot;Hello.)</code></pre>
+<pre class="output"><code>SyntaxError: unterminated string literal (detected at line 1)</code></pre>
+</div>
+<ul>
+<li>Error messages are normal — everyone gets them all the time. Read
+them: they tell you <em>what</em> went wrong and on <em>which
+line</em>.</li>
+</ul>
+<h2 id="numbers-and-strings">Numbers and strings</h2>
+<ul>
+<li>Text in Python is called a <strong>string</strong> (a “string of
+characters”).</li>
+<li>Numbers are written <strong>without</strong> quotation marks.
+<code>print</code> can show several items at once, separated by
+commas.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">1</span>, <span class="dv">100</span>, <span class="op">-</span><span class="dv">3</span>)</span></code></pre></div>
+<pre class="output"><code>1 100 -3</code></pre>
+</div>
+<ul>
+<li><code>1</code> (a number) and <code>&quot;1&quot;</code> (a string) look the
+same when printed, but Python treats them differently. You can do
+arithmetic with numbers:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">1</span> <span class="op">+</span> <span class="dv">3</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">8</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">-</span> <span class="dv">12</span>)</span></code></pre></div>
+<pre class="output"><code>4
+12</code></pre>
+</div>
+<ul>
+<li>Some operators also work on strings, but they mean something
+different:</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Hello &quot;</span> <span class="op">+</span> <span class="st">&quot;world&quot;</span>)   <span class="co"># + joins (concatenates) strings</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">5</span> <span class="op">*</span> <span class="st">&quot;he&quot;</span>)             <span class="co"># * with a whole number repeats a string</span></span></code></pre></div>
+<pre class="output"><code>Hello world
+hehehehehe</code></pre>
+</div>
+<ul>
+<li>Subtracting strings (<code>&quot;Hello&quot; - &quot;o&quot;</code>) or multiplying two
+strings (<code>&quot;A&quot; * &quot;B&quot;</code>) gives a <code>TypeError</code>.</li>
+</ul>
+<h2 id="comments">Comments</h2>
+<ul>
+<li>Anything after a <code>#</code> on a line is a
+<strong>comment</strong>: Python ignores it.</li>
+<li>Comments are notes for humans that explain what the code does.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display a friendly message</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Don&#39;t panic!&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>Don&#39;t panic!</code></pre>
+</div>
+<ul>
+<li>Readable code is important. It makes it easier to avoid mistakes,
+easier to fix them, and easier for others (or future you) to reuse the
+code.</li>
+</ul>
+<h2 id="variables">Variables</h2>
+<ul>
+<li>So far the values were <strong>hard coded</strong> (typed directly
+into the program). <strong>Variables</strong> make programs
+flexible.</li>
+<li>A variable is like a labelled bucket that holds a value (e.g. a
+string or a number). We refer to the value by the variable’s name.</li>
+<li><code>=</code> is the <strong>assignment operator</strong>: it puts
+the value on the right into the variable on the left. (It does
+<em>not</em> mean “equals” as in maths.)</li>
+<li>The value of a variable can change while the program runs.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">&quot;Count Dracula&quot;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>favorite_food <span class="op">=</span> <span class="st">&quot;blood&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(name <span class="op">+</span> <span class="st">&quot; loves &quot;</span> <span class="op">+</span> favorite_food <span class="op">+</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">&quot;A mosquito&quot;</span>            <span class="co"># change the value</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(name <span class="op">+</span> <span class="st">&quot; loves &quot;</span> <span class="op">+</span> favorite_food <span class="op">+</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>Count Dracula loves blood.
+A mosquito loves blood.</code></pre>
+</div>
+<ul>
+<li><code>input(...)</code> asks the user to type something; the answer
+is always a <strong>string</strong>, which we can store in a
+variable:</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="bu">input</span>(<span class="st">&quot;What is your name?&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;What&#39;s up,&quot;</span>, name)</span></code></pre></div>
+<p><strong>Naming rules</strong> (breaking them is an error):</p>
+<ul>
+<li>Only letters, digits and underscores: <code>a-z</code>,
+<code>A-Z</code>, <code>0-9</code>, <code>_</code></li>
+<li>Cannot start with a digit: <code>2nd_name</code> is not allowed</li>
+<li>Case sensitive: <code>Name</code> and <code>name</code> are two
+different variables</li>
+</ul>
+<p><strong>Good style</strong> (not enforced, but strongly
+recommended):</p>
+<ul>
+<li>Short but descriptive names: <code>favorite_food</code>, not
+<code>ff</code> or <code>x2</code></li>
+<li>Use <strong>snake case</strong>: lowercase words joined by
+underscores</li>
+</ul>
+<h2 id="integers-and-floats">Integers and floats</h2>
+<ul>
+<li>There are two main types of numbers:
+<ul>
+<li><strong>integer</strong> (<code>int</code>): whole numbers,
+e.g. <code>5</code>, <code>-3</code></li>
+<li><strong>float</strong> (<code>float</code>): numbers with a
+fractional part, e.g. <code>1.65</code>, <code>0.5</code></li>
+</ul></li>
+<li><code>type(...)</code> tells you the type of a value.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(x))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x <span class="op">/</span> y, <span class="bu">type</span>(x <span class="op">/</span> y))</span></code></pre></div>
+<pre class="output"><code>&lt;class &#39;int&#39;&gt;
+0.7142857142857143 &lt;class &#39;float&#39;&gt;</code></pre>
+</div>
+<ul>
+<li>In <code>x + y</code>, the <code>+</code> is an
+<strong>operator</strong> and <code>x</code>, <code>y</code> are its
+<strong>operands</strong>.</li>
+<li><code>+</code>, <code>-</code>, <code>*</code> on two integers give
+an integer; division <code>/</code> <strong>always</strong> gives a
+float (<code>6 / 3</code> is <code>2.0</code>).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Operator</th>
+<th>Meaning</th>
+<th>Example</th>
+<th style="text-align: right;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>+</code></td>
+<td>addition</td>
+<td><code>17 + 5</code></td>
+<td style="text-align: right;"><code>22</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>-</code></td>
+<td>subtraction</td>
+<td><code>17 - 5</code></td>
+<td style="text-align: right;"><code>12</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>*</code></td>
+<td>multiplication</td>
+<td><code>17 * 5</code></td>
+<td style="text-align: right;"><code>85</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/</code></td>
+<td>division</td>
+<td><code>17 / 5</code></td>
+<td style="text-align: right;"><code>3.4</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>//</code></td>
+<td>integer part of division</td>
+<td><code>17 // 5</code></td>
+<td style="text-align: right;"><code>3</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>%</code></td>
+<td>remainder of division</td>
+<td><code>17 % 5</code></td>
+<td style="text-align: right;"><code>2</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>**</code></td>
+<td>power</td>
+<td><code>2 ** 3</code></td>
+<td style="text-align: right;"><code>8</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Order of operations</strong> (same as in maths), from first
+to last:</p>
+<ol type="1">
+<li><code>( )</code> parentheses</li>
+<li><code>**</code></li>
+<li><code>*</code>, <code>/</code>, <code>//</code>, <code>%</code></li>
+<li><code>+</code>, <code>-</code></li>
+</ol>
+<div class="pair side">
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span><span class="dv">3</span> <span class="op">+</span> <span class="dv">10</span><span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span>)<span class="op">*</span><span class="dv">3</span> <span class="op">+</span> <span class="dv">10</span><span class="op">/</span><span class="dv">2</span>)</span></code></pre></div>
+<pre class="output"><code>12.0
+14.0</code></pre>
+</div>
+<ul>
+<li>When in doubt, use parentheses!</li>
+</ul>
+<h2 id="changing-variables">Changing variables</h2>
+<ul>
+<li>A variable can be given a new value at any time — even of a
+different type.</li>
+<li><code>x += 1</code> is a shorthand for <code>x = x + 1</code>.
+Similarly: <code>-=</code>, <code>*=</code>, <code>/=</code>.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&quot;apple&quot;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x, <span class="bu">type</span>(x))</span></code></pre></div>
+<pre class="output"><code>13
+apple &lt;class &#39;str&#39;&gt;</code></pre>
+</div>
+<h2 id="type-conversion">Type conversion</h2>
+<ul>
+<li><code>int(...)</code> and <code>float(...)</code> convert a value to
+an integer or a float.</li>
+<li>Converting a float to an integer <strong>cuts off</strong> the
+fractional part (no rounding): <code>int(12.3)</code> is
+<code>12</code>.</li>
+<li>Common use: turning a string into a number, so we can calculate with
+it.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;42&quot;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="bu">int</span>(s)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>i <span class="op">*=</span> <span class="dv">2</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(i)</span></code></pre></div>
+<pre class="output"><code>84</code></pre>
+</div>
+<ul>
+<li>Since <code>input</code> always gives a string, convert it before
+doing maths:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="bu">input</span>(<span class="st">&quot;Please, provide a number&quot;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">float</span>(s)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The square of&quot;</span>, f, <span class="st">&quot;is&quot;</span>, f<span class="op">**</span><span class="dv">2</span>)</span></code></pre></div>
+<pre class="output"><code>(typing 3)
+The square of 3.0 is 9.0</code></pre>
+</div>
+<ul>
+<li>If the string is not a number, the conversion fails:
+<code>int(&quot;abc&quot;)</code> gives a <code>ValueError</code>.</li>
+</ul>
+<section id="common-mistakes" class="box mistakes">
+<h3>Common mistakes</h3>
+<ul>
+<li><strong>Missing quotation mark or parenthesis:</strong>
+<code>print(&quot;Hello.)</code> or <code>print(&quot;Hello.&quot;</code> gives a
+<code>SyntaxError</code>. Every opening <code>&quot;</code> and
+<code>(</code> needs a closing one.</li>
+<li><strong>Quoting a variable name:</strong> <code>print(&quot;name&quot;)</code>
+prints the word <em>name</em>, while <code>print(name)</code> prints the
+value stored in the variable <code>name</code>.</li>
+<li><strong>Joining a string and a number with <code>+</code>:</strong>
+<code>&quot;Age: &quot; + 30</code> gives
+<code>TypeError: can only concatenate str (not &quot;int&quot;) to str</code>. Use
+a comma instead: <code>print(&quot;Age:&quot;, 30)</code>.</li>
+<li><strong>Forgetting that <code>input</code> gives a string:</strong>
+<code>age = input(&quot;Age?&quot;)</code> followed by <code>age + 1</code> gives
+a <code>TypeError</code>. Convert it first:
+<code>age = int(age)</code>.</li>
+<li><strong>Spelling a variable name differently:</strong> after
+<code>name = &quot;Ada&quot;</code>, using <code>Name</code> or <code>nme</code>
+gives <code>NameError: name &#39;nme&#39; is not defined</code>. Python does not
+guess what you meant.</li>
+<li><strong>Reading <code>=</code> as “equals”:</strong>
+<code>x = x + 1</code> is not a contradiction. It means “compute
+<code>x + 1</code>, then store the result in <code>x</code>”.</li>
+</ul>
+</section>
+<h2 id="summary">Summary</h2>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term / code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>print(...)</code></td>
+<td>display values on the screen</td>
+</tr>
+<tr>
+<td><code>input(...)</code></td>
+<td>ask the user to type something; the result is a string</td>
+</tr>
+<tr>
+<td>string (<code>str</code>)</td>
+<td>text, written in quotes: <code>&quot;Hello&quot;</code></td>
+</tr>
+<tr>
+<td>integer (<code>int</code>)</td>
+<td>whole number: <code>42</code></td>
+</tr>
+<tr>
+<td>float (<code>float</code>)</td>
+<td>number with a fractional part: <code>1.65</code></td>
+</tr>
+<tr>
+<td>variable</td>
+<td>a name that refers to a value</td>
+</tr>
+<tr>
+<td><code>=</code></td>
+<td>assignment: store a value in a variable</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>comment, ignored by Python</td>
+</tr>
+<tr>
+<td><code>type(...)</code></td>
+<td>the type of a value</td>
+</tr>
+<tr>
+<td><code>int(...)</code>, <code>float(...)</code></td>
+<td>convert a value to another type</td>
+</tr>
+<tr>
+<td><code>+=</code>, <code>-=</code>, <code>*=</code>,
+<code>/=</code></td>
+<td>update a variable, e.g. <code>x += 1</code></td>
+</tr>
+<tr>
+<td><code>SyntaxError</code></td>
+<td>the code is not written according to Python’s rules</td>
+</tr>
+<tr>
+<td><code>TypeError</code></td>
+<td>an operation used on the wrong type
+(e.g. <code>&quot;a&quot; - &quot;b&quot;</code>)</td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td>a value that cannot be converted (e.g. <code>int(&quot;abc&quot;)</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Check yourself:</strong> take the short quiz on the course
+website: <a href="https://posfaim.github.io/dnds5027/web_classes/quiz_01.html">Quiz
+01</a>.</p>
+<p><strong>Practice:</strong> the exercises for this session are on the
+course website (<em>Exercises 01</em>).</p>
+</body>
+</html>

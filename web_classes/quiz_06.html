@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>06 Quiz PfE</title>
+
+    <link rel="stylesheet" href="../styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 06 Loops<br>
+Quiz</h1>
+
+<p>Check yourself: answer without running the code. Your first click counts.</p>
+
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>While loop</h2>
+
+<p>How many lines does this code print?</p>
+
+<pre><code>num = 1
+while num &lt; 5:
+    print(num)
+    num += 1</code></pre>
+
+<ul class="choices">
+<li>5</li>
+<li>4</li>
+<li>6</li>
+<li>It never stops.</li>
+</ul>
+
+<div class="explanation">
+<p><code>num</code> takes the values 1, 2, 3 and 4. When it reaches 5, <code>num &lt; 5</code> is <code>False</code> and the loop stops.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>While loop again</h2>
+
+<p>What happens when you run this code?</p>
+
+<pre><code>num = 1
+while num &lt;= 10:
+    print(num)
+    num -= 1</code></pre>
+
+<ul class="choices">
+<li>It prints the numbers 1 to 10.</li>
+<li>It prints nothing.</li>
+<li>It starts counting down and never stops (infinite loop).</li>
+<li><code>SyntaxError</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>num</code> goes down (1, 0, -1, ...), so <code>num &lt;= 10</code> is always <code>True</code>. In Jupyter, stop it with the ■ button.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Break</h2>
+
+<p>What does <code>break</code> do inside a loop?</p>
+
+<ul class="choices">
+<li>It leaves the loop immediately.</li>
+<li>It skips to the next round of the loop.</li>
+<li>It stops the whole program.</li>
+<li>It starts the loop again from the beginning.</li>
+</ul>
+
+<div class="explanation">
+<p>After <code>break</code>, the program continues with the first line after the loop.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Range</h2>
+
+<p>Which numbers does this code print?</p>
+
+<pre><code>for i in range(2, 5):
+    print(i)</code></pre>
+
+<ul class="choices">
+<li><code>2, 3, 4, 5</code></li>
+<li><code>2, 3, 4</code></li>
+<li><code>3, 4, 5</code></li>
+<li><code>0, 1, 2, 3, 4</code></li>
+</ul>
+
+<div class="explanation">
+<p>Like slicing: the start (2) is included and the stop (5) is excluded.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>Adding up</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>total = 0
+for n in [3, 5, 2]:
+    total += n
+print(total)</code></pre>
+
+<ul class="choices">
+<li><code>0</code></li>
+<li><code>2</code></li>
+<li><code>352</code></li>
+<li><code>10</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>total</code> is a helper variable: it becomes 3, then 8, then 10.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Looping over a string</h2>
+
+<p>What does this code print?</p>
+
+<pre><code>for c in "hey":
+    print(c)</code></pre>
+
+<ul class="choices">
+<li><code>h</code>, <code>e</code> and <code>y</code>, each on its own line</li>
+<li><code>hey</code></li>
+<li><code>h e y</code> on one line</li>
+<li>An error: you cannot loop over a string.</li>
+</ul>
+
+<div class="explanation">
+<p>A string serves up its characters one by one, and each <code>print</code> starts a new line.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Nested loops</h2>
+
+<p>How many lines does this code print?</p>
+
+<pre><code>for i in range(3):
+    for j in range(2):
+        print(i, j)</code></pre>
+
+<ul class="choices">
+<li>5</li>
+<li>6</li>
+<li>3</li>
+<li>9</li>
+</ul>
+
+<div class="explanation">
+<p>The inner loop runs completely (2 rounds) for each of the 3 rounds of the outer loop: 3 × 2 = 6.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Indentation</h2>
+
+<p>How many times is <code>done</code> printed?</p>
+
+<pre><code>for i in range(3):
+    print(i)
+print("done")</code></pre>
+
+<ul class="choices">
+<li>3</li>
+<li>0</li>
+<li>1</li>
+<li>4</li>
+</ul>
+
+<div class="explanation">
+<p><code>print("done")</code> is not indented, so it is not part of the loop: it runs once, after the loop.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Buggy maximum</h2>
+
+<p>We intend to find the maximum number from the list below. What does the code print?</p>
+
+<pre><code>nums = [-5, -2, -9]
+m = 0
+for num in nums:
+    if m &lt; num:
+        m = num
+print(m)</code></pre>
+
+<ul class="choices">
+<li><code>-2</code></li>
+<li><code>-5</code></li>
+<li><code>0</code></li>
+<li><code>-9</code></li>
+</ul>
+
+<div class="explanation">
+<p>No number in the list is larger than 0, so <code>m</code> stays 0. Starting with <code>m = nums[0]</code> would give the correct maximum, -2.</p>
+</div>
+</div>
+
+
+<p id="quiz-score"></p>
+
+<button id="quiz-reset" class="run-button">↻ Start again</button>
+
+<p>More practice: <a href="../notebooks/exercises_06.ipynb">Exercises 06</a> | <a href="../notebooks/practice_06.ipynb">Practice 06</a></p>
+
+<br><br><br>
+
+<script src="../quiz.js"></script>
+
+</body>
+</html>

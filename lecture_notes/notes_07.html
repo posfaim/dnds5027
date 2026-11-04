@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Session 07 — Dictionaries</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f5f5f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } 
+code span.an { } 
+code span.at { } 
+code span.bn { color: #116644; } 
+code span.bu { color: #3300aa; } 
+code span.cf { color: #770088; } 
+code span.ch { color: #aa1111; } 
+code span.cn { } 
+code span.co { color: #aa5500; } 
+code span.cv { } 
+code span.do { color: #aa5500; } 
+code span.dt { } 
+code span.dv { color: #116644; } 
+code span.er { color: #ff0000; } 
+code span.ex { } 
+code span.fl { color: #116644; } 
+code span.fu { color: #0000ff; } 
+code span.im { color: #770088; } 
+code span.in { } 
+code span.kw { color: #770088; } 
+code span.op { } 
+code span.ot { } 
+code span.pp { } 
+code span.sc { color: #aa1111; } 
+code span.ss { color: #aa1111; } 
+code span.st { color: #aa1111; } 
+code span.va { color: #770088; } 
+code span.vs { color: #aa1111; } 
+code span.wa { } 
+</style>
+  <style type="text/css">
+@page {
+size: A4;
+margin: 18mm 18mm 20mm 18mm;
+}
+:root {
+
+--c1: #F0BC01; 
+--c2: #E34B4C; 
+--c3: #4BE375; 
+--c4: #4B59E3; 
+--c5: #5E8E6B;
+--c6: #636053;
+--text: #000;
+--muted: #636053;
+--code-bg: #f5f5f5;
+--output-bg: #f0f0f0;
+--border: #aaaaaa;
+--border-light: #cccccc;
+}
+html {
+font-size: 9.5pt;
+}
+body {
+font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+color: var(--text);
+background: #fff;
+line-height: 1.45;
+max-width: 52em;
+margin: 0 auto;
+padding: 0;
+}
+h1, h2, h3, p.subtitle {
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+}
+header#title-block-header {
+margin-bottom: 1.2em;
+}
+h1.title {
+font-size: 2.1em;
+margin: 0;
+color: var(--text);
+}
+p.subtitle {
+margin: 0.2em 0 0;
+color: var(--muted);
+font-size: 1.1em;
+}
+h2 {
+font-size: 1.55em;
+color: var(--text);
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+h3 {
+font-size: 1.25em;
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+p, li {
+orphans: 3;
+widows: 3;
+}
+ul, ol {
+padding-left: 1.4em;
+margin: 0.4em 0;
+}
+li {
+margin: 0.15em 0;
+}
+code {
+font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 0.05em 0.2em;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--border);
+border-left: 4px solid var(--c1);
+border-radius: 2px;
+padding: 0.4em 0.8em;
+margin: 0.4em 0 0.6em;
+overflow-x: auto;
+break-inside: avoid;
+}
+pre code {
+background: none;
+padding: 0;
+font-size: 0.88em;
+}
+
+div.sourceCode {
+break-inside: avoid;
+}
+
+div.sourceCode:has(+ pre.output),
+pre:has(+ pre.output) {
+break-after: avoid;
+margin-bottom: 0;
+}
+
+.pair.side {
+display: grid;
+grid-template-columns: minmax(55%, max-content) 1fr;
+gap: 0.5em;
+margin: 0.4em 0 0.6em;
+break-inside: avoid;
+}
+.pair.side > *,
+.pair.side pre {
+margin: 0;
+}
+.pair.side > div.sourceCode > pre {
+height: 100%;
+box-sizing: border-box;
+}
+
+pre.output {
+white-space: pre-wrap; 
+overflow-wrap: anywhere;
+background: var(--output-bg);
+border: 1px solid var(--border-light);
+margin-top: 0.2em;
+}
+pre.output::before {
+content: "Output:";
+display: block;
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+font-size: 0.95em;
+color: var(--text);
+margin-bottom: 0.15em;
+}
+
+.box {
+border: 1px solid var(--border);
+border-radius: 2px;
+padding: 0.2em 1em 0.5em;
+margin: 1.2em 0;
+}
+
+.box li {
+break-inside: avoid;
+}
+.box h3 {
+font-size: 1.45em;
+margin-top: 0.4em;
+}
+.mistakes h3 {
+color: var(--c2);
+}
+
+blockquote {
+margin: 0.8em 0;
+padding: 0.5em 0.9em;
+background: #fff;
+border: 1px solid var(--border-light);
+border-left: 4px solid var(--c3);
+border-radius: 2px;
+color: var(--text);
+}
+blockquote p {
+margin: 0;
+}
+blockquote strong:first-child {
+color: var(--c5);
+}
+table {
+border-collapse: collapse;
+margin: 0.7em 0 1em;
+break-inside: avoid;
+font-size: 0.95em;
+}
+th, td {
+border: 1px solid var(--border-light);
+padding: 0.15em 0.5em;
+vertical-align: top;
+}
+th {
+background: var(--code-bg);
+}
+a {
+color: var(--c4);
+}
+
+@media screen {
+html {
+font-size: 16px;
+}
+body {
+padding: 2em 1em 3em;
+}
+table {
+display: block;
+overflow-x: auto;
+}
+}
+
+@media screen and (max-width: 40em) {
+.pair.side {
+display: block;
+}
+.pair.side > * + * {
+margin-top: 0.2em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Session 07 — Dictionaries</h1>
+<p class="subtitle">Python for Everyone · Lecture notes</p>
+</header>
+<blockquote>
+<p><strong>How to read the code boxes:</strong> grey boxes with a yellow
+bar contain Python code. The box labelled <strong>Output</strong> next
+to it (or below it) shows what Python prints when you run that code. In
+a Jupyter notebook, if the last line of a cell is just a value (like
+<code>age_dict</code> below), the notebook displays it; this is also
+shown as output.</p>
+</blockquote>
+<h2 id="dictionaries">Dictionaries</h2>
+<ul>
+<li>In a <strong>list</strong>, values are looked up by their
+<strong>position</strong> (index, counting from 0):
+<code>L[1]</code>.</li>
+<li>In a <strong>dictionary</strong>, values are looked up by a
+<strong>key</strong>, like looking up the definition (value) of a word
+(key) in a real dictionary.</li>
+<li>A dictionary is written in curly brackets <code>{}</code> as
+<code>key: value</code> pairs, separated by commas.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>age_dict <span class="op">=</span> {<span class="st">&quot;Marton&quot;</span>: <span class="dv">40</span>, <span class="st">&quot;Vera&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;Ilona&quot;</span>: <span class="dv">1</span>}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>age_dict[<span class="st">&quot;Marton&quot;</span>]</span></code></pre></div>
+<pre class="output"><code>40</code></pre>
+</div>
+<ul>
+<li>Looking up a key that is not in the dictionary gives a
+<code>KeyError</code>:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>age_dict[<span class="st">&quot;Zsofia&quot;</span>]</span></code></pre></div>
+<pre class="output"><code>KeyError: &#39;Zsofia&#39;</code></pre>
+</div>
+<ul>
+<li>Assigning to a key <strong>changes</strong> its value if the key
+exists, and <strong>adds</strong> a new entry if it does not:</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>age_dict[<span class="st">&quot;Ilona&quot;</span>] <span class="op">=</span> <span class="dv">2</span>      <span class="co"># change</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>age_dict[<span class="st">&quot;Zsofia&quot;</span>] <span class="op">=</span> <span class="dv">38</span>    <span class="co"># add</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>age_dict</span></code></pre></div>
+<pre class="output"><code>{&#39;Marton&#39;: 40, &#39;Vera&#39;: 5, &#39;Ilona&#39;: 2, &#39;Zsofia&#39;: 38}</code></pre>
+</div>
+<ul>
+<li><code>{}</code> is an empty dictionary; you can fill it up entry by
+entry.</li>
+</ul>
+<h2 id="mutable-and-immutable">Mutable and immutable</h2>
+<ul>
+<li>Lists and dictionaries can be changed: they are
+<strong>mutable</strong>. Strings cannot be changed: they are
+<strong>immutable</strong>.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>L[<span class="dv">1</span>] <span class="op">=</span> <span class="st">&quot;wow!&quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>L</span></code></pre></div>
+<pre class="output"><code>[1, &#39;wow!&#39;, 3]</code></pre>
+</div>
+<div class="pair">
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;told&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s[<span class="dv">0</span>] <span class="op">=</span> <span class="st">&quot;s&quot;</span></span></code></pre></div>
+<pre class="output"><code>TypeError: &#39;str&#39; object does not support item assignment</code></pre>
+</div>
+<h2 id="rules-for-keys-and-values">Rules for keys and values</h2>
+<ul>
+<li>Keys are <strong>unique</strong>: a key can appear only once.</li>
+<li>Keys must be <strong>immutable</strong>: strings and numbers are
+fine, lists are not.</li>
+<li>Values can repeat and can be anything.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> {}</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>D[<span class="st">&quot;one&quot;</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>D[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div>
+<pre class="output"><code>{&#39;one&#39;: 1, 1: 1}</code></pre>
+</div>
+<div class="pair side">
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>D[[<span class="st">&quot;one&quot;</span>, <span class="dv">1</span>]] <span class="op">=</span> <span class="dv">1</span></span></code></pre></div>
+<pre class="output"><code>TypeError: unhashable type: &#39;list&#39;</code></pre>
+</div>
+<h2 id="things-you-can-do-with-a-dictionary">Things you can do with a
+dictionary</h2>
+<ul>
+<li><code>len(d)</code> gives the number of entries (key: value pairs):
+<code>len(age_dict)</code> is <code>3</code> for
+<code>{&quot;Marton&quot;: 40, &quot;Vera&quot;: 5, &quot;Ilona&quot;: 2}</code>.</li>
+<li><code>key in d</code> tests whether the dictionary contains a key.
+Use it to avoid a <code>KeyError</code>:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>age_dict <span class="op">=</span> {<span class="st">&quot;Marton&quot;</span>: <span class="dv">40</span>, <span class="st">&quot;Vera&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;Ilona&quot;</span>: <span class="dv">2</span>}</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>key <span class="op">=</span> <span class="st">&quot;Marton&quot;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> key <span class="kw">in</span> age_dict:</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;The age of </span><span class="sc">{</span>key<span class="sc">}</span><span class="ss"> is </span><span class="sc">{</span>age_dict[key]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Age unknown.&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>The age of Marton is 40</code></pre>
+</div>
+<h2 id="looping-over-a-dictionary">Looping over a dictionary</h2>
+<ul>
+<li>A <code>for</code> loop over a dictionary goes through its
+<strong>keys</strong>. <code>for key in age_dict.keys():</code> does the
+same, more explicitly.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> age_dict:</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(key)</span></code></pre></div>
+<pre class="output"><code>Marton
+Vera
+Ilona</code></pre>
+</div>
+<ul>
+<li><code>.values()</code> goes through the values:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> age_dict.values():</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(value)</span></code></pre></div>
+<pre class="output"><code>40
+5
+2</code></pre>
+</div>
+<ul>
+<li><code>.items()</code> gives the key and the value together. This
+<code>for</code> loop has <strong>two</strong> variables:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, value <span class="kw">in</span> age_dict.items():</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(key, value)</span></code></pre></div>
+<pre class="output"><code>Marton 40
+Vera 5
+Ilona 2</code></pre>
+</div>
+<ul>
+<li>The names <code>key</code> and <code>value</code> are your choice;
+pick names that make the code easy to read
+(e.g. <code>for title, rating in movie_ratings.items():</code>).</li>
+</ul>
+<h2 id="building-dictionaries">Building dictionaries</h2>
+<ul>
+<li>Just like a list (start with <code>[]</code>, then
+<code>append</code>), a dictionary can be built in a loop: start with
+<code>{}</code>, then add entries.</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>words <span class="op">=</span> [<span class="st">&quot;Wilde&quot;</span>, <span class="st">&quot;mochas&quot;</span>, <span class="st">&quot;arcs&quot;</span>, <span class="st">&quot;simpers&quot;</span>, <span class="st">&quot;dynamically&quot;</span>, <span class="st">&quot;Chesterfield&quot;</span>,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;swilling&quot;</span>, <span class="st">&quot;reaped&quot;</span>, <span class="st">&quot;jeering&quot;</span>, <span class="st">&quot;haler&quot;</span>, <span class="st">&quot;accessioned&quot;</span>, <span class="st">&quot;Rodger&quot;</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>lengths_dict <span class="op">=</span> {}</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> w <span class="kw">in</span> words:</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    lengths_dict[w] <span class="op">=</span> <span class="bu">len</span>(w)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>lengths_dict</span></code></pre></div>
+<pre class="output"><code>{&#39;Wilde&#39;: 5, &#39;mochas&#39;: 6, &#39;arcs&#39;: 4, &#39;simpers&#39;: 7, &#39;dynamically&#39;: 11, &#39;Chesterfield&#39;: 12, &#39;swilling&#39;: 8, &#39;reaped&#39;: 6, &#39;jeering&#39;: 7, &#39;haler&#39;: 5, &#39;accessioned&#39;: 11, &#39;Rodger&#39;: 6}</code></pre>
+</div>
+<h2 id="structured-data">Structured data</h2>
+<ul>
+<li>Dictionaries are great for storing <strong>records</strong>,
+e.g. the title, director and rating of a movie. In a list you must
+remember what each position means (<code>movie_list[1]</code> is the
+director?); in a dictionary the key says it.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>movie_list <span class="op">=</span> [<span class="st">&#39;Repo Man&#39;</span>, <span class="st">&#39;Alex Cox&#39;</span>, <span class="dv">10</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>movie_dict <span class="op">=</span> {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;title&#39;</span>: <span class="st">&#39;Repo Man&#39;</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;director&#39;</span>: <span class="st">&#39;Alex Cox&#39;</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;rating&#39;</span>: <span class="dv">10</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>movie_dict[<span class="st">&#39;director&#39;</span>]</span></code></pre></div>
+<pre class="output"><code>&#39;Alex Cox&#39;</code></pre>
+</div>
+<ul>
+<li>Many records: use a <strong>list of dictionaries</strong>.</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> [</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;title&#39;</span>: <span class="st">&#39;Titanic&#39;</span>, <span class="st">&#39;director&#39;</span>: <span class="st">&#39;James Cameron&#39;</span>, <span class="st">&#39;rating&#39;</span>: <span class="dv">4</span>},</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;title&#39;</span>: <span class="st">&#39;Werckmeister Harmonies&#39;</span>, <span class="st">&#39;director&#39;</span>: <span class="st">&#39;Bela Tarr&#39;</span>, <span class="st">&#39;rating&#39;</span>: <span class="dv">9</span>},</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">&#39;title&#39;</span>: <span class="st">&#39;Repo Man&#39;</span>, <span class="st">&#39;director&#39;</span>: <span class="st">&#39;Alex Cox&#39;</span>, <span class="st">&#39;rating&#39;</span>: <span class="dv">10</span>},</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies[<span class="dv">0</span>][<span class="st">&#39;title&#39;</span>])</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> movies:</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m[<span class="st">&#39;title&#39;</span>])</span></code></pre></div>
+<pre class="output"><code>Titanic
+Titanic
+Werckmeister Harmonies
+Repo Man</code></pre>
+</div>
+<ul>
+<li>Combining lists and dictionaries like this is a very common,
+self-explanatory way to store data.</li>
+</ul>
+<h2 id="why-dictionaries">Why dictionaries?</h2>
+<ul>
+<li>You could imitate a dictionary with two lists, one for the keys and
+one for the values. But to look up a key you must check the keys one by
+one: with N entries this takes up to N steps.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>keys   <span class="op">=</span> [<span class="st">&#39;apple&#39;</span>, <span class="st">&#39;banana&#39;</span>, <span class="st">&#39;persimmon&#39;</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>values <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>key <span class="op">=</span> <span class="st">&#39;persimmon&#39;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(keys)):</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> keys[i] <span class="op">==</span> key:</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(values[i])</span></code></pre></div>
+<pre class="output"><code>5</code></pre>
+</div>
+<ul>
+<li>A dictionary finds a value <strong>in a single step</strong>, no
+matter how large it is.</li>
+<li><strong>General lesson:</strong> choosing the right way to store
+your data makes your code both easier to write and faster to run.</li>
+</ul>
+<section id="common-mistakes" class="box mistakes">
+<h3>Common mistakes</h3>
+<ul>
+<li><strong>Keys must match exactly:</strong>
+<code>age_dict[&quot;marton&quot;]</code> gives <code>KeyError: &#39;marton&#39;</code>
+because keys are case sensitive.</li>
+<li><strong>Forgetting the quotes:</strong>
+<code>age_dict[Marton]</code> looks for a <em>variable</em> called
+<code>Marton</code>:
+<code>NameError: name &#39;Marton&#39; is not defined</code>.</li>
+<li><strong>Using a position:</strong> <code>age_dict[0]</code> does not
+give the first entry; it looks for the key <code>0</code>:
+<code>KeyError: 0</code>.</li>
+<li><strong><code>in</code> checks keys, not values:</strong>
+<code>40 in age_dict</code> is <code>False</code>, while
+<code>&quot;Vera&quot; in age_dict</code> is <code>True</code>.</li>
+<li><strong>Two loop variables without <code>.items()</code>:</strong>
+<code>for key, value in age_dict:</code> gives
+<code>ValueError: too many values to unpack (expected 2)</code>.</li>
+<li><strong>A list as a key:</strong> gives
+<code>TypeError: unhashable type: &#39;list&#39;</code>.</li>
+</ul>
+</section>
+<h2 id="summary">Summary</h2>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term / code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dictionary</td>
+<td>collection of <code>key: value</code> pairs</td>
+</tr>
+<tr>
+<td><code>{&quot;a&quot;: 1, &quot;b&quot;: 2}</code></td>
+<td>create a dictionary; <code>{}</code> is an empty one</td>
+</tr>
+<tr>
+<td><code>d[key]</code></td>
+<td>look up the value of a key</td>
+</tr>
+<tr>
+<td><code>d[key] = value</code></td>
+<td>change the value of a key, or add a new entry</td>
+</tr>
+<tr>
+<td><code>key in d</code></td>
+<td><code>True</code> if the dictionary contains the key</td>
+</tr>
+<tr>
+<td><code>len(d)</code></td>
+<td>number of entries</td>
+</tr>
+<tr>
+<td><code>for key in d:</code></td>
+<td>loop over the keys (same as <code>d.keys()</code>)</td>
+</tr>
+<tr>
+<td><code>for value in d.values():</code></td>
+<td>loop over the values</td>
+</tr>
+<tr>
+<td><code>for key, value in d.items():</code></td>
+<td>loop over keys and values together</td>
+</tr>
+<tr>
+<td>mutable / immutable</td>
+<td>can / cannot be changed (list, dict / string)</td>
+</tr>
+<tr>
+<td>list of dictionaries</td>
+<td>a common way to store records (structured data)</td>
+</tr>
+<tr>
+<td><code>KeyError</code></td>
+<td>the key is not in the dictionary</td>
+</tr>
+<tr>
+<td><code>TypeError: unhashable type</code></td>
+<td>this type cannot be used as a key (e.g. a list)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Check yourself:</strong> take the short quiz on the course
+website: <a href="https://posfaim.github.io/dnds5027/web_classes/quiz_07.html">Quiz
+07</a>.</p>
+</body>
+</html>

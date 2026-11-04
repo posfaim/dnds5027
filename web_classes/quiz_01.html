@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>01 Quiz PfE</title>
+
+    <link rel="stylesheet" href="../styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 01 Printing and variables<br>
+Quiz</h1>
+
+<p>Check yourself: answer without running the code. Your first click counts.</p>
+
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Integer division</h2>
+
+<p>What does <code>print(7 // 2, 7 % 2)</code> display?</p>
+
+<ul class="choices">
+<li><code>3.5 1</code></li>
+<li><code>3 1</code></li>
+<li><code>1 3</code></li>
+<li><code>3 0.5</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>//</code> is the integer part of a division (7 / 2 is 3.5, so 3), and <code>%</code> is the remainder (7 = 2 * 3 + 1, so 1).</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Repeating strings</h2>
+
+<p>What does <code>print("ha" * 3)</code> display?</p>
+
+<ul class="choices">
+<li><code>hahaha</code></li>
+<li><code>ha ha ha</code></li>
+<li><code>ha3</code></li>
+<li><code>TypeError</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>*</code> with a whole number repeats a string, without adding spaces.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Order of operations</h2>
+
+<p>What does <code>print(2 + 3 * 4)</code> display?</p>
+
+<ul class="choices">
+<li><code>20</code></li>
+<li><code>14</code></li>
+<li><code>24</code></li>
+<li><code>2 + 3 * 4</code></li>
+</ul>
+
+<div class="explanation">
+<p>Multiplication comes first: <code>3 * 4</code> is 12, then <code>2 + 12</code> is 14.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Division</h2>
+
+<p>What is the type of <code>10 / 2</code>?</p>
+
+<ul class="choices">
+<li><code>int</code></li>
+<li><code>float</code></li>
+<li><code>str</code></li>
+</ul>
+
+<div class="explanation">
+<p>Division <code>/</code> always gives a float: the result is <code>5.0</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Changing variables</h2>
+
+<p>After <code>x = 4</code>, then <code>x *= 3</code>, then <code>x -= 2</code>, what is the value of <code>x</code>?</p>
+
+<ul class="choices">
+<li><code>12</code></li>
+<li><code>2</code></li>
+<li><code>10</code></li>
+<li><code>7</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>x *= 3</code> makes <code>x</code> 12, then <code>x -= 2</code> makes it 10.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1,4">
+<h2>Variable names</h2>
+
+<p>Which of these are allowed variable names? Select all that apply, then press Check.</p>
+
+<ul class="choices">
+<li><code>my_name</code></li>
+<li><code>2nd_place</code></li>
+<li><code>first-name</code></li>
+<li><code>Total</code></li>
+</ul>
+
+<div class="explanation">
+<p>Names may only contain letters, digits and underscores, and cannot start with a digit. <code>2nd_place</code> starts with a digit, and <code>first-name</code> contains a <code>-</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Strings and numbers</h2>
+
+<p>Why does <code>print("5" + 3)</code> fail?</p>
+
+<ul class="choices">
+<li>You cannot add a string and a number (<code>TypeError</code>).</li>
+<li>A quotation mark is missing (<code>SyntaxError</code>).</li>
+<li>It does not fail: it prints <code>8</code>.</li>
+<li>It does not fail: it prints <code>53</code>.</li>
+</ul>
+
+<div class="explanation">
+<p><code>"5"</code> is a string (it is in quotes) and <code>3</code> is a number. <code>+</code> cannot combine the two, so Python gives a <code>TypeError</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Type conversion</h2>
+
+<p>Which line prints the number <code>8</code>?</p>
+
+<ul class="choices">
+<li><code>print(int("5") + 3)</code></li>
+<li><code>print("5" + "3")</code></li>
+<li><code>print(int("5" + 3))</code></li>
+<li><code>print(5 + "3")</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>int("5")</code> converts the string to the number 5, then <code>5 + 3</code> is 8. <code>"5" + "3"</code> joins two strings and prints <code>53</code>; the other two give a <code>TypeError</code>.</p>
+</div>
+</div>
+
+
+<p id="quiz-score"></p>
+
+<button id="quiz-reset" class="run-button">↻ Start again</button>
+
+<p>More practice: <a href="exercises_01.html">Exercises 01</a></p>
+
+<br><br><br>
+
+<script src="../quiz.js"></script>
+
+</body>
+</html>
