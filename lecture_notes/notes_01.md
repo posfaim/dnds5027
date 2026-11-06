@@ -10,7 +10,7 @@ subtitle: "Python for Everyone · Lecture notes"
 ## What is a program?
 
 - A **program** is a series of instructions (**commands**) that the computer
-  carries out **one by one, from top to bottom**.
+  carries out **one-by-one, from top to bottom**.
 - A program takes some **input** (keyboard, file, internet, ...), processes it,
   and produces some **output** (screen, file, ...).
 - **Python** is a programming language: a precise way of writing these
@@ -112,7 +112,7 @@ Don't panic!
 - A variable is like a labelled bucket that holds a value (e.g. a string or a
   number). We refer to the value by the variable's name.
 - `=` is the **assignment operator**: it puts the value on the right into the
-  variable on the left. (It does *not* mean "equals" as in maths.)
+  variable on the left. (It does *not* mean "equals" as in math.)
 - The value of a variable can change while the program runs.
 
 ```python
@@ -180,7 +180,7 @@ print(x / y, type(x / y))
 | `%`      | remainder of division    | `17 % 5`  | `2`    |
 | `**`     | power                    | `2 ** 3`  | `8`    |
 
-**Order of operations** (same as in maths), from first to last:
+**Order of operations** (same as in math), from first to last:
 
 1. `( )` parentheses
 2. `**`
@@ -235,7 +235,7 @@ print(i)
 84
 ```
 
-- Since `input` always gives a string, convert it before doing maths:
+- Since `input` always gives a string, convert it before doing math:
 
 ```python
 s = input("Please, provide a number")
@@ -259,9 +259,6 @@ The square of 3.0 is 9.0
   closing one.
 - **Quoting a variable name:** `print("name")` prints the word *name*, while
   `print(name)` prints the value stored in the variable `name`.
-- **Joining a string and a number with `+`:** `"Age: " + 30` gives
-  `TypeError: can only concatenate str (not "int") to str`. Use a comma
-  instead: `print("Age:", 30)`.
 - **Forgetting that `input` gives a string:** `age = input("Age?")` followed by
   `age + 1` gives a `TypeError`. Convert it first: `age = int(age)`.
 - **Spelling a variable name differently:** after `name = "Ada"`, using `Name`
@@ -289,9 +286,3 @@ The square of 3.0 is 9.0
 | `SyntaxError`       | the code is not written according to Python's rules      |
 | `TypeError`         | an operation used on the wrong type (e.g. `"a" - "b"`)   |
 | `ValueError`        | a value that cannot be converted (e.g. `int("abc")`)     |
-
-**Check yourself:** take the short quiz on the course website:
-[Quiz 01](https://posfaim.github.io/dnds5027/web_classes/quiz_01.html).
-
-**Practice:** the exercises for this session are on the course website
-(*Exercises 01*).

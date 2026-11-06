@@ -285,7 +285,3 @@ for i in range(len(keys)):
 | list of dictionaries            | a common way to store records (structured data)      |
 | `KeyError`                      | the key is not in the dictionary                     |
 | `TypeError: unhashable type`    | this type cannot be used as a key (e.g. a list)      |
-
-**Check yourself:** take the short quiz on the course website:
-[Quiz 07](https://posfaim.github.io/dnds5027/web_classes/quiz_07.html).
-

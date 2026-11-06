@@ -260,7 +260,3 @@ for i in range(2):
 | `range(n)`                 | `0, 1, ..., n-1`                                        |
 | `range(a, b)`              | `a, a+1, ..., b-1`                                      |
 | `range(len(L))`            | all indices of the list `L`                             |
-
-**Check yourself:** take the short quiz on the course website:
-[Quiz 06](https://posfaim.github.io/dnds5027/web_classes/quiz_06.html).
-
