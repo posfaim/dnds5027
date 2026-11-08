@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>03 Quiz PfE</title>
+
+    <link rel="stylesheet" href="../styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 03 Functions<br>
+Quiz</h1>
+
+<p>Check yourself: answer without running the code. Your first click counts.</p>
+
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>Defining and calling</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>def greet():
+    print("Hi!")
+    print("Hi!")</code></pre>
+
+<ul class="choices">
+<li><code>Hi!</code>, twice</li>
+<li><code>greet</code></li>
+<li>An error message</li>
+<li>Nothing</li>
+</ul>
+
+<div class="explanation">
+<p><code>def</code> only defines the function. Its code runs when you call it, with <code>greet()</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Printing and returning</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>def double_print(x):
+    print(2*x)
+
+d = double_print(3)
+print(d)</code></pre>
+
+<ul class="choices">
+<li><pre>6
+6</pre></li>
+<li><pre>6
+None</pre></li>
+<li><pre>None
+6</pre></li>
+<li><pre>6</pre></li>
+</ul>
+
+<div class="explanation">
+<p>Calling the function displays <code>6</code>. It has no <code>return</code> value, so <code>d</code> is <code>None</code>. To use the result later, the function should <code>return</code> it.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Return value</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>def add2(a, b):
+    return a + b
+
+print(add2(add2(1, 2), 3))</code></pre>
+
+<ul class="choices">
+<li><code>3</code></li>
+<li><code>5</code></li>
+<li><code>6</code></li>
+<li><code>1 2 3</code></li>
+</ul>
+
+<div class="explanation">
+<p>The inner call returns 3, then <code>add2(3, 3)</code> returns 6. You can use the return value of a function as an argument of another.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Multiple returns</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>def describe(x):
+    if x &lt; 0:
+        return "negative"
+    return "not negative"
+    print("Done.")
+
+print(describe(-5))</code></pre>
+
+<ul class="choices">
+<li><pre>negative</pre></li>
+<li><pre>Done.
+negative</pre></li>
+<li><pre>negative
+Done.</pre></li>
+<li><pre>negative
+not negative</pre></li>
+</ul>
+
+<div class="explanation">
+<p>A function stops at the first <code>return</code> it reaches. With -5 that is <code>return "negative"</code>, so the lines below it never run. <code>print("Done.")</code> comes after the last <code>return</code>, so it never runs, whatever the input.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Keyword arguments</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>def subtract(a, b):
+    return a - b
+
+print(subtract(b=1, a=5))</code></pre>
+
+<ul class="choices">
+<li><code>4</code></li>
+<li><code>-4</code></li>
+<li><code>1</code></li>
+<li>An error message</li>
+</ul>
+
+<div class="explanation">
+<p>With keywords the order does not matter: <code>a</code> is 5 and <code>b</code> is 1, so the result is <code>5 - 1</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Mixing arguments</h2>
+
+<p>The function <code>check_divider</code> has three parameters: <code>check_total</code>, <code>tip_percentage</code> and <code>num_people</code>. Which call is **not** allowed?</p>
+
+<ul class="choices">
+<li><code>check_divider(10, .2, 2)</code></li>
+<li><code>check_divider(num_people=2, check_total=10, tip_percentage=.2)</code></li>
+<li><code>check_divider(check_total=10, .2, 2)</code></li>
+<li><code>check_divider(10, num_people=2, tip_percentage=.2)</code></li>
+</ul>
+
+<div class="explanation">
+<p>Once you switched to keywords, you cannot go back to positional arguments: this gives a <code>SyntaxError</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Local variables</h2>
+
+<p>What happens when you run this code?</p>
+
+<pre><code>def add_one(x):
+    result = x + 1
+    return result
+
+add_one(1)
+print(result)</code></pre>
+
+<ul class="choices">
+<li>It prints <code>2</code>.</li>
+<li>Python stops with a <code>NameError</code>.</li>
+<li>It prints <code>result</code>.</li>
+<li>It prints <code>None</code>.</li>
+</ul>
+
+<div class="explanation">
+<p><code>result</code> is a local variable: it exists only while the function runs. To use the value, save it: <code>r = add_one(1)</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>Same name</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>name = "Vera"
+
+def greet(name):
+    print("Hello", name)
+
+greet("Ilka")</code></pre>
+
+<ul class="choices">
+<li><code>Hello Vera</code></li>
+<li><code>Hello name</code></li>
+<li><code>Hello Vera Ilka</code></li>
+<li><code>Hello Ilka</code></li>
+</ul>
+
+<div class="explanation">
+<p>Python first looks for a local variable. The parameter <code>name</code> is local, and its value in this call is <code>"Ilka"</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1,3,4">
+<h2>Modules</h2>
+
+<p>Which of these work? Select all that apply, then press Check.</p>
+
+<ul class="choices">
+<li><pre>import math
+print(math.sqrt(4))</pre></li>
+<li><pre>import math
+print(sqrt(4))</pre></li>
+<li><pre>import math as ma
+print(ma.sqrt(4))</pre></li>
+<li><pre>from math import sqrt
+print(sqrt(4))</pre></li>
+</ul>
+
+<div class="explanation">
+<p>After <code>import math</code>, you must write <code>math.sqrt</code>; <code>sqrt</code> alone gives a <code>NameError</code>. <code>import math as ma</code> introduces an abbreviation, and <code>from math import sqrt</code> lets you use the name directly.</p>
+</div>
+</div>
+
+
+<p id="quiz-score"></p>
+
+<button id="quiz-reset" class="run-button">↻ Start again</button>
+
+<p>More practice: <a href="exercises_03.html">Exercises 03</a></p>
+
+<br><br><br>
+
+<script src="../quiz.js"></script>
+
+</body>
+</html>
