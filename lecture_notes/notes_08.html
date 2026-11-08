@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Session 08 — Tuples</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f5f5f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } 
+code span.an { } 
+code span.at { } 
+code span.bn { color: #116644; } 
+code span.bu { color: #3300aa; } 
+code span.cf { color: #770088; } 
+code span.ch { color: #aa1111; } 
+code span.cn { } 
+code span.co { color: #aa5500; } 
+code span.cv { } 
+code span.do { color: #aa5500; } 
+code span.dt { } 
+code span.dv { color: #116644; } 
+code span.er { color: #ff0000; } 
+code span.ex { } 
+code span.fl { color: #116644; } 
+code span.fu { color: #0000ff; } 
+code span.im { color: #770088; } 
+code span.in { } 
+code span.kw { color: #770088; } 
+code span.op { } 
+code span.ot { } 
+code span.pp { } 
+code span.sc { color: #aa1111; } 
+code span.ss { color: #aa1111; } 
+code span.st { color: #aa1111; } 
+code span.va { color: #770088; } 
+code span.vs { color: #aa1111; } 
+code span.wa { } 
+</style>
+  <style type="text/css">
+@page {
+size: A4;
+margin: 18mm 18mm 20mm 18mm;
+}
+:root {
+
+--c1: #F0BC01; 
+--c2: #E34B4C; 
+--c3: #4BE375; 
+--c4: #4B59E3; 
+--c5: #5E8E6B;
+--c6: #636053;
+--text: #000;
+--muted: #636053;
+--code-bg: #f5f5f5;
+--output-bg: #f0f0f0;
+--border: #aaaaaa;
+--border-light: #cccccc;
+}
+html {
+font-size: 9.5pt;
+}
+body {
+font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+color: var(--text);
+background: #fff;
+line-height: 1.45;
+max-width: 52em;
+margin: 0 auto;
+padding: 0;
+}
+h1, h2, h3, p.subtitle {
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+}
+header#title-block-header {
+margin-bottom: 1.2em;
+}
+h1.title {
+font-size: 2.1em;
+margin: 0;
+color: var(--text);
+}
+p.subtitle {
+margin: 0.2em 0 0;
+color: var(--muted);
+font-size: 1.1em;
+}
+h2 {
+font-size: 1.55em;
+color: var(--text);
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+h3 {
+font-size: 1.25em;
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+p, li {
+orphans: 3;
+widows: 3;
+}
+ul, ol {
+padding-left: 1.4em;
+margin: 0.4em 0;
+}
+li {
+margin: 0.15em 0;
+}
+code {
+font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 0.05em 0.2em;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--border);
+border-left: 4px solid var(--c1);
+border-radius: 2px;
+padding: 0.4em 0.8em;
+margin: 0.4em 0 0.6em;
+overflow-x: auto;
+break-inside: avoid;
+}
+pre code {
+background: none;
+padding: 0;
+font-size: 0.88em;
+}
+
+div.sourceCode {
+break-inside: avoid;
+}
+
+div.sourceCode:has(+ pre.output),
+pre:has(+ pre.output) {
+break-after: avoid;
+margin-bottom: 0;
+}
+
+.pair.side {
+display: grid;
+grid-template-columns: minmax(55%, max-content) 1fr;
+gap: 0.5em;
+margin: 0.4em 0 0.6em;
+break-inside: avoid;
+}
+.pair.side > *,
+.pair.side pre {
+margin: 0;
+}
+.pair.side > div.sourceCode > pre {
+height: 100%;
+box-sizing: border-box;
+}
+
+pre.output {
+white-space: pre-wrap; 
+overflow-wrap: anywhere;
+background: var(--output-bg);
+border: 1px solid var(--border-light);
+margin-top: 0.2em;
+}
+pre.output::before {
+content: "Output:";
+display: block;
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+font-size: 0.95em;
+color: var(--text);
+margin-bottom: 0.15em;
+}
+
+.box {
+border: 1px solid var(--border);
+border-radius: 2px;
+padding: 0.2em 1em 0.5em;
+margin: 1.2em 0;
+break-inside: avoid; 
+}
+
+.box li {
+break-inside: avoid;
+}
+.box h3 {
+font-size: 1.45em;
+margin-top: 0.4em;
+}
+.mistakes h3 {
+color: var(--c2);
+}
+
+blockquote {
+margin: 0.8em 0;
+padding: 0.5em 0.9em;
+background: #fff;
+border: 1px solid var(--border-light);
+border-left: 4px solid var(--c3);
+border-radius: 2px;
+color: var(--text);
+}
+blockquote p {
+margin: 0;
+}
+blockquote strong:first-child {
+color: var(--c5);
+}
+table {
+border-collapse: collapse;
+margin: 0.7em 0 1em;
+break-inside: avoid;
+font-size: 0.95em;
+}
+th, td {
+border: 1px solid var(--border-light);
+padding: 0.15em 0.5em;
+vertical-align: top;
+}
+th {
+background: var(--code-bg);
+}
+a {
+color: var(--c4);
+}
+
+figure {
+margin: 0.6em 0;
+text-align: center;
+break-inside: avoid;
+}
+figure img {
+min-width: 10em;
+}
+figcaption {
+color: var(--muted);
+font-size: 0.9em;
+}
+
+.side-figure {
+display: grid;
+grid-template-columns: 1fr 22%;
+gap: 1.5em;
+align-items: center;
+margin: 0.6em 0;
+break-inside: avoid;
+}
+.side-figure figure {
+margin: 0;
+}
+.side-figure img {
+width: 100%;
+min-width: 0;
+}
+
+@media print {
+.pagebreak {
+break-before: page;
+}
+}
+
+@media screen {
+html {
+font-size: 16px;
+}
+body {
+padding: 2em 1em 3em;
+}
+table {
+display: block;
+overflow-x: auto;
+}
+}
+
+@media screen and (max-width: 40em) {
+.pair.side {
+display: block;
+}
+.pair.side > * + * {
+margin-top: 0.2em;
+}
+.side-figure {
+display: block;
+}
+.side-figure img {
+width: 12em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Session 08 — Tuples</h1>
+<p class="subtitle">Python for Everyone · Lecture notes</p>
+</header>
+<blockquote>
+<p><strong>How to read the code boxes:</strong> grey boxes with a yellow
+bar contain Python code. The box labelled <strong>Output</strong> next
+to it (or below it) shows what Python prints when you run that code. In
+a Jupyter notebook, if the last line of a cell is just a value (like
+<code>l</code> below), the notebook displays it; this is also shown as
+output.</p>
+</blockquote>
+<h2 id="tuples">Tuples</h2>
+<ul>
+<li>A <strong>tuple</strong> is much like a list, with two key
+differences.</li>
+<li><strong>Syntax:</strong> a tuple is defined with round brackets
+<code>()</code> instead of square brackets <code>[]</code>. Indexing and
+slicing work the same way.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t[<span class="dv">0</span>], l[<span class="dv">0</span>])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t[<span class="dv">2</span>:<span class="dv">4</span>], l[<span class="dv">2</span>:<span class="dv">4</span>])</span></code></pre></div>
+<pre class="output"><code>1 1
+(3, 4) [3, 4]</code></pre>
+</div>
+<ul>
+<li><strong>Behavior:</strong> lists are <strong>mutable</strong>: you
+can change an entry or add new ones.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>l[<span class="dv">1</span>] <span class="op">=</span> <span class="st">&#39;hello&#39;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>l.append(<span class="st">&#39;one more thing&#39;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>l</span></code></pre></div>
+<pre class="output"><code>[1, &#39;hello&#39;, 3, 4, 5, &#39;one more thing&#39;]</code></pre>
+</div>
+<ul>
+<li>Tuples are <strong>immutable</strong>: you cannot change their
+entries or add new ones.</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>t[<span class="dv">0</span>] <span class="op">=</span> <span class="st">&#39;why?&#39;</span></span></code></pre></div>
+<pre class="output"><code>TypeError: &#39;tuple&#39; object does not support item assignment</code></pre>
+</div>
+<ul>
+<li>Tuples have no <code>.append()</code>: <code>t.append(&#39;hm?&#39;)</code>
+gives an <code>AttributeError</code>.</li>
+</ul>
+<h2 id="why-do-we-need-tuples">Why do we need tuples?</h2>
+<ul>
+<li>Use a tuple for <strong>small, fixed-length</strong> values that
+<strong>belong together</strong>: the x and y coordinates of a point, a
+name and an age, the parameters of a measurement.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>point <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">8</span>)</span></code></pre></div>
+<ul>
+<li>A list would also work, but a point always has two coordinates,
+while the length of a list can change. Much of the functionality of a
+list is not needed, or even unwanted.</li>
+</ul>
+<div class="pagebreak">
+
+</div>
+<ul>
+<li>Lists are mutable, so a list <strong>cannot</strong> be a key in a
+dictionary. Tuples are immutable, so they <strong>can</strong>:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> {}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>D[(<span class="dv">1</span>, <span class="dv">2</span>)] <span class="op">=</span> <span class="st">&quot;works!&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div>
+<pre class="output"><code>{(1, 2): &#39;works!&#39;}</code></pre>
+</div>
+<div class="pair side">
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>D[[<span class="dv">1</span>, <span class="dv">2</span>]] <span class="op">=</span> <span class="st">&quot;oh, no!&quot;</span></span></code></pre></div>
+<pre class="output"><code>TypeError: unhashable type: &#39;list&#39;</code></pre>
+</div>
+<h2 id="flat-vs-nested-data">Flat vs nested data</h2>
+<ul>
+<li>The same data can be structured in different ways. Both have
+advantages and disadvantages. For example, flight durations between
+pairs of cities:
+<ul>
+<li><strong>flat:</strong> one dictionary, with a tuple of two cities as
+the key;</li>
+<li><strong>nested:</strong> a dictionary of dictionaries, first city
+then second city.</li>
+</ul></li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>flights_flat <span class="op">=</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&quot;New York&quot;</span>, <span class="st">&quot;London&quot;</span>): <span class="fl">7.0</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&quot;London&quot;</span>, <span class="st">&quot;Paris&quot;</span>): <span class="fl">1.2</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>): <span class="fl">14.0</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>flights_nested <span class="op">=</span> {</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;New York&quot;</span>: {<span class="st">&quot;London&quot;</span>: <span class="fl">7.0</span>, <span class="st">&quot;Tokyo&quot;</span>: <span class="fl">14.0</span>},</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;London&quot;</span>: {<span class="st">&quot;Paris&quot;</span>: <span class="fl">1.2</span>}</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flights_flat[(<span class="st">&quot;London&quot;</span>, <span class="st">&quot;Paris&quot;</span>)])</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flights_nested[<span class="st">&quot;London&quot;</span>][<span class="st">&quot;Paris&quot;</span>])</span></code></pre></div>
+<pre class="output"><code>1.2
+1.2</code></pre>
+</div>
+<ul>
+<li>Finding the longest flight in the nested version needs a loop inside
+a loop:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>max_duration <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> data <span class="kw">in</span> flights_nested.values():</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> duration <span class="kw">in</span> data.values():</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> max_duration <span class="op">&lt;</span> duration:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            max_duration <span class="op">=</span> duration</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>max_duration</span></code></pre></div>
+<pre class="output"><code>14.0</code></pre>
+</div>
+<h2 id="implicit-tuples">Implicit tuples</h2>
+<ul>
+<li>Strictly speaking, you do not need <code>()</code> to define a
+tuple. Tuples are often created this way for convenience:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<pre class="output"><code>(1, 2, 3)</code></pre>
+</div>
+<div class="pagebreak">
+
+</div>
+<ul>
+<li>We already did this to display two variables on the last line of a
+notebook cell. Note the <code>()</code> around the output:
+<code>x, y</code> creates a tuple, and the notebook displays that
+tuple.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>x, y</span></code></pre></div>
+<pre class="output"><code>(10, 20)</code></pre>
+</div>
+<h2 id="unpacking">Unpacking</h2>
+<ul>
+<li><strong>Unpacking</strong> assigns the elements of a tuple to
+several variables at once:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)</span></code></pre></div>
+<pre class="output"><code>10
+20</code></pre>
+</div>
+<ul>
+<li>It is commonly used when a function <strong>returns multiple
+values</strong>. The function returns a tuple, which can be unpacked
+into separate variables:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> min_and_max(L):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">min</span>(L), <span class="bu">max</span>(L)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [<span class="dv">12</span>, <span class="dv">34</span>, <span class="dv">42</span>, <span class="op">-</span><span class="dv">18</span>, <span class="dv">137</span>]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> min_and_max(L)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t, <span class="bu">type</span>(t))</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>minima, maxima <span class="op">=</span> min_and_max(L)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(minima)</span></code></pre></div>
+<pre class="output"><code>(-18, 137) &lt;class &#39;tuple&#39;&gt;
+-18</code></pre>
+</div>
+<h2 id="where-did-we-see-tuples-before">Where did we see tuples
+before?</h2>
+<ul>
+<li><code>.items()</code> of a dictionary gives the key and the value as
+a tuple. The loop <code>for key, value in d.items():</code> unpacks
+it.</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>penguin_weights <span class="op">=</span> {<span class="st">&quot;Emperor&quot;</span>: <span class="fl">30.0</span>, <span class="st">&quot;King&quot;</span>: <span class="fl">13.5</span>, <span class="st">&quot;Adelie&quot;</span>: <span class="fl">4.5</span>}</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> penguin_weights.items():</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(t, <span class="bu">type</span>(t))</span></code></pre></div>
+<pre class="output"><code>(&#39;Emperor&#39;, 30.0) &lt;class &#39;tuple&#39;&gt;
+(&#39;King&#39;, 13.5) &lt;class &#39;tuple&#39;&gt;
+(&#39;Adelie&#39;, 4.5) &lt;class &#39;tuple&#39;&gt;</code></pre>
+</div>
+<h2 id="iterating-over-two-lists-zip">Iterating over two lists:
+<code>zip</code></h2>
+<ul>
+<li>To calculate the body-mass index, BMI = weight / height², we need
+the weight and the height of the same person. A loop over
+<code>heights</code> alone is not enough.</li>
+<li>One way is to iterate over all possible indices with
+<code>range(len(...))</code>:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>heights <span class="op">=</span> [<span class="fl">1.65</span>, <span class="fl">1.72</span>, <span class="fl">1.80</span>]  <span class="co"># in meters</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [<span class="dv">62</span>, <span class="dv">75</span>, <span class="dv">82</span>]        <span class="co"># in kilograms</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(heights)):</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(weights[i]<span class="op">/</span>(heights[i]<span class="op">**</span><span class="dv">2</span>))</span></code></pre></div>
+<pre class="output"><code>22.77318640955005
+25.351541373715524
+25.30864197530864</code></pre>
+</div>
+<div class="pagebreak">
+
+</div>
+<ul>
+<li>A more <strong>pythonic</strong> way is <code>zip</code>: it pairs
+up the elements of the two lists, and gives them as tuples, which the
+loop unpacks.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> w, h <span class="kw">in</span> <span class="bu">zip</span>(weights, heights):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(w<span class="op">/</span>h<span class="op">**</span><span class="dv">2</span>)</span></code></pre></div>
+<pre class="output"><code>22.77318640955005
+25.351541373715524
+25.30864197530864</code></pre>
+</div>
+<section id="common-mistakes" class="box mistakes">
+<h3>Common mistakes</h3>
+<ul>
+<li><strong>Trying to change a tuple:</strong> <code>t[0] = 5</code>
+gives
+<code>TypeError: &#39;tuple&#39; object does not support item assignment</code>.
+Use a list if the values have to change.</li>
+<li><strong>A tuple with one element:</strong> <code>(5)</code> is just
+the number 5 in brackets. Add a comma to make a tuple: <code>(5,)</code>
+or <code>5,</code>.</li>
+<li><strong>Wrong number of variables when unpacking:</strong>
+<code>x, y = (1, 2, 3)</code> gives
+<code>ValueError: too many values to unpack (expected 2)</code>.</li>
+<li><strong>Lists of different lengths in <code>zip</code>:</strong>
+<code>zip</code> stops at the end of the shorter list, without an error
+message, so some elements may be left out.</li>
+</ul>
+</section>
+<h2 id="summary">Summary</h2>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term / code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(1, 2, 3)</code></td>
+<td>create a tuple; <code>t[0]</code> and <code>t[1:3]</code> work as
+for a list</td>
+</tr>
+<tr>
+<td>mutable / immutable</td>
+<td>can / cannot be changed (list / tuple)</td>
+</tr>
+<tr>
+<td>tuple as a key</td>
+<td>allowed, e.g. <code>D[(1, 2)]</code>; a list is not</td>
+</tr>
+<tr>
+<td>flat / nested</td>
+<td>one dictionary with tuple keys / a dictionary of dictionaries</td>
+</tr>
+<tr>
+<td><code>t = 1, 2, 3</code></td>
+<td>implicit tuple, no <code>()</code> needed</td>
+</tr>
+<tr>
+<td><code>x, y = (10, 20)</code></td>
+<td>unpacking: assign the elements to several variables</td>
+</tr>
+<tr>
+<td><code>return a, b</code></td>
+<td>return multiple values (as a tuple)</td>
+</tr>
+<tr>
+<td><code>a, b = b, a</code></td>
+<td>swap the values of two variables</td>
+</tr>
+<tr>
+<td><code>d.items()</code></td>
+<td>the <code>(key, value)</code> tuples of a dictionary</td>
+</tr>
+<tr>
+<td><code>zip(L1, L2)</code></td>
+<td>pair up the elements of two lists</td>
+</tr>
+<tr>
+<td><code>for x, y in zip(L1, L2):</code></td>
+<td>loop over two lists together</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

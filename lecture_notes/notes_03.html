@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Session 03 — Functions</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f5f5f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } 
+code span.an { } 
+code span.at { } 
+code span.bn { color: #116644; } 
+code span.bu { color: #3300aa; } 
+code span.cf { color: #770088; } 
+code span.ch { color: #aa1111; } 
+code span.cn { } 
+code span.co { color: #aa5500; } 
+code span.cv { } 
+code span.do { color: #aa5500; } 
+code span.dt { } 
+code span.dv { color: #116644; } 
+code span.er { color: #ff0000; } 
+code span.ex { } 
+code span.fl { color: #116644; } 
+code span.fu { color: #0000ff; } 
+code span.im { color: #770088; } 
+code span.in { } 
+code span.kw { color: #770088; } 
+code span.op { } 
+code span.ot { } 
+code span.pp { } 
+code span.sc { color: #aa1111; } 
+code span.ss { color: #aa1111; } 
+code span.st { color: #aa1111; } 
+code span.va { color: #770088; } 
+code span.vs { color: #aa1111; } 
+code span.wa { } 
+</style>
+  <style type="text/css">
+@page {
+size: A4;
+margin: 18mm 18mm 20mm 18mm;
+}
+:root {
+
+--c1: #F0BC01; 
+--c2: #E34B4C; 
+--c3: #4BE375; 
+--c4: #4B59E3; 
+--c5: #5E8E6B;
+--c6: #636053;
+--text: #000;
+--muted: #636053;
+--code-bg: #f5f5f5;
+--output-bg: #f0f0f0;
+--border: #aaaaaa;
+--border-light: #cccccc;
+}
+html {
+font-size: 9.5pt;
+}
+body {
+font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+color: var(--text);
+background: #fff;
+line-height: 1.45;
+max-width: 52em;
+margin: 0 auto;
+padding: 0;
+}
+h1, h2, h3, p.subtitle {
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+}
+header#title-block-header {
+margin-bottom: 1.2em;
+}
+h1.title {
+font-size: 2.1em;
+margin: 0;
+color: var(--text);
+}
+p.subtitle {
+margin: 0.2em 0 0;
+color: var(--muted);
+font-size: 1.1em;
+}
+h2 {
+font-size: 1.55em;
+color: var(--text);
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+h3 {
+font-size: 1.25em;
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+p, li {
+orphans: 3;
+widows: 3;
+}
+ul, ol {
+padding-left: 1.4em;
+margin: 0.4em 0;
+}
+li {
+margin: 0.15em 0;
+}
+code {
+font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 0.05em 0.2em;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--border);
+border-left: 4px solid var(--c1);
+border-radius: 2px;
+padding: 0.4em 0.8em;
+margin: 0.4em 0 0.6em;
+overflow-x: auto;
+break-inside: avoid;
+}
+pre code {
+background: none;
+padding: 0;
+font-size: 0.88em;
+}
+
+div.sourceCode {
+break-inside: avoid;
+}
+
+div.sourceCode:has(+ pre.output),
+pre:has(+ pre.output) {
+break-after: avoid;
+margin-bottom: 0;
+}
+
+.pair.side {
+display: grid;
+grid-template-columns: minmax(55%, max-content) 1fr;
+gap: 0.5em;
+margin: 0.4em 0 0.6em;
+break-inside: avoid;
+}
+.pair.side > *,
+.pair.side pre {
+margin: 0;
+}
+.pair.side > div.sourceCode > pre {
+height: 100%;
+box-sizing: border-box;
+}
+
+pre.output {
+white-space: pre-wrap; 
+overflow-wrap: anywhere;
+background: var(--output-bg);
+border: 1px solid var(--border-light);
+margin-top: 0.2em;
+}
+pre.output::before {
+content: "Output:";
+display: block;
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+font-size: 0.95em;
+color: var(--text);
+margin-bottom: 0.15em;
+}
+
+.box {
+border: 1px solid var(--border);
+border-radius: 2px;
+padding: 0.2em 1em 0.5em;
+margin: 1.2em 0;
+break-inside: avoid; 
+}
+
+.box li {
+break-inside: avoid;
+}
+
+.box li > p {
+margin: 0;
+}
+.box li > div.sourceCode {
+margin: 0.3em 0 0.5em;
+}
+.box h3 {
+font-size: 1.45em;
+margin-top: 0.4em;
+}
+.mistakes h3 {
+color: var(--c2);
+}
+
+blockquote {
+margin: 0.8em 0;
+padding: 0.5em 0.9em;
+background: #fff;
+border: 1px solid var(--border-light);
+border-left: 4px solid var(--c3);
+border-radius: 2px;
+color: var(--text);
+}
+blockquote p {
+margin: 0;
+}
+blockquote strong:first-child {
+color: var(--c5);
+}
+table {
+border-collapse: collapse;
+margin: 0.7em 0 1em;
+break-inside: avoid;
+font-size: 0.95em;
+}
+th, td {
+border: 1px solid var(--border-light);
+padding: 0.15em 0.5em;
+vertical-align: top;
+}
+th {
+background: var(--code-bg);
+}
+a {
+color: var(--c4);
+}
+
+figure {
+margin: 0.6em 0;
+text-align: center;
+break-inside: avoid;
+}
+figure img {
+min-width: 10em;
+}
+figcaption {
+color: var(--muted);
+font-size: 0.9em;
+}
+
+.side-figure {
+display: grid;
+grid-template-columns: 1fr 22%;
+gap: 1.5em;
+align-items: center;
+margin: 0.6em 0;
+break-inside: avoid;
+}
+.side-figure figure {
+margin: 0;
+}
+.side-figure img {
+width: 100%;
+min-width: 0;
+}
+
+@media print {
+.pagebreak {
+break-before: page;
+}
+}
+
+@media screen {
+html {
+font-size: 16px;
+}
+body {
+padding: 2em 1em 3em;
+}
+table {
+display: block;
+overflow-x: auto;
+}
+}
+
+@media screen and (max-width: 40em) {
+.pair.side {
+display: block;
+}
+.pair.side > * + * {
+margin-top: 0.2em;
+}
+.side-figure {
+display: block;
+}
+.side-figure img {
+width: 12em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Session 03 — Functions</h1>
+<p class="subtitle">Python for Everyone · Lecture notes</p>
+</header>
+<blockquote>
+<p><strong>How to read the code boxes:</strong> grey boxes with a yellow
+bar contain Python code. The box labelled <strong>Output</strong> next
+to it (or below it) shows what Python prints when you run that code.</p>
+</blockquote>
+<h2 id="functions">Functions</h2>
+<ul>
+<li>Much of Python’s functionality comes as <strong>functions</strong>.
+To <strong>call</strong> a function:
+<code>name_of_function(argument_1, argument_2)</code>.</li>
+<li>A <strong>parameter</strong> is an input that a function expects;
+the value you give it in a call is an <strong>argument</strong>. Many
+people use the two terms interchangeably.</li>
+<li><code>print</code> displays its input on the screen and returns
+nothing. <code>len</code> <strong>returns</strong> the length of a
+string:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&#39;supercalifragilisticexpialidocious&#39;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(s))</span></code></pre></div>
+<pre class="output"><code>34</code></pre>
+</div>
+<h2 id="user-defined-functions">User defined functions</h2>
+<ul>
+<li>Functions let you <strong>re-use code</strong> instead of typing it
+again, and organize your code into logical units. This makes it easier
+to read, write and debug.</li>
+<li><code>input</code>, <code>len</code> and <code>print</code> are
+<strong>built-in</strong>: they come with Python. <code>def</code>
+defines your own function:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> echo(message):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(message)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(message)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>echo(<span class="st">&quot;What&#39;s up?&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>What&#39;s up?
+What&#39;s up?</code></pre>
+</div>
+<ul>
+<li>The <code>def</code> line ends with a colon <code>:</code>, and the
+<strong>indented</strong> block is the body of the function.</li>
+<li><code>def</code> only <strong>defines</strong> the function: nothing
+runs until you <strong>call</strong> it.</li>
+</ul>
+<h2 id="return-value">Return value</h2>
+<ul>
+<li><code>input</code> and <code>len</code> <strong>return</strong>
+values, which you can save in a variable and use later.
+<code>print</code> and <code>echo</code> only display something.</li>
+<li>Your own functions return values with the <code>return</code>
+statement:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> double_return(x):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    double <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> double</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> double_return(<span class="dv">12</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(d)</span></code></pre></div>
+<pre class="output"><code>24</code></pre>
+</div>
+<ul>
+<li>Compare with a function that only displays the result. An empty
+<code>return</code> ends the function without returning anything, and it
+is optional:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> double_print(x):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    double <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(double)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>double_print(<span class="dv">21</span>)</span></code></pre></div>
+<pre class="output"><code>42</code></pre>
+</div>
+<ul>
+<li>A function can have several <code>return</code> statements. It stops
+at the first one it reaches, so only one of them runs:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> absolute_value(x):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x<span class="op">&lt;</span><span class="dv">0</span>:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span>x</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(absolute_value(<span class="op">-</span><span class="dv">3</span>), absolute_value(<span class="dv">3</span>))</span></code></pre></div>
+<pre class="output"><code>3 3</code></pre>
+</div>
+<ul>
+<li>When you write a function, always test it using several inputs.</li>
+</ul>
+<h2 id="passing-multiple-arguments">Passing multiple arguments</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_divider(check_total, tip_percentage, num_people):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Increase the total with the tip</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    total_to_pay <span class="op">=</span> check_total <span class="op">*</span> (<span class="fl">1.</span> <span class="op">+</span> tip_percentage)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Divide equally among the party</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    amount_a_pop <span class="op">=</span> total_to_pay <span class="op">/</span> num_people</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> amount_a_pop</span></code></pre></div>
+<ul>
+<li><strong>Positional:</strong> list the arguments in the order of the
+definition.</li>
+<li><strong>Keyword:</strong> name the arguments. They can be in any
+order, and the code is very explicit, which can make it easier to
+understand.</li>
+<li><strong>Mixed:</strong> positional arguments first, then
+keywords.</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(check_divider(<span class="dv">10</span>, <span class="fl">.2</span>, <span class="dv">2</span>))                                        <span class="co"># positional</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(check_divider(check_total<span class="op">=</span><span class="dv">10</span>, tip_percentage<span class="op">=</span><span class="fl">.2</span>, num_people<span class="op">=</span><span class="dv">2</span>))  <span class="co"># keyword</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(check_divider(check_total<span class="op">=</span><span class="dv">10</span>, num_people<span class="op">=</span><span class="dv">2</span>, tip_percentage<span class="op">=</span><span class="fl">.2</span>))  <span class="co"># any order</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(check_divider(<span class="dv">10</span>, num_people<span class="op">=</span><span class="dv">2</span>, tip_percentage<span class="op">=</span><span class="fl">.2</span>))              <span class="co"># mixed</span></span></code></pre></div>
+<pre class="output"><code>6.0
+6.0
+6.0
+6.0</code></pre>
+</div>
+<ul>
+<li>Once you switched to keywords, you cannot go back to
+positional:</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(check_divider(check_total<span class="op">=</span><span class="dv">10</span>, <span class="fl">.2</span>, <span class="dv">2</span>))</span></code></pre></div>
+<pre class="output"><code>SyntaxError: positional argument follows keyword argument</code></pre>
+</div>
+<h2 id="functions-within-functions">Functions within functions</h2>
+<ul>
+<li>You can build on your own functions by calling them inside other
+functions:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> max_of_two(x, y):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x<span class="op">&gt;</span>y:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> max_of_three(x, y, z):</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    m2 <span class="op">=</span> max_of_two(x, y)    <span class="co"># get maximum of first two</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    m3 <span class="op">=</span> max_of_two(m2, z)   <span class="co"># compare to third</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m3</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(max_of_three(<span class="dv">1</span>, <span class="dv">13</span>, <span class="dv">2</span>))</span></code></pre></div>
+<pre class="output"><code>13</code></pre>
+</div>
+<h2 id="local-and-global-variables">Local and global variables</h2>
+<ul>
+<li>Variables created inside a function are <strong>local</strong>: they
+exist only while the function runs and cannot be used outside it. So
+names inside a function do not collide with names outside.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> longer(word1, word2):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    length1 <span class="op">=</span> <span class="bu">len</span>(word1)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    length2 <span class="op">=</span> <span class="bu">len</span>(word2)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> length1<span class="op">&gt;</span>length2:</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(word1, <span class="st">&quot;is longer&quot;</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(word2, <span class="st">&quot;is longer&quot;</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>longer(<span class="st">&quot;Dude&quot;</span>, <span class="st">&quot;Duderino&quot;</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(length1)</span></code></pre></div>
+<pre class="output"><code>Duderino is longer
+NameError: name &#39;length1&#39; is not defined</code></pre>
+</div>
+<ul>
+<li>Variables defined outside functions are <strong>global</strong>:
+they are visible from anywhere, even inside functions:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_sum():</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x1<span class="op">+</span>x2)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>print_sum()</span></code></pre></div>
+<pre class="output"><code>5</code></pre>
+</div>
+<ul>
+<li>This works, but it is <strong>not recommended</strong>. Pass all the
+data a function needs as parameters: it stays clear what the function
+relies on, which makes the code more readable and less error prone.</li>
+<li>If a local and a global variable have the same name, Python uses the
+local one. It looks for a global variable only if there is no local
+one.</li>
+</ul>
+<h2 id="modules">Modules</h2>
+<ul>
+<li>Most of Python’s utility comes in <strong>modules</strong> that you
+have to import: plotting, data cleaning, statistics, machine learning,
+opening a pdf, … You can build on the work of the community.</li>
+<li><code>math</code> comes with Python and contains common mathematical
+functions. Its <a href="https://docs.python.org/3/library/math.html">documentation</a>
+lists them all.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.sqrt(<span class="dv">2</span>), math.pi)</span></code></pre></div>
+<pre class="output"><code>1.4142135623730951 3.141592653589793</code></pre>
+</div>
+<ul>
+<li><code>math.pi</code> is not a function, but a float variable.</li>
+<li>Other ways to import:
+<ul>
+<li><code>import math as ma</code>: use an abbreviation,
+e.g. <code>ma.sqrt(2)</code>.</li>
+<li><code>from math import sqrt, pi</code>: use the given names
+directly, e.g. <code>sqrt(2)</code>.</li>
+<li><code>from math import *</code>: import everything to use directly.
+Two modules might have a function with the same name, and it is harder
+to keep track of where your functions come from.</li>
+</ul></li>
+</ul>
+<section id="common-mistakes" class="box mistakes">
+<h3>Common mistakes</h3>
+<ul>
+<li><p><strong>Defining a function without calling it:</strong> after
+<code>def echo(message):</code> nothing happens until you write
+<code>echo(&quot;Hi&quot;)</code>.</p></li>
+<li><p><strong>Printing instead of returning:</strong>
+<code>d = double_print(21)</code> displays <code>42</code>, but
+<code>d</code> has no useful value: <code>print(d)</code> displays
+<code>None</code>. Use <code>return</code> if you need the result
+later.</p></li>
+<li><p><strong>Positional arguments in the wrong order:</strong> no
+error, just a wrong result: <code>check_divider(10, .2, 2)</code> gives
+<code>6.0</code>, but <code>check_divider(10, 2, .2)</code> gives
+<code>150.0</code>. Keyword arguments avoid this.</p></li>
+<li><p><strong>Code after <code>return</code>:</strong> the function
+stops at <code>return</code>, so the lines below it in the same block
+never run.</p></li>
+<li><p><strong>Using a global instead of the parameter:</strong> the
+function below should print <code>person</code>, but it prints the
+global variable <code>name</code>. There is no error, so it is easy to
+miss: every call greets Vera. Test with several inputs.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">&quot;Vera&quot;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(person):</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Hello&quot;</span>, name)   <span class="co"># should be person</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>greet(<span class="st">&quot;Ilka&quot;</span>)              <span class="co"># prints: Hello Vera</span></span></code></pre></div></li>
+<li><p><strong>Forgetting to import:</strong> <code>math.sqrt(2)</code>
+without <code>import math</code> gives
+<code>NameError: name &#39;math&#39; is not defined</code>.</p></li>
+</ul>
+</section>
+<h2 id="summary">Summary</h2>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term / code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name(a, b)</code></td>
+<td>call a function with the arguments <code>a</code> and
+<code>b</code></td>
+</tr>
+<tr>
+<td>parameter / argument</td>
+<td>an input a function expects / the value given to it</td>
+</tr>
+<tr>
+<td>built-in function</td>
+<td>comes with Python: <code>print</code>, <code>input</code>,
+<code>len</code>, …</td>
+</tr>
+<tr>
+<td><code>def name(x):</code></td>
+<td>define your own function; the indented block is its body</td>
+</tr>
+<tr>
+<td><code>return value</code></td>
+<td>end the function and give back a value</td>
+</tr>
+<tr>
+<td>positional / keyword</td>
+<td><code>f(1, 2)</code> / <code>f(a=1, b=2)</code></td>
+</tr>
+<tr>
+<td>local variable</td>
+<td>created in a function, only exists inside it</td>
+</tr>
+<tr>
+<td>global variable</td>
+<td>defined outside functions, visible from anywhere</td>
+</tr>
+<tr>
+<td><code>import math</code></td>
+<td>make a module available: <code>math.sqrt(2)</code></td>
+</tr>
+<tr>
+<td><code>import math as ma</code></td>
+<td>same, with an abbreviation: <code>ma.sqrt(2)</code></td>
+</tr>
+<tr>
+<td><code>from math import sqrt</code></td>
+<td>use a name directly: <code>sqrt(2)</code></td>
+</tr>
+<tr>
+<td><code>NameError</code></td>
+<td>this name is not defined here</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -165,11 +165,23 @@ pre.output::before {
   border-radius: 2px;
   padding: 0.2em 1em 0.5em;
   margin: 1.2em 0;
+  break-inside: avoid;   /* keep the whole box on one page */
 }
 
-/* Boxes may split across pages, but never in the middle of an item. */
+/* If a box is ever taller than a page, it may split, but never in the
+   middle of an item. */
 .box li {
   break-inside: avoid;
+}
+
+/* A code block inside an item makes pandoc wrap every item in <p>: keep the
+   items as close together as in a list without code. */
+.box li > p {
+  margin: 0;
+}
+
+.box li > div.sourceCode {
+  margin: 0.3em 0 0.5em;
 }
 
 .box h3 {
@@ -254,6 +266,14 @@ figcaption {
 .side-figure img {
   width: 100%;
   min-width: 0;
+}
+
+/* Manual page break, PDF only: put "::: pagebreak" and ":::" on two lines in
+   the Markdown. On screen the empty div is invisible. */
+@media print {
+  .pagebreak {
+    break-before: page;
+  }
 }
 
 /* HTML version on screen (laptop or phone): larger text, some breathing room. */

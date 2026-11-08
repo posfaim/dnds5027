@@ -196,6 +196,30 @@ code {
 
 .quiz .choices input {
     margin-right: 10px;
+    vertical-align: top;
+}
+
+/* An option that is several lines of output: a small box next to the button */
+.quiz .choices pre {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    padding: 2px 8px;
+}
+
+/* Options with output boxes: line them up in a grid (button | box | mark),
+   so every box in a question is as wide as the widest one. */
+.quiz .choices:has(pre) {
+    display: grid;
+    grid-template-columns: max-content max-content 1fr;
+}
+
+.quiz .choices:has(pre) li,
+.quiz .choices:has(pre) label {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+    align-items: start;
 }
 
 .quiz .choices li.correct {
