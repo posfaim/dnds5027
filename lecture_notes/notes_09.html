@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Session 09 — Reading and writing files</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f5f5f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } 
+code span.an { } 
+code span.at { } 
+code span.bn { color: #116644; } 
+code span.bu { color: #3300aa; } 
+code span.cf { color: #770088; } 
+code span.ch { color: #aa1111; } 
+code span.cn { } 
+code span.co { color: #aa5500; } 
+code span.cv { } 
+code span.do { color: #aa5500; } 
+code span.dt { } 
+code span.dv { color: #116644; } 
+code span.er { color: #ff0000; } 
+code span.ex { } 
+code span.fl { color: #116644; } 
+code span.fu { color: #0000ff; } 
+code span.im { color: #770088; } 
+code span.in { } 
+code span.kw { color: #770088; } 
+code span.op { } 
+code span.ot { } 
+code span.pp { } 
+code span.sc { color: #aa1111; } 
+code span.ss { color: #aa1111; } 
+code span.st { color: #aa1111; } 
+code span.va { color: #770088; } 
+code span.vs { color: #aa1111; } 
+code span.wa { } 
+</style>
+  <style type="text/css">
+@page {
+size: A4;
+margin: 18mm 18mm 20mm 18mm;
+}
+:root {
+
+--c1: #F0BC01; 
+--c2: #E34B4C; 
+--c3: #4BE375; 
+--c4: #4B59E3; 
+--c5: #5E8E6B;
+--c6: #636053;
+--text: #000;
+--muted: #636053;
+--code-bg: #f5f5f5;
+--output-bg: #f0f0f0;
+--border: #aaaaaa;
+--border-light: #cccccc;
+}
+html {
+font-size: 9.5pt;
+}
+body {
+font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+color: var(--text);
+background: #fff;
+line-height: 1.45;
+max-width: 52em;
+margin: 0 auto;
+padding: 0;
+}
+h1, h2, h3, p.subtitle {
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+}
+header#title-block-header {
+margin-bottom: 1.2em;
+}
+h1.title {
+font-size: 2.1em;
+margin: 0;
+color: var(--text);
+}
+p.subtitle {
+margin: 0.2em 0 0;
+color: var(--muted);
+font-size: 1.1em;
+}
+h2 {
+font-size: 1.55em;
+color: var(--text);
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+h3 {
+font-size: 1.25em;
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+p, li {
+orphans: 3;
+widows: 3;
+}
+ul, ol {
+padding-left: 1.4em;
+margin: 0.4em 0;
+}
+li {
+margin: 0.15em 0;
+}
+code {
+font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 0.05em 0.2em;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--border);
+border-left: 4px solid var(--c1);
+border-radius: 2px;
+padding: 0.4em 0.8em;
+margin: 0.4em 0 0.6em;
+overflow-x: auto;
+break-inside: avoid;
+}
+pre code {
+background: none;
+padding: 0;
+font-size: 0.88em;
+}
+
+div.sourceCode {
+break-inside: avoid;
+}
+
+div.sourceCode:has(+ pre.output),
+pre:has(+ pre.output) {
+break-after: avoid;
+margin-bottom: 0;
+}
+
+.pair.side {
+display: grid;
+grid-template-columns: minmax(55%, max-content) 1fr;
+gap: 0.5em;
+margin: 0.4em 0 0.6em;
+break-inside: avoid;
+}
+.pair.side > *,
+.pair.side pre {
+margin: 0;
+}
+.pair.side > div.sourceCode > pre {
+height: 100%;
+box-sizing: border-box;
+}
+
+pre.output {
+white-space: pre-wrap; 
+overflow-wrap: anywhere;
+background: var(--output-bg);
+border: 1px solid var(--border-light);
+margin-top: 0.2em;
+}
+pre.output::before {
+content: "Output:";
+display: block;
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+font-size: 0.95em;
+color: var(--text);
+margin-bottom: 0.15em;
+}
+
+.box {
+border: 1px solid var(--border);
+border-radius: 2px;
+padding: 0.2em 1em 0.5em;
+margin: 1.2em 0;
+break-inside: avoid; 
+}
+
+.box li {
+break-inside: avoid;
+}
+
+.box li > p {
+margin: 0;
+}
+.box li > div.sourceCode {
+margin: 0.3em 0 0.5em;
+}
+.box h3 {
+font-size: 1.45em;
+margin-top: 0.4em;
+}
+.mistakes h3 {
+color: var(--c2);
+}
+
+blockquote {
+margin: 0.8em 0;
+padding: 0.5em 0.9em;
+background: #fff;
+border: 1px solid var(--border-light);
+border-left: 4px solid var(--c3);
+border-radius: 2px;
+color: var(--text);
+}
+blockquote p {
+margin: 0;
+}
+blockquote strong:first-child {
+color: var(--c5);
+}
+table {
+border-collapse: collapse;
+margin: 0.7em 0 1em;
+break-inside: avoid;
+font-size: 0.95em;
+}
+th, td {
+border: 1px solid var(--border-light);
+padding: 0.15em 0.5em;
+vertical-align: top;
+}
+th {
+background: var(--code-bg);
+}
+a {
+color: var(--c4);
+}
+
+figure {
+margin: 0.6em 0;
+text-align: center;
+break-inside: avoid;
+}
+figure img {
+min-width: 10em;
+}
+figcaption {
+color: var(--muted);
+font-size: 0.9em;
+}
+
+body > p:has(> img:only-child) {
+text-align: center;
+margin: 0.6em 0;
+break-inside: avoid;
+}
+
+.side-figure {
+display: grid;
+grid-template-columns: 1fr 22%;
+gap: 1.5em;
+align-items: center;
+margin: 0.6em 0;
+break-inside: avoid;
+}
+.side-figure figure {
+margin: 0;
+}
+.side-figure img {
+width: 100%;
+min-width: 0;
+}
+
+@media print {
+.pagebreak {
+break-before: page;
+}
+}
+
+@media screen {
+html {
+font-size: 16px;
+}
+body {
+padding: 2em 1em 3em;
+}
+table {
+display: block;
+overflow-x: auto;
+}
+}
+
+@media screen and (max-width: 40em) {
+.pair.side {
+display: block;
+}
+.pair.side > * + * {
+margin-top: 0.2em;
+}
+.side-figure {
+display: block;
+}
+.side-figure img {
+width: 12em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Session 09 — Reading and writing files</h1>
+<p class="subtitle">Python for Everyone · Lecture notes</p>
+</header>
+<blockquote>
+<p><strong>How to read the code boxes:</strong> grey boxes with a yellow
+bar contain Python code. The box labelled <strong>Output</strong> next
+to it (or below it) shows what Python prints when you run that code. In
+a Jupyter notebook, if the last line of a cell is just a value (like
+<code>line</code> below), the notebook displays it; this is also shown
+as output.</p>
+</blockquote>
+<h2 id="files">Files</h2>
+<ul>
+<li>Most of the data we work with comes in files, typically
+<strong>csv</strong> files (comma separated values). A csv is a
+<strong>plain text</strong> file: no formatting, no images, just text.
+For example, <code>example.csv</code>:</li>
+</ul>
+<pre class="text"><code>Name,Height
+Adam,180
+Belzebub,220
+Papa Smurf,10</code></pre>
+<ul>
+<li><strong>Text files</strong> (csv, txt, html, …) store characters.
+<strong>Binary files</strong> (images, audio, zip, …) can store
+anything. An xls or doc file is not plain text, and harder to read with
+Python. Here we focus on text files.</li>
+<li>A file is a sequence of 1s and 0s. The <strong>character
+encoding</strong> is the rule that translates between them and
+characters (more at the end).</li>
+<li>The <strong>working directory</strong> is the folder where Python
+looks for files by default, and where it saves them. Usually it is the
+folder of your notebook. The magic command <code>%pwd</code> displays
+its location.</li>
+</ul>
+<h2 id="reading-a-file">Reading a file</h2>
+<ul>
+<li><code>open</code> gives a <strong>file handle</strong>, and
+<code>.read()</code> reads the whole file into a string:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;example.csv&#39;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>contents <span class="op">=</span> f.read()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(contents)</span></code></pre></div>
+<pre class="output"><code>Name,Height
+Adam,180
+Belzebub,220
+Papa Smurf,10</code></pre>
+</div>
+<ul>
+<li>The file handle keeps track of where it is in the file. After
+<code>.read()</code> it is at the end, so another <code>f.read()</code>
+gives an empty string <code>&#39;&#39;</code>. To start over, open the file
+again (see this <a href="https://posfaim.github.io/dnds5027/web_classes/file_open_demo.html">demo</a>).</li>
+</ul>
+<h2 id="reading-line-by-line">Reading line by line</h2>
+<ul>
+<li><code>.readline()</code> reads one line. Each line ends with the
+line break <code>\n</code>:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;example.csv&#39;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> f.readline()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>line</span></code></pre></div>
+<pre class="output"><code>&#39;Name,Height\n&#39;</code></pre>
+</div>
+<div class="pagebreak">
+
+</div>
+<ul>
+<li>A <code>for</code> loop over the file handle goes through the lines
+one by one. <code>print</code> adds its own line break, so this gives
+empty lines:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;example.csv&#39;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(line)</span></code></pre></div>
+<pre class="output"><code>Name,Height
+
+Adam,180
+
+Belzebub,220
+
+Papa Smurf,10
+</code></pre>
+</div>
+<ul>
+<li><code>print(line, end=&#39;&#39;)</code> does not add a line break, so it
+avoids the empty lines.</li>
+<li>When you are done, close the file with <code>f.close()</code>.
+Reading a closed file gives
+<code>ValueError: I/O operation on closed file.</code> Not closing a
+file mainly causes trouble when you write to it.</li>
+</ul>
+<h2 id="the-with-statement">The <code>with</code> statement</h2>
+<ul>
+<li>A better way to open files: the file is open inside the
+<strong>indented</strong> block, and Python closes it when the block
+ends.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;example.csv&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(line, end<span class="op">=</span><span class="st">&#39;&#39;</span>)</span></code></pre></div>
+<pre class="output"><code>Name,Height
+Adam,180
+Belzebub,220
+Papa Smurf,10</code></pre>
+</div>
+<h2 id="absolute-and-relative-paths">Absolute and relative paths</h2>
+<ul>
+<li>Files are stored in folders (directories), which form a
+<strong>directory tree</strong>:</li>
+</ul>
+<pre class="text"><code>/home/posfaim/teaching/python_for_everyone/2026-27/
+└── notebooks/            ← working directory
+    ├── class_09.ipynb
+    ├── olympics.csv
+    └── data/
+        └── example.csv</code></pre>
+<ul>
+<li>An <strong>absolute path</strong> starts at the top and lists every
+folder down to the file:
+<code>&#39;/home/posfaim/teaching/python_for_everyone/2026-27/notebooks/data/example.csv&#39;</code>.
+On Windows it starts with the drive,
+e.g. <code>&#39;C:/Users/student/...&#39;</code>. The code breaks if you move
+the project, or if someone else runs it on a different computer.</li>
+<li>A <strong>relative path</strong> starts from the working directory,
+so it only lists the steps from there: <code>&#39;data/example.csv&#39;</code>.
+Prefer relative paths.</li>
+<li><code>..</code> means one folder up. If <code>data</code> were next
+to <code>notebooks</code>, the path would be
+<code>&#39;../data/example.csv&#39;</code>.</li>
+<li>Write paths with forward slashes <code>/</code>, also on Windows.
+The backslash <code>\</code> has a special meaning in strings
+(<code>\n</code>, <code>\t</code>).</li>
+</ul>
+<h2 id="parsing-a-csv-file">Parsing a csv file</h2>
+<ul>
+<li>A csv file is like a table: each line is a row, and the columns are
+separated by <code>,</code>. To work with the data, we have to
+<strong>parse</strong> it: split the rows into entries and convert the
+numbers.</li>
+<li><code>.split()</code> splits a string into a list: at spaces by
+default, or at the separator you give it.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;This is a sentence.&quot;</span>.split())</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;apple,12,42,48&quot;</span>.split(<span class="st">&#39;,&#39;</span>))</span></code></pre></div>
+<pre class="output"><code>[&#39;This&#39;, &#39;is&#39;, &#39;a&#39;, &#39;sentence.&#39;]
+[&#39;apple&#39;, &#39;12&#39;, &#39;42&#39;, &#39;48&#39;]</code></pre>
+</div>
+<div class="pair">
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> []</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>heights <span class="op">=</span> []</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;example.csv&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    f.readline()                    <span class="co"># skip the header</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        l <span class="op">=</span> line.split(<span class="st">&#39;,&#39;</span>)         <span class="co"># split the row into entries</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        names.append(l[<span class="dv">0</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        heights.append(<span class="bu">float</span>(l[<span class="dv">1</span>])) <span class="co"># convert the height to a number</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(names)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(heights)</span></code></pre></div>
+<pre class="output"><code>[&#39;Adam&#39;, &#39;Belzebub&#39;, &#39;Papa Smurf&#39;]
+[180.0, 220.0, 10.0]</code></pre>
+</div>
+<ul>
+<li>Parsing gets complicated quickly. The packages <code>csv</code> and
+<code>pandas</code> help.</li>
+</ul>
+<h2 id="writing-files">Writing files</h2>
+<ul>
+<li><code>&#39;w&#39;</code> opens a file for <strong>writing</strong>. If the
+file does not exist, Python creates it. If it exists, Python
+<strong>overwrites</strong> it: the previous contents are lost.</li>
+<li><code>.write()</code> does not add a line break: add
+<code>&#39;\n&#39;</code> yourself.</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;output.csv&#39;</span>, <span class="st">&#39;w&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name <span class="kw">in</span> names:</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        f.write(name <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<ul>
+<li><code>&#39;a&#39;</code> <strong>appends</strong> to the end of an existing
+file:</li>
+</ul>
+<div class="pair">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>new_names <span class="op">=</span> [<span class="st">&#39;Humpty Dumpty&#39;</span>, <span class="st">&#39;Ms. Frizzle&#39;</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;output.csv&#39;</span>, <span class="st">&#39;a&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name <span class="kw">in</span> new_names:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        f.write(name <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;output.csv&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    contents <span class="op">=</span> f.read()</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>contents</span></code></pre></div>
+<pre class="output"><code>&#39;Adam\nBelzebub\nPapa Smurf\nHumpty Dumpty\nMs. Frizzle\n&#39;</code></pre>
+</div>
+<ul>
+<li>To save a dictionary, loop over <code>.items()</code> and write each
+pair with an f-string: <code>f.write(f&quot;{key},{value}\n&quot;)</code>.</li>
+</ul>
+<h2 id="character-encoding">Character encoding</h2>
+<ul>
+<li>For plain English text, almost all encodings agree. Accented letters
+(é, ö, ő, ñ, …) are stored differently in each. <strong>UTF-8</strong>
+is the most widely used encoding, and it can store every character of
+every language (<a href="https://posfaim.github.io/dnds5027/slides/text_encoding.pdf">slides</a>).</li>
+<li>Without the <code>encoding</code> argument, <code>open()</code> uses
+your computer’s default (<code>locale.getpreferredencoding()</code>):
+<code>&#39;UTF-8&#39;</code> on Mac and Linux, but on Windows often an older
+one, e.g. <code>&#39;cp1252&#39;</code> (Western Europe) or
+<code>&#39;cp1250&#39;</code> (Central Europe). From Python 3.15, the default is
+UTF-8 everywhere.</li>
+<li><strong>Always give the encoding</strong>, for reading and for
+writing. A file saved as UTF-8 and opened with another encoding comes
+out garbled (<code>é</code> → <code>Ã©</code>):</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>accented_names <span class="op">=</span> [<span class="st">&#39;José&#39;</span>, <span class="st">&#39;Zoë&#39;</span>, <span class="st">&#39;Søren&#39;</span>, <span class="st">&#39;Müller&#39;</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;accents.csv&#39;</span>, <span class="st">&#39;w&#39;</span>, encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name <span class="kw">in</span> accented_names:</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        f.write(name <span class="op">+</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># read it back with the wrong encoding</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;accents.csv&#39;</span>, encoding<span class="op">=</span><span class="st">&#39;cp1252&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(line, end<span class="op">=</span><span class="st">&#39;&#39;</span>)</span></code></pre></div>
+<pre class="output"><code>JosÃ©
+ZoÃ«
+SÃ¸ren
+MÃ¼ller</code></pre>
+</div>
+<ul>
+<li>The other way round, a <code>&#39;cp1252&#39;</code> file opened as UTF-8
+gives a <code>UnicodeDecodeError</code>. Then try
+<code>encoding=&#39;cp1252&#39;</code> (or <code>&#39;cp1250&#39;</code>).</li>
+<li>Excel on Windows saves “CSV” in the older encoding: choose
+<strong>CSV UTF-8</strong> in <em>Save as</em>. For a csv that someone
+will open in Excel, write it with
+<code>encoding=&#39;utf-8-sig&#39;</code>.</li>
+</ul>
+<section id="common-mistakes" class="box mistakes">
+<h3>Common mistakes</h3>
+<ul>
+<li><strong>File not found:</strong> <code>FileNotFoundError</code>
+means the file is not where the path says. Check the working directory
+with <code>%pwd</code>, and the path.</li>
+<li><strong>Reading a file twice:</strong> the second
+<code>f.read()</code> gives <code>&#39;&#39;</code>, without an error. Open the
+file again.</li>
+<li><strong>The line break stays in the last column:</strong>
+<code>&#39;Paris,2024\n&#39;.split(&#39;,&#39;)</code> gives
+<code>[&#39;Paris&#39;, &#39;2024\n&#39;]</code>. <code>int</code> and
+<code>float</code> ignore it, but text keeps it:
+<code>&#39;Brazil\n&#39; == &#39;Brazil&#39;</code> is <code>False</code>. Use
+<code>line.strip().split(&#39;,&#39;)</code>.</li>
+<li><strong>Skipping a header that is not there:</strong> if the file
+has no header, <code>f.readline()</code> silently throws away the first
+row of data. Look at the file first.</li>
+<li><strong>Writing with <code>&#39;w&#39;</code> instead of
+<code>&#39;a&#39;</code>:</strong> the file is overwritten without warning, and
+the old contents are lost.</li>
+</ul>
+</section>
+<h2 id="summary">Summary</h2>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term / code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>working directory</td>
+<td>the folder where Python looks for files; <code>%pwd</code></td>
+</tr>
+<tr>
+<td><code>f = open(&#39;a.csv&#39;)</code></td>
+<td>open a file for reading; <code>f</code> is the file handle</td>
+</tr>
+<tr>
+<td><code>f.read()</code>, <code>f.readline()</code></td>
+<td>read the whole file / one line</td>
+</tr>
+<tr>
+<td><code>for line in f:</code></td>
+<td>go through the file line by line</td>
+</tr>
+<tr>
+<td><code>print(line, end=&#39;&#39;)</code></td>
+<td>print without adding a line break</td>
+</tr>
+<tr>
+<td><code>with open(...) as f:</code></td>
+<td>open the file; it is closed when the block ends</td>
+</tr>
+<tr>
+<td>absolute / relative path</td>
+<td>from the top of the tree / from the working directory</td>
+</tr>
+<tr>
+<td><code>..</code></td>
+<td>one folder up</td>
+</tr>
+<tr>
+<td><code>s.split(&#39;,&#39;)</code></td>
+<td>split a string into a list at the commas</td>
+</tr>
+<tr>
+<td><code>open(&#39;a.csv&#39;, &#39;w&#39;)</code></td>
+<td>write: create or overwrite the file</td>
+</tr>
+<tr>
+<td><code>open(&#39;a.csv&#39;, &#39;a&#39;)</code></td>
+<td>append to the end of the file</td>
+</tr>
+<tr>
+<td><code>f.write(s)</code></td>
+<td>write the string <code>s</code>; add <code>&#39;\n&#39;</code> yourself</td>
+</tr>
+<tr>
+<td><code>encoding=&#39;utf-8&#39;</code></td>
+<td>read or write the file as UTF-8</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

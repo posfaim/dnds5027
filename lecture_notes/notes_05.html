@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Session 05 — Lists</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f5f5f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } 
+code span.an { } 
+code span.at { } 
+code span.bn { color: #116644; } 
+code span.bu { color: #3300aa; } 
+code span.cf { color: #770088; } 
+code span.ch { color: #aa1111; } 
+code span.cn { } 
+code span.co { color: #aa5500; } 
+code span.cv { } 
+code span.do { color: #aa5500; } 
+code span.dt { } 
+code span.dv { color: #116644; } 
+code span.er { color: #ff0000; } 
+code span.ex { } 
+code span.fl { color: #116644; } 
+code span.fu { color: #0000ff; } 
+code span.im { color: #770088; } 
+code span.in { } 
+code span.kw { color: #770088; } 
+code span.op { } 
+code span.ot { } 
+code span.pp { } 
+code span.sc { color: #aa1111; } 
+code span.ss { color: #aa1111; } 
+code span.st { color: #aa1111; } 
+code span.va { color: #770088; } 
+code span.vs { color: #aa1111; } 
+code span.wa { } 
+</style>
+  <style type="text/css">
+@page {
+size: A4;
+margin: 18mm 18mm 20mm 18mm;
+}
+:root {
+
+--c1: #F0BC01; 
+--c2: #E34B4C; 
+--c3: #4BE375; 
+--c4: #4B59E3; 
+--c5: #5E8E6B;
+--c6: #636053;
+--text: #000;
+--muted: #636053;
+--code-bg: #f5f5f5;
+--output-bg: #f0f0f0;
+--border: #aaaaaa;
+--border-light: #cccccc;
+}
+html {
+font-size: 9.5pt;
+}
+body {
+font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+color: var(--text);
+background: #fff;
+line-height: 1.45;
+max-width: 52em;
+margin: 0 auto;
+padding: 0;
+}
+h1, h2, h3, p.subtitle {
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+}
+header#title-block-header {
+margin-bottom: 1.2em;
+}
+h1.title {
+font-size: 2.1em;
+margin: 0;
+color: var(--text);
+}
+p.subtitle {
+margin: 0.2em 0 0;
+color: var(--muted);
+font-size: 1.1em;
+}
+h2 {
+font-size: 1.55em;
+color: var(--text);
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+h3 {
+font-size: 1.25em;
+margin: 1.1em 0 0.4em;
+break-after: avoid;
+}
+p, li {
+orphans: 3;
+widows: 3;
+}
+ul, ol {
+padding-left: 1.4em;
+margin: 0.4em 0;
+}
+li {
+margin: 0.15em 0;
+}
+code {
+font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 0.05em 0.2em;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--border);
+border-left: 4px solid var(--c1);
+border-radius: 2px;
+padding: 0.4em 0.8em;
+margin: 0.4em 0 0.6em;
+overflow-x: auto;
+break-inside: avoid;
+}
+pre code {
+background: none;
+padding: 0;
+font-size: 0.88em;
+}
+
+div.sourceCode {
+break-inside: avoid;
+}
+
+div.sourceCode:has(+ pre.output),
+pre:has(+ pre.output) {
+break-after: avoid;
+margin-bottom: 0;
+}
+
+.pair.side {
+display: grid;
+grid-template-columns: minmax(55%, max-content) 1fr;
+gap: 0.5em;
+margin: 0.4em 0 0.6em;
+break-inside: avoid;
+}
+.pair.side > *,
+.pair.side pre {
+margin: 0;
+}
+.pair.side > div.sourceCode > pre {
+height: 100%;
+box-sizing: border-box;
+}
+
+pre.output {
+white-space: pre-wrap; 
+overflow-wrap: anywhere;
+background: var(--output-bg);
+border: 1px solid var(--border-light);
+margin-top: 0.2em;
+}
+pre.output::before {
+content: "Output:";
+display: block;
+font-family: Roboto, Arial, sans-serif;
+font-weight: 300;
+font-size: 0.95em;
+color: var(--text);
+margin-bottom: 0.15em;
+}
+
+.box {
+border: 1px solid var(--border);
+border-radius: 2px;
+padding: 0.2em 1em 0.5em;
+margin: 1.2em 0;
+break-inside: avoid; 
+}
+
+.box li {
+break-inside: avoid;
+}
+
+.box li > p {
+margin: 0;
+}
+.box li > div.sourceCode {
+margin: 0.3em 0 0.5em;
+}
+.box h3 {
+font-size: 1.45em;
+margin-top: 0.4em;
+}
+.mistakes h3 {
+color: var(--c2);
+}
+
+blockquote {
+margin: 0.8em 0;
+padding: 0.5em 0.9em;
+background: #fff;
+border: 1px solid var(--border-light);
+border-left: 4px solid var(--c3);
+border-radius: 2px;
+color: var(--text);
+}
+blockquote p {
+margin: 0;
+}
+blockquote strong:first-child {
+color: var(--c5);
+}
+table {
+border-collapse: collapse;
+margin: 0.7em 0 1em;
+break-inside: avoid;
+font-size: 0.95em;
+}
+th, td {
+border: 1px solid var(--border-light);
+padding: 0.15em 0.5em;
+vertical-align: top;
+}
+th {
+background: var(--code-bg);
+}
+a {
+color: var(--c4);
+}
+
+figure {
+margin: 0.6em 0;
+text-align: center;
+break-inside: avoid;
+}
+figure img {
+min-width: 10em;
+}
+figcaption {
+color: var(--muted);
+font-size: 0.9em;
+}
+
+body > p:has(> img:only-child) {
+text-align: center;
+margin: 0.6em 0;
+break-inside: avoid;
+}
+
+.side-figure {
+display: grid;
+grid-template-columns: 1fr 22%;
+gap: 1.5em;
+align-items: center;
+margin: 0.6em 0;
+break-inside: avoid;
+}
+.side-figure figure {
+margin: 0;
+}
+.side-figure img {
+width: 100%;
+min-width: 0;
+}
+
+@media print {
+.pagebreak {
+break-before: page;
+}
+}
+
+@media screen {
+html {
+font-size: 16px;
+}
+body {
+padding: 2em 1em 3em;
+}
+table {
+display: block;
+overflow-x: auto;
+}
+}
+
+@media screen and (max-width: 40em) {
+.pair.side {
+display: block;
+}
+.pair.side > * + * {
+margin-top: 0.2em;
+}
+.side-figure {
+display: block;
+}
+.side-figure img {
+width: 12em;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Session 05 — Lists</h1>
+<p class="subtitle">Python for Everyone · Lecture notes</p>
+</header>
+<blockquote>
+<p><strong>How to read the code boxes:</strong> grey boxes with a yellow
+bar contain Python code. The box labelled <strong>Output</strong> next
+to it (or below it) shows what Python prints when you run that code. In
+a Jupyter notebook, if the last line of a cell is just a value (like
+<code>new_s</code> below), the notebook displays it; this is also shown
+as output.</p>
+</blockquote>
+<h2 id="using-jupyter-notebooks">Using Jupyter notebooks</h2>
+<ul>
+<li>A <strong>Jupyter notebook</strong> combines formatted text and
+executable code in one place. It is made up of <strong>cells</strong>,
+which are either markdown or code.</li>
+<li>Whatever expression is on the <strong>last line</strong> of a code
+cell gets displayed. Use <code>print</code> to display things before the
+last line.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;hello&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>new_s <span class="op">=</span> s.capitalize() <span class="op">+</span> <span class="st">&quot;!&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>new_s</span></code></pre></div>
+<pre class="output"><code>&#39;Hello!&#39;</code></pre>
+</div>
+<div class="pair side">
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>x<span class="op">+</span>y<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>x<span class="op">-</span>y</span></code></pre></div>
+<pre class="output"><code>10 + 12 = 22
+-2</code></pre>
+</div>
+<ul>
+<li>Only expressions that evaluate to something get displayed.
+<code>x = 3.14</code> changes <code>x</code>, but displays nothing.</li>
+<li><strong>Cells can run in any order, any number of times.</strong> A
+variable stays in Python’s memory even if you delete the line that
+created it.</li>
+<li>Restarting the <strong>kernel</strong> deletes all variables and
+results. Two good ideas:
+<ul>
+<li>If you are uncertain what a variable contains, print it out.</li>
+<li>When you finish a project, restart the kernel and test the code
+again.</li>
+</ul></li>
+</ul>
+<h2 id="lists">Lists</h2>
+<ul>
+<li>A <strong>list</strong> is a <strong>container</strong>: it holds
+multiple objects. Write the elements in square brackets
+<code>[...]</code>, separated by commas. The data type of the elements
+can be mixed.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>l_num <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>l_str <span class="op">=</span> [<span class="st">&#39;apple&#39;</span>, <span class="st">&#39;barn&#39;</span>, <span class="st">&#39;hopscotch&#39;</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>l_mix <span class="op">=</span> [<span class="dv">1</span>, <span class="fl">0.23</span>, <span class="st">&quot;wow!&quot;</span>]</span></code></pre></div>
+<h2 id="accessing-elements">Accessing elements</h2>
+<ul>
+<li>This works the same way as for strings. Indexing starts from
+<strong>0</strong>, and <code>-1</code> is the last element.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_mix[<span class="dv">0</span>], l_mix[<span class="dv">1</span>], l_mix[<span class="op">-</span><span class="dv">1</span>], l_mix[<span class="op">-</span><span class="dv">2</span>])</span></code></pre></div>
+<pre class="output"><code>1 0.23 wow! 0.23</code></pre>
+</div>
+<div class="pagebreak">
+
+</div>
+<ul>
+<li><strong>Slicing</strong> selects a sublist. The first number is the
+first index <strong>included</strong>, the second is the first index
+<strong>excluded</strong>. Leave one out to go to the beginning or the
+end.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_mix[<span class="dv">1</span>:<span class="dv">3</span>])</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_mix[:<span class="dv">2</span>])</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_mix[<span class="dv">2</span>:])</span></code></pre></div>
+<pre class="output"><code>[0.23, &#39;wow!&#39;]
+[1, 0.23]
+[&#39;wow!&#39;]</code></pre>
+</div>
+<ul>
+<li>A list can contain another list. Use two indices to reach an inner
+element:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>l_mix <span class="op">=</span> [<span class="dv">1</span>, <span class="fl">0.23</span>, <span class="st">&#39;wow!&#39;</span>, [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_mix[<span class="dv">3</span>])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_mix[<span class="dv">3</span>][<span class="dv">0</span>])</span></code></pre></div>
+<pre class="output"><code>[1, 3, 12, -1]
+1</code></pre>
+</div>
+<h2 id="list-methods">List methods</h2>
+<ul>
+<li><code>.append()</code> adds an element to the end,
+<code>.count()</code> counts the occurrences of a value,
+<code>.remove()</code> removes the first occurrence of a value, and
+<code>.sort()</code> sorts in increasing order.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>l_num <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_num.count(<span class="dv">3</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>l_num.append(<span class="dv">3</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_num, l_num.count(<span class="dv">3</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>l_num.remove(<span class="dv">3</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_num)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>l_num.sort()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_num)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>l_num.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l_num)</span></code></pre></div>
+<pre class="output"><code>1
+[1, 3, 12, -1, 3] 2
+[1, 12, -1, 3]
+[-1, 1, 3, 12]
+[12, 3, 1, -1]</code></pre>
+</div>
+<h2 id="mutable-and-immutable">Mutable and immutable</h2>
+<ul>
+<li>String methods never change the string, they return a new one. List
+methods often change the list they are called on.</li>
+<li>Lists are <strong>mutable</strong>: they can be modified in place.
+Strings are <strong>immutable</strong>: they cannot be modified without
+creating a new copy.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>l[<span class="dv">1</span>] <span class="op">=</span> <span class="st">&quot;wow!&quot;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>l</span></code></pre></div>
+<pre class="output"><code>[1, &#39;wow!&#39;, 3]</code></pre>
+</div>
+<div class="pair">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">&quot;lore&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>s[<span class="dv">2</span>] <span class="op">=</span> <span class="st">&#39;v&#39;</span></span></code></pre></div>
+<pre class="output"><code>TypeError: &#39;str&#39; object does not support item assignment</code></pre>
+</div>
+<div class="pagebreak">
+
+</div>
+<h2 id="sorting-in-place-vs-new-list">Sorting in-place vs new list</h2>
+<ul>
+<li><code>.sort()</code> sorts <strong>in-place</strong>: it changes the
+list and returns nothing.</li>
+<li><code>sorted()</code> creates a <strong>new list</strong> and leaves
+the original untouched.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>baby_weights <span class="op">=</span> [<span class="dv">3100</span>, <span class="dv">4210</span>, <span class="dv">3670</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sorted_baby_weights <span class="op">=</span> <span class="bu">sorted</span>(baby_weights)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(baby_weights)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sorted_baby_weights)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>baby_weights.sort()</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(baby_weights)</span></code></pre></div>
+<pre class="output"><code>[3100, 4210, 3670]
+[3100, 3670, 4210]
+[3100, 3670, 4210]</code></pre>
+</div>
+<h2 id="checking-contents">Checking contents</h2>
+<ul>
+<li>The <code>in</code> operator checks if a list contains an
+element:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>my_pets <span class="op">=</span> [<span class="st">&quot;parrot&quot;</span>, <span class="st">&quot;gold fish&quot;</span>, <span class="st">&quot;slime mold&quot;</span>, <span class="st">&quot;frog&quot;</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pet_type <span class="op">=</span> <span class="st">&quot;cat&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> pet_type <span class="kw">in</span> my_pets:</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;I have a </span><span class="sc">{</span>pet_type<span class="sc">}</span><span class="ss">!&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;I don&#39;t have a </span><span class="sc">{</span>pet_type<span class="sc">}</span><span class="ss">!&quot;</span>)</span></code></pre></div>
+<pre class="output"><code>I don&#39;t have a cat!</code></pre>
+</div>
+<h2 id="useful-functions">Useful functions</h2>
+<ul>
+<li>Functions can take lists as arguments: <code>len</code> gives the
+number of elements, and <code>max</code>, <code>min</code> and
+<code>sum</code> do what their names say.</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>l_num <span class="op">=</span> [<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">5</span>]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(l_num), <span class="bu">max</span>(l_num), <span class="bu">min</span>(l_num), <span class="bu">sum</span>(l_num))</span></code></pre></div>
+<pre class="output"><code>4 12 -1 19</code></pre>
+</div>
+<h2 id="iterating-over-a-list">Iterating over a list</h2>
+<ul>
+<li>To do the same thing with every element, copy-pasting code is
+cumbersome, hard to change and not very readable. And what if you have 3
+million elements?</li>
+<li>A <strong><code>for</code> loop</strong> runs the same code for each
+element of a list:</li>
+</ul>
+<div class="pair side">
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>books <span class="op">=</span> [</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Moby Dick (1851)&#39;</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;The world according to Garp (1978)&#39;</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Networks: an Introduction (2018)&#39;</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Portraits of Empires (2023)&#39;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> book <span class="kw">in</span> books:</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(book[:<span class="op">-</span><span class="dv">7</span>])    <span class="co"># title without the year</span></span></code></pre></div>
+<pre class="output"><code>Moby Dick
+The world according to Garp
+Networks: an Introduction
+Portraits of Empires</code></pre>
+</div>
+<p><strong>Anatomy of a <code>for</code> loop:</strong></p>
+<ul>
+<li><code>for book in books:</code> is the <strong>header</strong>. It
+ends with a colon <code>:</code>.</li>
+<li><code>books</code> is the list. More generally it can be any
+<strong>iterable</strong>: a container that can serve up its elements
+one-by-one.</li>
+<li><code>book</code> is a variable that holds the <strong>current
+element</strong>.</li>
+<li>The <strong>indented</strong> block is the <strong>body</strong>,
+repeated for every element.</li>
+</ul>
+<p>We can also collect the results in a new list:</p>
+<div class="pair">
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>titles <span class="op">=</span> []</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> book <span class="kw">in</span> books:</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    titles.append(book[:<span class="op">-</span><span class="dv">7</span>])</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>titles</span></code></pre></div>
+<pre class="output"><code>[&#39;Moby Dick&#39;, &#39;The world according to Garp&#39;, &#39;Networks: an Introduction&#39;, &#39;Portraits of Empires&#39;]</code></pre>
+</div>
+<section id="common-mistakes" class="box mistakes">
+<h3>Common mistakes</h3>
+<ul>
+<li><p><strong>Running cells out of order:</strong>
+<code>print(y)</code> gives a <code>NameError</code> if the cell with
+<code>y = 10</code> has not run yet. If something looks strange, restart
+the kernel and run the cells from the top.</p></li>
+<li><p><strong>Saving the result of <code>.sort()</code> or
+<code>.append()</code>:</strong> they change the list and return
+nothing, so after <code>l = l.append(4)</code> the list is lost and
+<code>l</code> is <code>None</code>. Write just
+<code>l.append(4)</code>.</p></li>
+<li><p><strong>Missing comma:</strong> <code>[&quot;apple&quot; &quot;barn&quot;]</code>
+gives no error, but joins the two strings into one:
+<code>[&#39;applebarn&#39;]</code>.</p></li>
+<li><p><strong><code>append</code> outside the loop:</strong> if the
+line is not indented, it runs only once, after the loop. There is no
+error, but <code>titles</code> is just
+<code>[&#39;Portraits of Empires&#39;]</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>titles <span class="op">=</span> []</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> book <span class="kw">in</span> books:</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> book[:<span class="op">-</span><span class="dv">7</span>]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>titles.append(title)    <span class="co"># not indented: runs once, after the loop</span></span></code></pre></div></li>
+</ul>
+</section>
+<h2 id="summary">Summary</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term / code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cell, kernel</td>
+<td>a part of a notebook; the Python running behind it</td>
+</tr>
+<tr>
+<td><code>[1, &quot;a&quot;, 2.5]</code></td>
+<td>create a list; <code>[]</code> is an empty one</td>
+</tr>
+<tr>
+<td><code>l[0]</code>, <code>l[-1]</code></td>
+<td>first element, last element</td>
+</tr>
+<tr>
+<td><code>l[1:3]</code></td>
+<td>sublist from index 1 up to, but not including, index 3</td>
+</tr>
+<tr>
+<td><code>l.append(x)</code></td>
+<td>add <code>x</code> to the end of the list</td>
+</tr>
+<tr>
+<td><code>l.count(x)</code></td>
+<td>number of occurrences of <code>x</code></td>
+</tr>
+<tr>
+<td><code>l.remove(x)</code></td>
+<td>remove the first occurrence of <code>x</code></td>
+</tr>
+<tr>
+<td><code>l.sort()</code></td>
+<td>sort the list in-place; <code>reverse=True</code> for
+decreasing</td>
+</tr>
+<tr>
+<td><code>sorted(l)</code></td>
+<td>return a new sorted list; <code>l</code> stays the same</td>
+</tr>
+<tr>
+<td>mutable / immutable</td>
+<td>can / cannot be changed in place (list / string)</td>
+</tr>
+<tr>
+<td><code>x in l</code></td>
+<td><code>True</code> if the list contains <code>x</code></td>
+</tr>
+<tr>
+<td><code>len</code>, <code>max</code>, <code>min</code>,
+<code>sum</code></td>
+<td>number of elements, largest, smallest, total</td>
+</tr>
+<tr>
+<td><code>for x in l:</code></td>
+<td>repeat the body for every element; <code>x</code> is the current
+one</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
