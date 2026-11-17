@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09 PfE - Reading a file</title>
+<style>
+:root {
+  --c1: #F0BC01;   /* yellow, as in ../styles.css */
+  --c2: #E34B4C;   /* red */
+  --c4: #4B59E3;   /* blue */
+  --ink: #222;
+  --muted: #777;
+  --line: #aaa;
+  --panel: #fff;
+  --soft: #f0f0f0;
+  --read: #fbeeb8;
+  --just: #f3cc3c;
+  --mono: "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+html { font-size: min(1.55vw, 2.75vh); }
+* { box-sizing: border-box; }
+body {
+  margin: 0; height: 100vh; overflow: hidden;
+  font-family: Arial, sans-serif; color: var(--ink); background: #fff;
+  display: grid; grid-template-rows: auto 1fr auto; gap: .6rem;
+  padding: .8rem 1.2rem;
+}
+
+/* header */
+header { display: flex; align-items: baseline; gap: 1rem; }
+h1 { font-family: Roboto, Arial, sans-serif; font-weight: 300; font-size: 1.6rem; margin: 0; flex: 1; white-space: nowrap; }
+#chips { display: flex; gap: .3rem; }
+.chip {
+  font: inherit; font-size: .7rem; padding: .2rem .5rem; border: 1px solid var(--line);
+  border-radius: 2px; background: #fff; color: var(--muted); cursor: pointer;
+}
+.chip.on { background: var(--c1); border-color: var(--c1); color: #000; }
+#counter { font-size: .8rem; color: var(--muted); min-width: 4.5rem; text-align: right; }
+
+/* main area */
+main { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; min-height: 0; cursor: pointer; }
+.col { display: flex; flex-direction: column; gap: .7rem; min-height: 0; }
+.panel { border: 1px solid var(--line); border-radius: 2px; background: var(--panel); display: flex; flex-direction: column; min-height: 0; }
+.panel h2 {
+  font-family: Roboto, Arial, sans-serif; font-weight: 300; font-size: .85rem; margin: 0;
+  padding: .25rem .7rem; border-bottom: 1px solid var(--line); background: var(--soft); color: #444;
+  display: flex; justify-content: space-between;
+}
+.grow { flex: 1; }
+
+/* code */
+#code { margin: 0; padding: .6rem 0; font-family: var(--mono); font-size: 1.05rem; line-height: 1.6; overflow: auto; }
+.cl { display: block; padding: 0 .7rem 0 2.2rem; white-space: pre; position: relative; }
+.cl.on { background: var(--c1); }
+.cl.on::before { content: "▶"; position: absolute; left: .7rem; font-size: .8em; top: .15em; }
+.cl.err { background: var(--c2); color: #fff; }
+
+/* file */
+#file { padding: 1.1rem 1rem .2rem; font-family: var(--mono); font-size: 1.15rem; }
+.row { display: block; height: 2em; white-space: nowrap; }
+.cell { display: inline-block; position: relative; width: 1.12ch; text-align: center; line-height: 1.45; }
+.cell.read { background: var(--read); }
+.cell.just { background: var(--just); }
+.cell.nl { color: #b5b5b5; }
+.cell.read.nl, .cell.just.nl { color: #8a7a3a; }
+.cell.eof { width: auto; font-family: Arial, sans-serif; font-size: .6em; font-style: italic; color: #b5b5b5; padding-left: .3em; line-height: 2.4; }
+.cell.at::before {
+  content: ""; position: absolute; left: -.09em; top: -.2em; bottom: -.2em; width: .18em;
+  background: var(--c2); border-radius: .1em;
+}
+.cell.at::after {
+  content: "f"; position: absolute; left: 0; top: -1.5em; transform: translateX(-50%);
+  background: var(--c2); color: #fff; font-family: var(--mono); font-style: normal;
+  font-size: .55rem; line-height: 1.4; padding: 0 .4em; border-radius: .2em;
+}
+#status { font-family: Arial, sans-serif; font-size: .75rem; color: var(--muted); }
+.badge { display: inline-block; padding: .05rem .45rem; border-radius: 2px; color: #fff; background: var(--muted); font-size: .7rem; }
+.badge.open { background: var(--c2); }
+.badge.closed { background: #444; }
+
+/* output */
+#out { margin: 0; padding: .4rem .7rem; font-family: var(--mono); font-size: .82rem; line-height: 1.2; overflow: auto; white-space: pre-wrap; flex: 1; min-height: 0; }
+#out .e { color: var(--c2); }
+#out .none { color: #bbb; font-family: Arial, sans-serif; font-style: italic; }
+
+/* caption + nav */
+footer { display: flex; align-items: center; gap: 1rem; min-height: 3.6rem; }
+#cap { flex: 1; font-size: 1.05rem; line-height: 1.35; }
+#cap code, .panel h2 code { font-family: var(--mono); font-size: .92em; background: var(--soft); padding: .05em .25em; border-radius: 2px; }
+.nav { font: inherit; font-size: 1.1rem; width: 2.6rem; height: 2.2rem; border: none; border-radius: 2px; background: var(--c1); cursor: pointer; }
+.nav:hover { box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.nav:disabled { opacity: .4; cursor: default; box-shadow: none; }
+
+@media (max-width: 700px) {
+  html { font-size: 15px; }
+  body { height: auto; overflow: auto; }
+  main { grid-template-columns: 1fr; }
+  header { flex-wrap: wrap; }
+  h1 { white-space: normal; flex-basis: 100%; }
+  #chips { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="title"></h1>
+  <div id="chips"></div>
+  <div id="counter"></div>
+</header>
+
+<main id="stage" title="Click or press → for the next step">
+  <div class="col">
+    <section class="panel grow">
+      <h2>Python code</h2>
+      <pre id="code"></pre>
+    </section>
+  </div>
+  <div class="col">
+    <section class="panel">
+      <h2><span>File: <code id="fname"></code></span></h2>
+      <div id="file"></div>
+    </section>
+    <section class="panel grow">
+      <h2>Output</h2>
+      <pre id="out"></pre>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div id="cap"></div>
+  <button class="nav" id="prev" title="Back (←)">◀</button>
+  <button class="nav" id="next" title="Next (→)">▶</button>
+</footer>
+
+<!-- ======================================================================
+     THE SLIDES. To change the deck, edit only this block.
+     step(line, pos, output, caption, extra)
+       line    : which line of the code has just run (0 = first line, -1 = none,
+                 [2,3] = highlight two lines)
+       pos     : where the marker is (number of characters from the start),
+                 or null if there is no open file handle
+       output  : everything printed so far
+       caption : the sentence at the bottom; `backticks` become code
+       extra   : {from: n} highlights the piece just read (from n up to pos),
+                 {closed: true}, {err: 'message'}
+     ====================================================================== -->
+<script id="deck-data">
+const FILE_NAME = 'example.csv';
+const T = 'Name,Height\nAdam,180\nBelzebub,220\nPapa Smurf,10\n';
+
+const LINES = T.split('\n').slice(0, -1).map(l => l + '\n');
+const E = [0];                                  // E[i] = position after i lines
+LINES.forEach(l => E.push(E[E.length - 1] + l.length));
+const END = T.length;
+const q = s => "`'" + s.replace(/\n/g, '\\n') + "'`";   // how Python shows a string
+
+const SECTIONS = [];
+const STEPS = [];
+function section(title, short, code) { SECTIONS.push({ title, short, code: code.split('\n') }); }
+function step(line, pos, out, cap, extra) {
+  STEPS.push(Object.assign({ sec: SECTIONS.length - 1, line, pos, from: pos, out, cap, closed: false, err: '' }, extra));
+}
+let out, i;
+
+// ---------------------------------------------------------------- 1
+section('Opening a file', 'open',
+`f = open('${FILE_NAME}')`);
+step(-1, null, '', 'This is `' + FILE_NAME + '`, a text file on the disk. Each ↵ marks the end of a line. It is a real character in the file; Python writes it as `\'\\n\'`.');
+step(0, 0, '', '`open()` gives us a file handle, `f`. The handle has a marker that remembers where we are in the file. It starts at the very beginning: nothing has been read yet.');
+
+// ---------------------------------------------------------------- 2
+section('read(): the whole file in one go', 'read()',
+`f = open('${FILE_NAME}')
+text = f.read()
+print(text)
+more = f.read()
+print(more)
+f = open('${FILE_NAME}')`);
+step(0, 0, '', 'We open the file. The marker is at the beginning.');
+step(1, END, '', '`read()` reads everything from the marker to the end of the file and returns it as one long string. The marker is now at the end.', { from: 0 });
+step(2, END, T + '\n', '`text` holds the whole file, including every `\\n`.');
+step(3, END, T + '\n', 'A second `read()` also starts from the marker, but the marker is already at the end. There is nothing left, so `more` is the empty string `\'\'`.');
+step(4, END, T + '\n\n', 'Printing an empty string gives only an empty line. There is no error message, which makes this mistake easy to miss.');
+step(5, 0, T + '\n\n', 'To read the file again, open it again: a new handle starts at the beginning.');
+
+// ---------------------------------------------------------------- 3
+section('readline(): one line at a time', 'readline()',
+`f = open('${FILE_NAME}')
+line = f.readline()
+print(line)
+line = f.readline()
+print(line)
+line = f.readline()
+print(line)
+line = f.readline()
+print(line)
+line = f.readline()
+print(line)`);
+out = '';
+step(0, 0, out, 'We open the file. The marker is at the beginning.');
+for (i = 0; i < 5; i++) {
+  const l = LINES[i] || '';
+  const a = E[Math.min(i, 4)], b = E[Math.min(i + 1, 4)];
+  step(1 + 2 * i, b, out,
+    i === 0 ? '`readline()` reads from the marker up to and including the next ↵. `line` is now ' + q(l) + '.'
+    : i < 4 ? 'The next `readline()` carries on from the marker. `line` is now ' + q(l) + '.'
+    : 'The marker is at the end of the file, so there is nothing to read: `line` is the empty string `\'\'`.',
+    { from: a });
+  out += l + '\n';
+  step(2 + 2 * i, b, out,
+    i === 0 ? 'Why the empty line in the output? `line` already ends in `\\n`, and `print()` adds a new line of its own.'
+    : i < 4 ? 'Printed, again followed by an empty line.'
+    : 'Printing `\'\'` gives only an empty line. At the end of the file `readline()` does not fail, it returns `\'\'`.');
+}
+
+// ---------------------------------------------------------------- 4
+section('for line in f: every line, one after the other', 'for loop',
+`f = open('${FILE_NAME}')
+for line in f:
+    print(line, end='')`);
+out = '';
+step(0, 0, out, 'We open the file. The marker is at the beginning.');
+for (i = 0; i < 4; i++) {
+  step(1, E[i + 1], out,
+    i === 0 ? 'A `for` loop over a file handle reads one line each time round, just like `readline()`. `line` is now ' + q(LINES[i]) + '.'
+    : 'Next time round: `line` is now ' + q(LINES[i]) + '.', { from: E[i] });
+  out += LINES[i];
+  step(2, E[i + 1], out,
+    i === 0 ? '`end=\'\'` tells `print()` not to add its own new line, so this time there are no empty lines in the output.'
+    : 'Printed.');
+}
+step(1, END, out, 'The marker is at the end of the file. There are no more lines, so the loop stops by itself.');
+
+// ---------------------------------------------------------------- 5
+section('read(1): one character at a time', 'read(1)',
+`f = open('${FILE_NAME}')
+for i in range(14):
+    c = f.read(1)
+    print(c, end='|')`);
+out = '';
+step(0, 0, out, 'We open the file. The marker is at the beginning.');
+step(1, 0, out, 'This loop runs 14 times. Each time, we read a single character.');
+step(2, 1, out, '`read(1)` reads exactly one character from the marker onwards. `c` is ' + q(T[0]) + '.', { from: 0 });
+out += T[0] + '|';
+step(3, 1, out, 'We print `c` followed by a `|`, so that we can see each character separately.');
+for (i = 1; i < 14; i++) {
+  out += T[i] + '|';
+  step([2, 3], i + 1, out,
+    T[i] === '\n' ? '`c` is ' + q(T[i]) + ': the end of the line is a character like any other. Printing it starts a new line in the output.'
+    : '`c` is ' + q(T[i]) + '.', { from: i });
+}
+step(1, 14, out, 'After 14 characters the loop stops. The number in `read(1)`, `read(5)` or `read(100)` says how many characters to read from the marker onwards.');
+
+// ---------------------------------------------------------------- 6
+section('close(): finished with the file', 'close()',
+`f = open('${FILE_NAME}')
+line = f.readline()
+f.close()
+line = f.readline()`);
+step(0, 0, '', 'We open the file. The marker is at the beginning.');
+step(1, E[1], '', 'We read the first line. `line` is ' + q(LINES[0]) + '.', { from: 0 });
+step(2, null, '', '`close()` ends the connection to the file. The handle `f` still exists, but it no longer points anywhere.', { closed: true });
+step(3, null, '', 'Reading from a closed file is an error. To read again we have to `open()` the file again.', { closed: true, err: 'ValueError: I/O operation on closed file.' });
+
+// ---------------------------------------------------------------- 7
+section('with: the file closes by itself', 'with',
+`with open('${FILE_NAME}') as f:
+    line = f.readline()
+    print(line, end='')
+print('done')
+line = f.readline()`);
+step(0, 0, '', '`with` opens the file just like before and calls the handle `f`. We use the file inside the indented block.');
+step(1, E[1], '', 'Inside the block everything works as usual. `line` is ' + q(LINES[0]) + '.', { from: 0 });
+step(2, E[1], LINES[0], 'Printed.');
+step(0, null, LINES[0], 'The indented block is over, so Python closes the file for us. We do not need `close()`, and we cannot forget it.', { closed: true });
+step(3, null, LINES[0] + 'done\n', 'The program carries on after the block. The file stays closed.', { closed: true });
+step(4, null, LINES[0] + 'done\n', 'Outside the block, `f` is a closed file: reading from it is an error.', { closed: true, err: 'ValueError: I/O operation on closed file.' });
+</script>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const fmt = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+let n = 0;
+
+SECTIONS.forEach((s, k) => {
+  const b = document.createElement('button');
+  b.className = 'chip'; b.textContent = s.short; b.title = s.title;
+  b.onclick = () => go(STEPS.findIndex(st => st.sec === k));
+  $('chips').appendChild(b);
+});
+$('fname').textContent = FILE_NAME;
+
+function renderFile(st) {
+  const box = $('file'); box.textContent = '';
+  let row = document.createElement('div'); row.className = 'row'; box.appendChild(row);
+  for (let k = 0; k <= END; k++) {
+    const c = document.createElement('span');
+    let cls = 'cell';
+    if (k === END) { cls += ' eof'; c.textContent = 'end of file'; }
+    else if (T[k] === '\n') { cls += ' nl'; c.textContent = '↵'; }
+    else c.textContent = T[k] === ' ' ? '\u00a0' : T[k];
+    if (st.pos !== null && k < END) {
+      if (k >= st.from && k < st.pos) cls += ' just';
+      else if (k < st.pos) cls += ' read';
+    }
+    if (st.pos === k) cls += ' at';
+    c.className = cls;
+    row.appendChild(c);
+    if (T[k] === '\n') { row = document.createElement('div'); row.className = 'row'; box.appendChild(row); }
+  }
+}
+
+function render() {
+  const st = STEPS[n], sec = SECTIONS[st.sec];
+  const on = [].concat(st.line);
+  $('title').textContent = sec.title;
+  $('counter').textContent = (n + 1) + ' / ' + STEPS.length;
+  [...$('chips').children].forEach((b, k) => b.classList.toggle('on', k === st.sec));
+  $('code').innerHTML = sec.code.map((l, k) =>
+    '<span class="cl' + (on.includes(k) ? (st.err ? ' err' : ' on') : '') + '">' + (esc(l) || ' ') + '</span>').join('');
+  renderFile(st);
+  $('out').innerHTML = (st.out || st.err)
+    ? esc(st.out) + (st.err ? '<span class="e">' + esc(st.err) + '</span>' : '')
+    : '<span class="none">nothing printed yet</span>';
+  $('out').scrollTop = $('out').scrollHeight;
+  $('cap').innerHTML = fmt(st.cap);
+  $('prev').disabled = n === 0;
+  $('next').disabled = n === STEPS.length - 1;
+  try { history.replaceState(null, '', '#' + (n + 1)); } catch (e) {}
+}
+
+function go(k) { n = Math.max(0, Math.min(STEPS.length - 1, k)); render(); }
+
+$('next').onclick = () => go(n + 1);
+$('prev').onclick = () => go(n - 1);
+$('stage').onclick = () => go(n + 1);
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key;
+  if (k === 'ArrowRight' || k === ' ' || k === 'PageDown' || k === 'Enter') { e.preventDefault(); go(n + 1); }
+  else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); go(n - 1); }
+  else if (k === 'Home') go(0);
+  else if (k === 'End') go(STEPS.length - 1);
+  else if (k >= '1' && k <= String(SECTIONS.length)) go(STEPS.findIndex(st => st.sec === +k - 1));
+});
+window.addEventListener('hashchange', () => { const h = parseInt(location.hash.slice(1), 10); if (h && h - 1 !== n) go(h - 1); });
+go((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>

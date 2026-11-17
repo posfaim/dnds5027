@@ -249,6 +249,13 @@ figcaption {
   font-size: 0.9em;
 }
 
+/* A diagram without a caption, on its own line: centre it like a figure. */
+body > p:has(> img:only-child) {
+  text-align: center;
+  margin: 0.6em 0;
+  break-inside: avoid;
+}
+
 /* A diagram next to the text that discusses it. */
 .side-figure {
   display: grid;
