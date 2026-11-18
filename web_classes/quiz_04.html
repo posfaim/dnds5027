@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>04 Quiz PfE</title>
+
+    <link rel="stylesheet" href="../styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 04 Strings<br>
+Quiz</h1>
+
+<p>Check yourself: answer without running the code. Your first click counts.</p>
+
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Indexing</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>s = "Python"
+print(s[1])</code></pre>
+
+<ul class="choices">
+<li><code>P</code></li>
+<li><code>y</code></li>
+<li><code>t</code></li>
+<li><code>Py</code></li>
+</ul>
+
+<div class="explanation">
+<p>Indexing starts from 0, so <code>s[0]</code> is <code>P</code> and <code>s[1]</code> is <code>y</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Negative indices</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>s = "Python"
+print(s[-2])</code></pre>
+
+<ul class="choices">
+<li><code>n</code></li>
+<li><code>t</code></li>
+<li><code>o</code></li>
+<li><code>h</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>s[-1]</code> is the last character, <code>n</code>, so <code>s[-2]</code> is <code>o</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Slicing</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>s = "The five boxing wizards jump quickly."
+print(s[4:6])</code></pre>
+
+<ul class="choices">
+<li><code>fi</code></li>
+<li><code>fiv</code></li>
+<li><code>iv</code></li>
+<li><code>f</code></li>
+</ul>
+
+<div class="explanation">
+<p>The first number is the first index included, the second is the first index excluded. So this gives the characters at indices 4 and 5.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Counting</h2>
+
+<p>What does <code>print("Dodo bird".count("d"))</code> display?</p>
+
+<ul class="choices">
+<li><code>3</code></li>
+<li><code>2</code></li>
+<li><code>1</code></li>
+<li><code>0</code></li>
+</ul>
+
+<div class="explanation">
+<p>Strings are case sensitive: the capital <code>D</code> does not count, so only the two lowercase <code>d</code>-s do.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>New strings</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>s = "cat"
+s.replace("c", "b")
+print(s)</code></pre>
+
+<ul class="choices">
+<li><code>cat</code></li>
+<li><code>bat</code></li>
+<li><code>b</code></li>
+<li>An error message</li>
+</ul>
+
+<div class="explanation">
+<p><code>.replace()</code> returns a new string and leaves the original unchanged. To keep the change, write <code>s = s.replace("c", "b")</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>Chaining methods</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>s = "one-two"
+print(s.replace("-", " ").capitalize())</code></pre>
+
+<ul class="choices">
+<li><code>one two</code></li>
+<li><code>One-two</code></li>
+<li><code>ONE TWO</code></li>
+<li><code>One two</code></li>
+</ul>
+
+<div class="explanation">
+<p>The methods run from left to right: <code>.replace()</code> gives <code>"one two"</code>, then <code>.capitalize()</code> works on that new string.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>Length and index</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>s = "Ada"
+print(s[len(s)])</code></pre>
+
+<ul class="choices">
+<li><code>a</code></li>
+<li><code>3</code></li>
+<li><code>Ada</code></li>
+<li>An error message</li>
+</ul>
+
+<div class="explanation">
+<p><code>len(s)</code> is 3, but indexing starts from 0, so the last index is 2. <code>s[3]</code> gives an <code>IndexError</code>. Use <code>s[-1]</code> for the last character.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>f-strings</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>num = 2
+pi = 3.14159
+print(f"{num} and {pi:.2f}")</code></pre>
+
+<ul class="choices">
+<li><code>{num} and {pi:.2f}</code></li>
+<li><code>2 and 3.14</code></li>
+<li><code>2 and 3.14159</code></li>
+<li><code>2 and 3.141</code></li>
+</ul>
+
+<div class="explanation">
+<p>Values in curly brackets get inserted into the string, and <code>:.2f</code> displays the float with 2 digits.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2,3">
+<h2>Line breaks</h2>
+
+<p>Which of these define a string with a line break in it? Select all that apply, then press Check.</p>
+
+<ul class="choices">
+<li><code>"one two"</code></li>
+<li><code>"one\ntwo"</code></li>
+<li><code>"""one</code><br><code>two"""</code></li>
+<li><code>"one\\ntwo"</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>\n</code> is the escape sequence for a line break, and triple quotation marks allow line breaks inside. In the last option, <code>\\</code> is an actual backslash, so it is followed by a plain letter <code>n</code>.</p>
+</div>
+</div>
+
+
+<p id="quiz-score"></p>
+
+<button id="quiz-reset" class="run-button">↻ Start again</button>
+
+<p>More practice: <a href="exercises_04.html">Exercises 04</a></p>
+
+<br><br><br>
+
+<script src="../quiz.js"></script>
+
+</body>
+</html>

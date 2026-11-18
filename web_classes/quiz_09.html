@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>09 Quiz PfE</title>
+
+    <link rel="stylesheet" href="../styles.css" >
+</head>
+
+
+<body>
+
+<h1>Python for everyone -- 09 Reading and writing files<br>
+Quiz</h1>
+
+<p>Check yourself: answer without running the code. Your first click counts.</p>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Reading twice</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>f = open('example.csv')
+first = f.read()
+second = f.read()
+print(len(second))</code></pre>
+
+<ul class="choices">
+<li>The same number as <code>len(first)</code></li>
+<li>An error message</li>
+<li><code>0</code></li>
+<li><code>1</code></li>
+</ul>
+
+<div class="explanation">
+<p>The file handle keeps track of where it is in the file. After the first <code>.read()</code> it is at the end, so the second one gives an empty string. To read the file again, open it again.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>One line</h2>
+
+<p>The file <code>example.csv</code> contains:</p>
+
+<pre><code>Name,Height
+Adam,180
+Belzebub,220
+Papa Smurf,10</code></pre>
+
+<p>What does the notebook display?</p>
+
+<pre><code>with open('example.csv') as f:
+    line = f.readline()
+line</code></pre>
+
+<ul class="choices">
+<li><code>'Name,Height'</code></li>
+<li><code>'Name,Height\n'</code></li>
+<li><code>['Name', 'Height']</code></li>
+<li><code>'Name'</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>.readline()</code> reads one line, including the line break <code>\n</code> at its end.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Line by line</h2>
+
+<p>The file <code>names.txt</code> has two lines: <code>Ann</code> and <code>Bob</code>. What does this code display?</p>
+
+<pre><code>with open('names.txt') as f:
+    for line in f:
+        print(line)</code></pre>
+
+<ul class="choices">
+<li><pre>Ann
+Bob</pre></li>
+<li><pre>AnnBob</pre></li>
+<li><pre>Ann
+
+Bob
+</pre></li>
+<li><pre>Ann Bob</pre></li>
+</ul>
+
+<div class="explanation">
+<p>Each line of the file ends with <code>\n</code>, and <code>print</code> adds another line break, so an empty line appears after each name. <code>print(line, end='')</code> avoids this.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>The <code>with</code> block</h2>
+
+<p>What happens when you run this code?</p>
+
+<pre><code>with open('example.csv') as f:
+    first = f.readline()
+second = f.readline()</code></pre>
+
+<ul class="choices">
+<li><code>second</code> is <code>'Adam,180\n'</code></li>
+<li><code>second</code> is <code>'Name,Height\n'</code></li>
+<li><code>second</code> is <code>''</code></li>
+<li>Python stops with an error message</li>
+</ul>
+
+<div class="explanation">
+<p>Python closes the file when the <code>with</code> block ends. Reading a closed file gives <code>ValueError: I/O operation on closed file.</code></p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2,3">
+<h2>Paths</h2>
+
+<p>The folder <code>project</code> is at <code>C:/Users/ana/project</code>, and the working directory is <code>notebooks</code>:</p>
+
+<pre><code>project/
+├── data/
+│   └── example.csv
+└── notebooks/        ← working directory
+    └── class_09.ipynb</code></pre>
+
+<p>Which of these paths open <code>example.csv</code>? Select all that apply, then press Check.</p>
+
+<ul class="choices">
+<li><code>'data/example.csv'</code></li>
+<li><code>'../data/example.csv'</code></li>
+<li><code>'C:/Users/ana/project/data/example.csv'</code></li>
+<li><code>'example.csv'</code></li>
+</ul>
+
+<div class="explanation">
+<p>A relative path starts from the working directory. <code>data</code> is not inside <code>notebooks</code>, so first go one folder up with <code>..</code>. The absolute path also works, but it breaks if the project is moved or runs on another computer.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Splitting a row</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>row = "Paris,2024\n"
+print(row.split(','))</code></pre>
+
+<ul class="choices">
+<li><code>['Paris', '2024\n']</code></li>
+<li><code>['Paris', '2024']</code></li>
+<li><code>['Paris,2024\n']</code></li>
+<li><code>['Paris', ',', '2024\n']</code></li>
+</ul>
+
+<div class="explanation">
+<p><code>.split(',')</code> cuts the string at the commas and leaves out the commas. The line break stays at the end of the last entry. <code>row.strip().split(',')</code> removes it first.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="2">
+<h2>Parsing</h2>
+
+<p>The file <code>example.csv</code> contains:</p>
+
+<pre><code>Name,Height
+Adam,180
+Belzebub,220
+Papa Smurf,10</code></pre>
+
+<p>What does this code display?</p>
+
+<pre><code>total = 0
+with open('example.csv') as f:
+    f.readline()
+    for line in f:
+        total += float(line.split(',')[1])
+print(total)</code></pre>
+
+<ul class="choices">
+<li><code>230.0</code></li>
+<li><code>410.0</code></li>
+<li><code>410</code></li>
+<li>An error message</li>
+</ul>
+
+<div class="explanation">
+<p><code>f.readline()</code> reads the header, so the loop starts at <code>Adam</code> and adds 180 + 220 + 10. <code>float</code> makes the result a float. Without skipping the header, <code>float('Height\n')</code> would give an error.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="1">
+<h2>Writing twice</h2>
+
+<p>What does this code display?</p>
+
+<pre><code>with open('log.txt', 'w') as f:
+    f.write('one\n')
+with open('log.txt', 'w') as f:
+    f.write('two\n')
+with open('log.txt') as f:
+    print(f.read())</code></pre>
+
+<ul class="choices">
+<li><pre>two</pre></li>
+<li><pre>one
+two</pre></li>
+<li><pre>one</pre></li>
+<li><pre>two
+one</pre></li>
+</ul>
+
+<div class="explanation">
+<p><code>'w'</code> overwrites the file, so the first line is lost. To add to the end of the file, open it with <code>'a'</code>.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="4">
+<h2>Writing lines</h2>
+
+<p>What does the file <code>out.txt</code> contain after this code?</p>
+
+<pre><code>with open('out.txt', 'w') as f:
+    for name in ['Ann', 'Bob']:
+        f.write(name)</code></pre>
+
+<ul class="choices">
+<li><pre>Ann
+Bob</pre></li>
+<li><pre>Ann Bob</pre></li>
+<li><pre>['Ann', 'Bob']</pre></li>
+<li><pre>AnnBob</pre></li>
+</ul>
+
+<div class="explanation">
+<p><code>.write()</code> writes exactly the string it gets, without a line break. Write <code>f.write(name + '\n')</code> to put each name on its own line.</p>
+</div>
+</div>
+
+
+<div class="exercise quiz" data-answer="3">
+<h2>Strange characters</h2>
+
+<p>You open a csv file and see <code>JosÃ©</code> instead of <code>José</code>. What is the most likely cause?</p>
+
+<ul class="choices">
+<li>The file is a binary file, not a text file.</li>
+<li>The name is misspelled in the file.</li>
+<li>The file was saved as UTF-8, but opened with a different encoding.</li>
+<li>The file was not closed.</li>
+</ul>
+
+<div class="explanation">
+<p>Accented letters are stored differently in each encoding. A UTF-8 file opened with an older encoding, such as <code>'cp1252'</code> on Windows, turns each accented letter into two strange characters. Open it with <code>encoding='utf-8'</code>.</p>
+</div>
+</div>
+
+
+<p id="quiz-score"></p>
+
+<button id="quiz-reset" class="run-button">↻ Start again</button>
+
+<p>More practice: <a href="../notebooks/exercises_09.ipynb">Exercises 09</a></p>
+
+<br><br><br>
+
+<script src="../quiz.js"></script>
+
+</body>
+</html>
